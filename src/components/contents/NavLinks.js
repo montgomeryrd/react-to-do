@@ -3,7 +3,7 @@ import React from 'react';
 function NavLinks(props) {
     return (
         <div className="navlinks">
-            <div className="navImg" style={ props.data.color }>
+            <div className="navImg" style={ props.data.bgcolor }>
                 <img src={ props.data.imgUrl } alt=""/>
             </div>
             <div className="navInfo">
