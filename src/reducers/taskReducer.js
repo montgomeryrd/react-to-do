@@ -6,8 +6,8 @@ export default (state=[], action) => {
     switch(type) {
       case "SET_TASK": return payload;
       case "CREATE_TASK": return [...state, payload];
-      case "ARCHIVE_TASK": 
-      case "DELETE_TASK":
+      case "ARCHIVE_TASK": return payload;
+      case "DELETE_TASK": return state.filter(task => task._id !== payload._id);
       default: return state;
     }
 }

@@ -1,1 +1,31 @@
-/* Body Styles */
+/* App Size */
+#root {
+    max-width: 320px;
+    background-color: #eee;
+}
+
+/* Task Page Styles */
+/*  red: #F1948A
+    blue: #AED6F1 
+    yellow: #F9E79F  */
+    
+.navigation-links {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.navImg {
+    border: solid 1px black;
+    display: flex;
+    width: 70px;
+    border-radius: 2mm;
+    background: blue;
+}
+
+.navlinks img {
+    display: flex;
+    /* justify-content: center; */
+    width: 70px;
+}
