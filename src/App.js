@@ -1,17 +1,23 @@
 import React from 'react';
-import Header from './components/Header';
-import Tasks from './components/Tasks';
-import Footer from './components/Footer';
-import './styles/App.css';
+
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import Dashboard from './components/dashboard/Dashboard';
+
+let store = createStore(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <Header />
-        <Tasks />
-        <Footer />
-      </div>
+      <main>
+        <Provider store={store}>
+          <BrowserRouter>
+            <Route exact path="/" component={ Dashboard }/>
+          </BrowserRouter>
+        </Provider>
+      </main>
     );
   }
 }
