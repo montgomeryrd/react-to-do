@@ -1,1 +1,6 @@
-/* Body Styles */
+/* App Size */
+
+#root {
+    max-width: 320px;
+    margin: 0 auto;
+}
