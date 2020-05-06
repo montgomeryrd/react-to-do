@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+
 import NavLinks from './NavLinks';
 import TasksPage from '../contentview/Tasks';
 import GoalsPage from '../contentview/Goals';
@@ -66,9 +66,6 @@ class Dashboard extends React.Component {
     }
 }
 
-let mapStateToProps = state => ({
-    task: state.task,
-    list: state.list
-});
+export default Dashboard;
 
-export default connect(mapStateToProps)(Dashboard);
+// Still need to use Route to navigate Tasks, Goals, and Archives

@@ -15,3 +15,5 @@ function NavLinks(props) {
     )
 }
 export default NavLinks;
+
+// consider validating props to learn more
