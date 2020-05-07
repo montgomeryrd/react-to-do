@@ -72,7 +72,7 @@ class Tasks extends React.Component {
                               <div className="creature">
                                 <img src={ this.state.list[i][0] } alt=""/>
                               </div>
-                              <p>{ this.state.list[i][1] }</p>
+                              <p id="text-in-list">{ this.state.list[i][1] }</p>
                               <div className="remove">
                                 <img src={ remove } onClick={ this.removeTask.bind(this, i) } alt=""/>
                               </div>
