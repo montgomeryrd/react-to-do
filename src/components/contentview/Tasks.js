@@ -26,63 +26,58 @@ class Tasks extends React.Component {
       taskCount : 0,
       imgs : [centaur, cyclops, dragon, elf, faerie, ghoul, giant, goblin, medusa, monster, orc, troll, viking, werewolf, wizard] 
     }
-    this.removeTask = this.removeTask.bind(this);
-    // this.archiveTask = this.archiveTask.bind(this);
-    this.findMonster = this.findMonster.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  removeTask(task) {
-    this.setState({
-      list: this.state.list.filter((e,i) => i !== task)
-    });
-  }
-  findMonster(e) {
-    return this.state.imgs[Math.floor(Math.random() * Math.floor(e))];
+  removeTask(task) { 
+    this.setState({ list : this.state.list.filter((e,i) => i !== task) });
   }
   handleChange(e) {
-      this.setState({ task:e.target.value });
+    this.setState({ task : e.target.value });
   }
   handleSubmit(e) {
-      e.preventDefault();
-      this.state.list.push([this.findMonster(15), this.state.task]);
-      this.setState({task: ''});
-      document.getElementById("input").value="";
+    e.preventDefault();
+    let x = Math.floor(Math.random() * Math.floor(15));
+    let list = [...this.state.list, [this.state.imgs[x], this.state.task]];
+    this.setState({ list });
+    document.getElementById("input").value="";
   }
 
   render() {
     return (
-        <div className="form-view">
-            <form id="task-input" onSubmit={ this.handleSubmit }>
-                <input 
-                    id="input" 
-                    type="text" 
-                    name="quest" 
-                    value={ this.value } 
-                    required="true" 
-                    autoComplete="off" 
-                    onChange={ this.handleChange } 
-                    placeholder="What is your quest..."/>
-                <button id="enter" type="submit" onSubmit={ this.handleSubmit }>submit</button>
-            </form>
-            <div className="results">
-                    { this.state.list.length ?
-                        <ul>
-                            {this.state.list.map((todo, i) => <li key={ i }>
-                              <div className="creature">
-                                <img src={ this.state.list[i][0] } alt=""/>
-                              </div>
-                              <p id="text-in-list">{ this.state.list[i][1] }</p>
-                              <div className="remove">
-                                <img src={ remove } onClick={ this.removeTask.bind(this, i) } alt=""/>
-                              </div>
-                            </li>)}
-                        </ul>
-                        : <p>empty queue</p>
-                    }
-              </div> 
-        </div>
+      <div className="form-view">
+        <form id="task-input" onSubmit={ this.handleSubmit }>
+          <input 
+            id="input" 
+            type="text" 
+            name="quest" 
+            value={ this.value } 
+            required="true" 
+            autoComplete="off" 
+            onChange={ this.handleChange } 
+            placeholder="what is your quest"/>
+          <button id="enter" type="submit" onSubmit={ this.handleSubmit }>submit</button>
+        </form>
+        <div className="results">
+          { this.state.list.length ?
+            <ul>
+              {this.state.list.map((todo, i) => <li key={ i }>
+                <div className="creature">
+                  <img src={ this.state.list[i][0] } alt=""/>
+                </div>
+                <p id="text-in-list">{ this.state.list[i][1] }</p>
+                <div className="remove">
+                  <img src={ remove } onClick={ this.removeTask.bind(this, i) } alt=""/>
+                </div>
+              </li>)}
+            </ul>
+            : null
+          }
+        </div> 
+      </div>
     )
   }
 }
 export default Tasks;
+
+//add task counter and archive function

@@ -1,12 +1,28 @@
 import React from 'react';
+import GoalCard from './GoalCard';
 import '../../styles/goals.css';
 
-function GoalsPage(props){
+class GoalsPage extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      mygoals : []
+    }
+  }
+  removeGoal = (id) => {
+    const mygoals = this.state.mygoals.filter(goal => {
+      return goal.id !== id;
+    });
+    this.setState({ mygoals })
+  }
+  
+  render() {
     return (
       <div className="goals-content-view">
-        <h2>Goals Page</h2>
+        <GoalCard mygoals={ this.state.mygoals } removeGoal={ this.removeGoal }/>
       </div>
     ); 
+    }
 }
 
 export default GoalsPage;
