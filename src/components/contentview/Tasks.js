@@ -32,57 +32,57 @@ class Tasks extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  removeTask(task) {
-    this.setState({
-      list: this.state.list.filter((e,i) => i !== task)
-    });
+  removeTask(task) { 
+    this.setState({ list: this.state.list.filter((e,i) => i !== task) });
   }
-  findMonster(e) {
+  findMonster(e) { 
     return this.state.imgs[Math.floor(Math.random() * Math.floor(e))];
   }
   handleChange(e) {
-      this.setState({ task:e.target.value });
+    this.setState({ task:e.target.value });
   }
   handleSubmit(e) {
-      e.preventDefault();
-      this.state.list.push([this.findMonster(15), this.state.task]);
-      this.setState({task: ''});
-      document.getElementById("input").value="";
+    e.preventDefault();
+    let list = [...this.state.list, [this.findMonster(15), this.state.task]];
+    this.setState({ list });
+    document.getElementById("input").value="";
   }
 
   render() {
     return (
-        <div className="form-view">
-            <form id="task-input" onSubmit={ this.handleSubmit }>
-                <input 
-                    id="input" 
-                    type="text" 
-                    name="quest" 
-                    value={ this.value } 
-                    required="true" 
-                    autoComplete="off" 
-                    onChange={ this.handleChange } 
-                    placeholder="What is your quest..."/>
-                <button id="enter" type="submit" onSubmit={ this.handleSubmit }>submit</button>
-            </form>
-            <div className="results">
-                    { this.state.list.length ?
-                        <ul>
-                            {this.state.list.map((todo, i) => <li key={ i }>
-                              <div className="creature">
-                                <img src={ this.state.list[i][0] } alt=""/>
-                              </div>
-                              <p id="text-in-list">{ this.state.list[i][1] }</p>
-                              <div className="remove">
-                                <img src={ remove } onClick={ this.removeTask.bind(this, i) } alt=""/>
-                              </div>
-                            </li>)}
-                        </ul>
-                        : <p>empty queue</p>
-                    }
-              </div> 
-        </div>
+      <div className="form-view">
+        <form id="task-input" onSubmit={ this.handleSubmit }>
+          <input 
+            id="input" 
+            type="text" 
+            name="quest" 
+            value={ this.value } 
+            required="true" 
+            autoComplete="off" 
+            onChange={ this.handleChange } 
+            placeholder="What is your quest..."/>
+          <button id="enter" type="submit" onSubmit={ this.handleSubmit }>submit</button>
+        </form>
+        <div className="results">
+          { this.state.list.length ?
+            <ul>
+              {this.state.list.map((todo, i) => <li key={ i }>
+                <div className="creature">
+                  <img src={ this.state.list[i][0] } alt=""/>
+                </div>
+                <p id="text-in-list">{ this.state.list[i][1] }</p>
+                <div className="remove">
+                  <img src={ remove } onClick={ this.removeTask.bind(this, i) } alt=""/>
+                </div>
+              </li>)}
+            </ul>
+            : null
+          }
+        </div> 
+      </div>
     )
   }
 }
 export default Tasks;
+
+//add task counter and archive function
