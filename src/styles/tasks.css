@@ -100,7 +100,7 @@ font-family: 'Open Sans Condensed', sans-serif;
 #task-input input[type=text] {
   background-color: #00003F;
   color: white;
-  width: 72%;
+  width: 200px;
   padding: 5px 5px;
   box-sizing: border-box;
   border: 3px solid #26267B;
@@ -156,8 +156,8 @@ font-family: 'Open Sans Condensed', sans-serif;
 
 .results .creature {
   display: block;
-  position: fixed;
-  width: 20px;
+  position: absolute;
+  width: 20px; 
 }
 
 .results p {
@@ -170,7 +170,7 @@ font-family: 'Open Sans Condensed', sans-serif;
   text-align: left;
   overflow-wrap: break-word;
   font-size: 1rem;
-  padding-left: 20px;
+  padding-left: 25px;
   padding-right: 10px;
 }
 

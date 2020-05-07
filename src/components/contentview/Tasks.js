@@ -26,24 +26,19 @@ class Tasks extends React.Component {
       taskCount : 0,
       imgs : [centaur, cyclops, dragon, elf, faerie, ghoul, giant, goblin, medusa, monster, orc, troll, viking, werewolf, wizard] 
     }
-    this.removeTask = this.removeTask.bind(this);
-    // this.archiveTask = this.archiveTask.bind(this);
-    this.findMonster = this.findMonster.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   removeTask(task) { 
-    this.setState({ list: this.state.list.filter((e,i) => i !== task) });
-  }
-  findMonster(e) { 
-    return this.state.imgs[Math.floor(Math.random() * Math.floor(e))];
+    this.setState({ list : this.state.list.filter((e,i) => i !== task) });
   }
   handleChange(e) {
-    this.setState({ task:e.target.value });
+    this.setState({ task : e.target.value });
   }
   handleSubmit(e) {
     e.preventDefault();
-    let list = [...this.state.list, [this.findMonster(15), this.state.task]];
+    let x = Math.floor(Math.random() * Math.floor(15));
+    let list = [...this.state.list, [this.state.imgs[x], this.state.task]];
     this.setState({ list });
     document.getElementById("input").value="";
   }
@@ -60,7 +55,7 @@ class Tasks extends React.Component {
             required="true" 
             autoComplete="off" 
             onChange={ this.handleChange } 
-            placeholder="What is your quest..."/>
+            placeholder="what is your quest"/>
           <button id="enter" type="submit" onSubmit={ this.handleSubmit }>submit</button>
         </form>
         <div className="results">
