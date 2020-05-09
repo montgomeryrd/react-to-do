@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-const Archive = () => {
+const GoalPage = () => {
   return (
-    <div><h2>Archive</h2></div>
+    <div><h2>Goals</h2></div>
   )
 }
-export default Archive;
+export default GoalPage;
