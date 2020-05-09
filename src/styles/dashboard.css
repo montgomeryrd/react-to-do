@@ -10,49 +10,37 @@ font-family: 'Roboto', sans-serif;
 font-family: 'Open Sans Condensed', sans-serif;
 */
 
-.dash-content-view {
+.container {
     background-color: #00003F;
     color: white;
     border-bottom-left-radius: 5mm;
     border-bottom-right-radius: 5mm;
-    font-family: 'Quicksand', sans-serif; 
-    font-size: 10px;
-    padding-bottom: 100px;
+    width: 320px;
+    margin: 0 auto;
+    font-family: 'Quicksand', sans-serif;
+    padding-bottom: 100px;  
 }
 
-.dash-content-view #settings {
-    display: flex;
+#user {
     position: absolute;
-    width: 15px;
+    width: 25px;
     padding: 2px;
 }
 
-.dash-content-view #settings:hover {
-    opacity: 1;
-    transition: 700ms ease;
-    opacity: .5;
-}
-
-.dash-content-view h1 {
-    display: block;
+.dashboard-content-view h1 {
     text-align: center;
-    padding-top: 10px;
-    font-size: 1rem;
-    margin-top: -30px;
-    margin-bottom: 80px;
+    font-size: 1.3rem;
+    margin-top: -20px;
 }
 
-.dash-content-view h2 {
-    display: block;
+.dashboard-content-view h2 {
     text-align: right;
-    font-size: .4rem;
+    font-size: .70rem;
     padding: 2px;
 }
 
-.dash-content-view h3 {
-    display: block;
+.dashboard-content-view h3 {
     text-align: right;
-    font-size: .6rem;
-    margin-right: 2px;
-    margin-bottom: 15px;
+    font-size: 1rem;
+    padding: 2px;
 }
