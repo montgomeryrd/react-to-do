@@ -17,12 +17,10 @@ class Dashboard extends React.Component {
         super(props)
         this.state = {
             value : "",
-            tasks : [
-                {id:1, content:"banana"}, 
-                {id:2, content:"hammock"}
-            ],
+            tasks : [],
             goals : [],
             archive : [],
+            showing : "",
         }
         this.handleChange=this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
@@ -32,10 +30,15 @@ class Dashboard extends React.Component {
     }
     handleSubmit (e) {
         e.preventDefault();
+        this.addTask(this.state);
+        this.setState({value:""});
     }
     // Task functions
-    addTask() {
-
+    addTask = (task) => {
+        task.id = Math.random() * 100;
+        task.content = this.state.value;
+        let tasks = [...this.state.tasks, task];
+        this.setState({tasks});
     }
     removeTask = (id) => {
         const tasks = this.state.tasks.filter(task => {
@@ -60,16 +63,16 @@ class Dashboard extends React.Component {
                     <h1>Dashboard</h1>
                     <div className="navigation-container">
                         <Router>
-                            <NavLink to="/tasks"><NavigationLinks data = {{bgcolor: red, imgUrl: TaskPath}}/></NavLink>
-                            <NavLink to="/goals"><NavigationLinks data = {{bgcolor: blue, imgUrl: GoalPath}}/></NavLink>
-                            <NavLink to="/archive"><NavigationLinks data = {{bgcolor: yellow, imgUrl: ArchivePath}}/></NavLink>
+                            <NavLink to="/tasks"><NavigationLinks data = {{bgcolor: red, imgUrl: TaskPath}} onClick={() => this.setState({showing : "tasks-page"})} /></NavLink>
+                            <NavLink to="/goals"><NavigationLinks data = {{bgcolor: blue, imgUrl: GoalPath}} onClick={() => this.setState({showing : "goals-page"})}/></NavLink>
+                            <NavLink to="/archive"><NavigationLinks data = {{bgcolor: yellow, imgUrl: ArchivePath}} onClick={() => this.setState({showing : "archive-page"})}/></NavLink>
                             
                             <Route path="/tasks" render={props => 
-                            (<TasksPage {...props} value={this.state.value} tasks={this.state.tasks} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeTask={this.removeTask}/>)} />
+                            (<TasksPage {...props} showing={this.state.showing} value={this.state.value} tasks={this.state.tasks} handleChange={this.handleChange} handleSubmit={this.handleSubmit} addTask={this.addTask} removeTask={this.removeTask}/>)} />
                             <Route path="/goals" render={props =>
-                            (<GoalsPage {...props} goals={this.state.goals}/>)} />
+                            (<GoalsPage {...props} showing={this.state.showing} goals={this.state.goals}/>)} />
                             <Route path="/archive" render={props =>
-                            (<Archive {...props} archive={this.state.archive}/>)} />
+                            (<Archive {...props} showing={this.state.showing} archive={this.state.archive}/>)} />
                         </Router>
                     </div>
                 </div>

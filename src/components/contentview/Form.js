@@ -1,6 +1,8 @@
 import React from 'react';
 
-const Form = ({value, handleChange, handleSubmit}) => {
+const Form = ({value, tasks, handleChange, handleSubmit}) => {
+    console.log("And here are the tasks ", tasks)
+
     return(
         <div className="form-content-view">
             <form onSubmit={handleSubmit}>
