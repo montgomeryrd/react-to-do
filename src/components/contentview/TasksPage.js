@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-// import Form from './Form';
+import Form from './Form';
 
-const TaskPage = ({tasks, removeTask}) => {
-
+const TaskPage = ({value, showing, tasks, handleChange, handleSubmit, addTask, removeTask}) => {
+  console.log("Look! It's ,", showing)
   const mytasks = tasks.length ? (
     tasks.map(task => {
       return (
@@ -17,7 +17,7 @@ const TaskPage = ({tasks, removeTask}) => {
   )
   return (
     <div className="task-page-view">
-      {/* <Form props={props} value={value} tasks={tasks} handleChange={handleChange} handleSubmit={handleSubmit} addTask={addTask} /> */}
+      <Form value={value} tasks={tasks} handleChange={handleChange} handleSubmit={handleSubmit} addTask={addTask}/>
       <h2>Tasks</h2>
       {mytasks}
       </div>
