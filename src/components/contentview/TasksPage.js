@@ -1,13 +1,17 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Form from './Form';
 
-const TasksPage = ({value, tasks, handleChange, handleSubmit, removeItem}) => {
+const TasksPage = ({value, tasks, handleChange, handleSubmit, removeItem, archiveItem}) => {
   const mytasks = tasks.length ? (
     tasks.map(task => {
       return (
         <div className="task-item" key={task.id}>
-          <span onClick={() => {removeItem(task.id)}}>{task.content}</span>
+          <span>{task.content}
+            <button onClick={() => {removeItem(task.id)}}>delete</button>
+            <button onClick={() => {archiveItem(task.id)}}>archive</button>
+          </span>
         </div>
       )
     })

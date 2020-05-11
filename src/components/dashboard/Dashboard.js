@@ -19,7 +19,8 @@ class Dashboard extends React.Component {
             value : "",
             tasks : [],
             goals : [],
-            archive : [],
+            archivedTasks : [],
+            archivedGoals : [],
             showing : "placeholder",
         }
         this.handleChange=this.handleChange.bind(this);
@@ -37,12 +38,12 @@ class Dashboard extends React.Component {
         if(this.state.showing === "tasks-page") {
             item.id = Math.random() * 100;
             item.content = this.state.value;
-            let tasks = [...this.state.tasks, item];
+            const tasks = [...this.state.tasks, item];
             this.setState({tasks});
         } else if(this.state.showing === "goals-page") {
             item.id = Math.random() * 100;
             item.content = this.state.value;
-            let goals = [...this.state.goals, item];
+            const goals = [...this.state.goals, item];
             this.setState({goals});
         }
     }
@@ -58,6 +59,19 @@ class Dashboard extends React.Component {
     toggle = (page) => {
         const showing = page;
         this.setState({showing});
+    }
+    archiveItem = (id) => {
+        if(this.state.showing === "tasks-page") {
+            const scroll = this.state.tasks.filter(task => {return task.id === id});
+            const archivedTasks = [...this.state.archivedTasks, scroll];
+            this.setState({archivedTasks});
+            this.removeItem(id);
+        } else if(this.state.showing === "goals-page") {
+            const book = this.state.goals.filter(goal => {return goal.id === id});
+            const archivedGoals = [...this.state.archivedGoals, book];
+            this.setState({archivedGoals});
+            this.removeItem(id);
+        }
     }
 
     render() {
@@ -81,11 +95,11 @@ class Dashboard extends React.Component {
                             <NavLink to="/archive"><NavigationLinks toggle={this.toggle} data = {{page: "archive-page", bgcolor: yellow, imgUrl: ArchivePath}} /></NavLink>
                             
                             <Route path="/tasks" render={props => 
-                            (<TasksPage {...props} value={this.state.value} tasks={this.state.tasks} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem}/>)} />
+                            (<TasksPage {...props} value={this.state.value} tasks={this.state.tasks} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem}/>)} />
                             <Route path="/goals" render={props =>
-                            (<GoalsPage {...props} value={this.state.value} goals={this.state.goals} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem}/>)} />
+                            (<GoalsPage {...props} value={this.state.value} goals={this.state.goals} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem}/>)} />
                             <Route path="/archive" render={props =>
-                            (<Archive {...props} archive={this.state.archive}/>)} />
+                            (<Archive {...props} archivedTasks={this.state.archivedTasks} archivedGoals={this.state.archivedGoals} />)} />
                         </Router>
                     </div>
                 </div>
