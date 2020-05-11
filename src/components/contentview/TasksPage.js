@@ -2,12 +2,12 @@
 import React from 'react';
 import Form from './Form';
 
-const TaskPage = ({value, tasks, handleChange, handleSubmit, removeTask}) => {
+const TasksPage = ({value, tasks, handleChange, handleSubmit, removeItem}) => {
   const mytasks = tasks.length ? (
     tasks.map(task => {
       return (
         <div className="task-item" key={task.id}>
-          <span onClick={() => {removeTask(task.id)}}>{task.content}</span>
+          <span onClick={() => {removeItem(task.id)}}>{task.content}</span>
         </div>
       )
     })
@@ -23,4 +23,4 @@ const TaskPage = ({value, tasks, handleChange, handleSubmit, removeTask}) => {
   )
 
 }
-export default TaskPage;
+export default TasksPage;
