@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
-const Form = ({value, tasks, handleChange, handleSubmit}) => {
-    console.log("And here are the tasks ", tasks)
+const Form = ({value, handleChange, handleSubmit}) => {
 
     return(
         <div className="form-content-view">
@@ -11,7 +11,7 @@ const Form = ({value, tasks, handleChange, handleSubmit}) => {
                 type="text"
                 name="input"
                 value={value}
-                required="true"
+                required={true}
                 autoComplete="off"
                 onChange={handleChange}
                 placeholder=""/>

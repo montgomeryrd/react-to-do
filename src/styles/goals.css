@@ -1,3 +1,7 @@
 .goals-content-view {
     margin: 0 auto;
 }
+
+.goal-steps-form {
+    visibility: visible;
+}
