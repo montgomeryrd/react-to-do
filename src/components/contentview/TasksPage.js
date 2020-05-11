@@ -2,8 +2,7 @@
 import React from 'react';
 import Form from './Form';
 
-const TaskPage = ({value, showing, tasks, handleChange, handleSubmit, addTask, removeTask}) => {
-  console.log("Look! It's ,", showing)
+const TaskPage = ({value, tasks, handleChange, handleSubmit, removeTask}) => {
   const mytasks = tasks.length ? (
     tasks.map(task => {
       return (
@@ -17,7 +16,7 @@ const TaskPage = ({value, showing, tasks, handleChange, handleSubmit, addTask, r
   )
   return (
     <div className="task-page-view">
-      <Form value={value} tasks={tasks} handleChange={handleChange} handleSubmit={handleSubmit} addTask={addTask}/>
+      <Form value={value} tasks={tasks} handleChange={handleChange} handleSubmit={handleSubmit} />
       <h2>Tasks</h2>
       {mytasks}
       </div>

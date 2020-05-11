@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import NavigationLinks from './NavLinks';
+import NavigationLinks from './NavigationLinks';
 import TasksPage from '../contentview/TasksPage';
 import GoalsPage from '../contentview/GoalsPage';
 import Archive from '../contentview/Archive';
@@ -20,20 +20,19 @@ class Dashboard extends React.Component {
             tasks : [],
             goals : [],
             archive : [],
-            showing : "",
+            showing : "placeholder",
         }
         this.handleChange=this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
     }
     handleChange (e) {
-        this.setState({value: e.target.value});
+        this.setState({value : e.target.value});
     }
     handleSubmit (e) {
         e.preventDefault();
         this.addTask(this.state);
-        this.setState({value:""});
+        this.setState({value : ""});
     }
-    // Task functions
     addTask = (task) => {
         task.id = Math.random() * 100;
         task.content = this.state.value;
@@ -46,7 +45,11 @@ class Dashboard extends React.Component {
         });
         this.setState({tasks});
     }
-    // Goal functions
+    toggle = (page) => {
+        const showing = page;
+        this.setState({showing});
+    }
+
     render() {
         const currentDate = new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'});
         const currentDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date().getDay()];
@@ -63,16 +66,16 @@ class Dashboard extends React.Component {
                     <h1>Dashboard</h1>
                     <div className="navigation-container">
                         <Router>
-                            <NavLink to="/tasks"><NavigationLinks data = {{bgcolor: red, imgUrl: TaskPath}} onClick={() => this.setState({showing : "tasks-page"})} /></NavLink>
-                            <NavLink to="/goals"><NavigationLinks data = {{bgcolor: blue, imgUrl: GoalPath}} onClick={() => this.setState({showing : "goals-page"})}/></NavLink>
-                            <NavLink to="/archive"><NavigationLinks data = {{bgcolor: yellow, imgUrl: ArchivePath}} onClick={() => this.setState({showing : "archive-page"})}/></NavLink>
+                            <NavLink to="/tasks"><NavigationLinks toggle={this.toggle} data = {{page: "tasks-page", bgcolor: red, imgUrl: TaskPath}} /></NavLink>
+                            <NavLink to="/goals"><NavigationLinks toggle={this.toggle} data = {{page: "goals-page", bgcolor: blue, imgUrl: GoalPath}} /></NavLink>
+                            <NavLink to="/archive"><NavigationLinks toggle={this.toggle} data = {{page: "archive-page", bgcolor: yellow, imgUrl: ArchivePath}} /></NavLink>
                             
                             <Route path="/tasks" render={props => 
-                            (<TasksPage {...props} showing={this.state.showing} value={this.state.value} tasks={this.state.tasks} handleChange={this.handleChange} handleSubmit={this.handleSubmit} addTask={this.addTask} removeTask={this.removeTask}/>)} />
+                            (<TasksPage {...props} value={this.state.value} tasks={this.state.tasks} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeTask={this.removeTask}/>)} />
                             <Route path="/goals" render={props =>
-                            (<GoalsPage {...props} showing={this.state.showing} goals={this.state.goals}/>)} />
+                            (<GoalsPage {...props} goals={this.state.goals}/>)} />
                             <Route path="/archive" render={props =>
-                            (<Archive {...props} showing={this.state.showing} archive={this.state.archive}/>)} />
+                            (<Archive {...props} archive={this.state.archive}/>)} />
                         </Router>
                     </div>
                 </div>
@@ -84,7 +87,9 @@ class Dashboard extends React.Component {
 Dashboard.propTypes = {
     tasks: PropTypes.instanceOf(Array),
     goals: PropTypes.instanceOf(Array),
-    archive: PropTypes.instanceOf(Array)
+    archive: PropTypes.instanceOf(Array),
+    value: PropTypes.instanceOf(String),
+    showing: PropTypes.instanceOf(String)
 };
 
 export default Dashboard;

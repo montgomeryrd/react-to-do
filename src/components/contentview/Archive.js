@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-const Archive = (showing) => {
-  console.log("Look! It's ,", showing)
+const Archive = (props) => {
+  console.log("showing ", props.showing)
   return (
     <div><h2>Archive</h2></div>
   )
