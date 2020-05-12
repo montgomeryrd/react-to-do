@@ -63,17 +63,16 @@ class Dashboard extends React.Component {
     archiveItem = (id) => {
         if(this.state.showing === "tasks-page") {
             const scroll = this.state.tasks.filter(task => {return task.id === id});
-            const archivedTasks = [...this.state.archivedTasks, scroll];
+            const archivedTasks = [...this.state.archivedTasks].concat(scroll);
             this.setState({archivedTasks});
             this.removeItem(id);
         } else if(this.state.showing === "goals-page") {
             const book = this.state.goals.filter(goal => {return goal.id === id});
-            const archivedGoals = [...this.state.archivedGoals, book];
+            const archivedGoals = [...this.state.archivedGoals].concat(book);
             this.setState({archivedGoals});
             this.removeItem(id);
         }
     }
-    checkState = () => {console.log(this.state)}
     render() {
         const currentDate = new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'});
         const currentDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date().getDay()];
@@ -94,11 +93,11 @@ class Dashboard extends React.Component {
                             <NavLink to="/goals"><NavigationLinks toggle={this.toggle} data = {{page: "goals-page", bgcolor: blue, imgUrl: GoalPath}} /></NavLink>
                             <NavLink to="/archive"><NavigationLinks toggle={this.toggle} data = {{page: "archive-page", bgcolor: yellow, imgUrl: ArchivePath}} /></NavLink>
                             <Route path="/tasks" render={props => 
-                            (<TasksPage {...props} checkState={this.checkState} value={this.state.value} tasks={this.state.tasks} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem}/>)} />
+                            (<TasksPage {...props} value={this.state.value} tasks={this.state.tasks} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem}/>)} />
                             <Route path="/goals" render={props =>
-                            (<GoalsPage {...props} checkState={this.checkState} value={this.state.value} goals={this.state.goals} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem}/>)} />
+                            (<GoalsPage {...props} value={this.state.value} goals={this.state.goals} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem}/>)} />
                             <Route path="/archive" render={props =>
-                            (<Archive {...props} checkState={this.checkState} archivedTasks={this.state.archivedTasks} archivedGoals={this.state.archivedGoals} />)} />
+                            (<Archive {...props} archivedTasks={this.state.archivedTasks} archivedGoals={this.state.archivedGoals} />)} />
                         </Router>
                     </div>
                 </div>

@@ -4,14 +4,13 @@ import React from 'react';
 import Form from './Form';
 import "../../styles/goals.css";
 
-const GoalsPage = ({checkState, value, goals, handleChange, handleSubmit, removeItem, archiveItem}) => {
+const GoalsPage = ({value, goals, handleChange, handleSubmit, removeItem, archiveItem}) => {
   const mygoals = goals.length ? (
     goals.map((goal, position) => {
       return (
         <div className="goal-item" key={goal.id = position}>
-          <span>{goal.content}
+          <span onClick={() => {archiveItem(goal.id)}}>{goal.content}
             <button onClick={() => {removeItem(goal.id)}}>delete</button>
-            <button onClick={() => {archiveItem(goal.id)}}>archive</button>
           </span>
         </div>
       )
@@ -21,7 +20,6 @@ const GoalsPage = ({checkState, value, goals, handleChange, handleSubmit, remove
   );
   return (
     <div className="task-page-view">
-      <button onClick={() => {checkState()}}>check</button>
       <Form value={value} goals={goals} handleChange={handleChange} handleSubmit={handleSubmit} />
       <h2>Goals</h2>
       {mygoals}
