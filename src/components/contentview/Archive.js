@@ -2,27 +2,23 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-const Archive = ({archivedTasks, archivedGoals}) => {
-  const tasksarchive = archivedTasks.length ? (
-    archivedTasks.scrolls.map(scroll => {
+const Archive = ({archivedTasks, archivedGoals, checkState}) => {
+  const archivedTasksList = archivedTasks.length ? (
+    archivedTasks.map((scroll, position) => {
       return (
-        <div className="scroll">
-          <div className="scroll-item" key={scroll.id}>
-            <span>{scroll.content}</span>
-          </div>
+        <div className="scroll-item" key={scroll.id = position}>
+          <span key={scroll.id}>{scroll.value}</span>
         </div>
       )
     })
   ) : (
     <p className="empty-task-list">currently no archived tasks</p>
   );
-  const goalsarchive = archivedGoals.length ? (
-    archivedGoals.books.map(book => {
+  const archivedGoalsList = archivedGoals.length ? (
+    archivedGoals.map((book, position) => {
       return (
-        <div className="book">
-          <div className="book-item" key={book.id}>
-            <span>{book.content}</span>
-          </div>
+        <div className="book-item" key={book.id = position}>
+          <span key={book.id}>{book.value}</span>
         </div>
       )
     })
@@ -33,10 +29,11 @@ const Archive = ({archivedTasks, archivedGoals}) => {
     <div className="archive-content-view">
       <h2>Archive</h2>
       <div className="archived-scrolls">
-        {tasksarchive}
+        <button onClick={() => {checkState()}}>check</button>
+        {archivedTasksList}
       </div>
       <div className="archived-books">
-        {goalsarchive}
+        {archivedGoalsList}
       </div>
     </div>
   )
