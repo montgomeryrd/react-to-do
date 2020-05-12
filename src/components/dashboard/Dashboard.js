@@ -6,7 +6,6 @@ import TasksPage from '../contentview/TasksPage';
 import GoalsPage from '../contentview/GoalsPage';
 import Archive from '../contentview/Archive';
 
-import Settings from '../../icons/creatures/faerie.svg';
 import TaskPath from '../../icons/navigationIcons/Task.svg';
 import GoalPath from '../../icons/navigationIcons/Goal.svg';
 import ArchivePath from '../../icons/navigationIcons/Archive.svg';
@@ -22,6 +21,13 @@ class Dashboard extends React.Component {
             archivedTasks : [],
             archivedGoals : [],
             showing : "placeholder",
+            points : 0,
+            taskpoints : 5,
+            goalStepPoints : 50,
+            goalpoints : 1000,
+            taskCount: 0,
+            goalCount: 0,
+            user: "",
         }
         this.handleChange=this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
@@ -83,7 +89,11 @@ class Dashboard extends React.Component {
         return (
             <div className="container">
                 <div className="dashboard-content-view">
-                    <img id="user" src={Settings} alt=""></img>
+                    <div className="hamburger">
+                        <div className="hamburger-lines"></div>
+                        <div className="hamburger-lines"></div>
+                        <div className="hamburger-lines"></div>
+                    </div>
                     <h2>{currentDate}</h2>
                     <h3>{currentDay}</h3>
                     <h1>Dashboard</h1>
