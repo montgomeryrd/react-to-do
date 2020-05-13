@@ -2,6 +2,12 @@
     margin: 0 auto;
 }
 
-.goal-steps-form {
-    visibility: visible;
+#show-steps-form {
+    display: block;
+    visibility: hidden;
+}
+
+#show-steps {
+    display: block;
+    visibility: hidden;
 }
