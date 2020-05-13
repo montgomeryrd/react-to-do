@@ -4,7 +4,7 @@ import React from 'react';
 import "../../styles/archive.css"
 
 const Archive = ({archivedTasks, archivedGoals}) => {
-  var count = 6;
+  const count = 6;
   const archivedTasksList = archivedTasks.length ? (
     archivedTasks.slice(0, count).map((scroll, position) => {
       return (
@@ -13,22 +13,22 @@ const Archive = ({archivedTasks, archivedGoals}) => {
         </div>
       )
     })
-  ) : (
-    <p className="empty-task-list">empty</p>
-  );
-  const archivedGoalsList = archivedGoals.length ? (
-    archivedGoals.map((book, position) => {
-      return (
-        <div className="book-item" key={book.id = position}>
+    ) : (
+      <p className="empty-task-list">empty</p>
+      );
+      const archivedGoalsList = archivedGoals.length ? (
+        archivedGoals.map((book, position) => {
+          return (
+            <div className="book-item" key={book.id = position}>
           <span>{book.content}</span>
         </div>
       )
     })
-  ) : (
-    <p className="empty-task-list">empty</p>
-  );
-  return (
-    <div className="archive-content-view">
+    ) : (
+      <p className="empty-task-list">empty</p>
+      );
+      return (
+        <div className="archive-content-view">
       <h2>Archive</h2>
       <div className="archived-scrolls">
         <h4>completed tasks:</h4>
