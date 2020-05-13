@@ -9,19 +9,18 @@ const TasksPage = ({value, tasks, handleChange, handleSubmit, removeItem, archiv
     tasks.map((task, position) => {
       return (
         <div className="task-item" key={task.id = position}>
-          <span onClick={() => {archiveItem(task.id)}}>{task.content}
-            <button onClick={() => {removeItem(task.id)}}>delete</button>
-          </span>
+          <span onClick={() => {archiveItem(task.id)}}>{task.content}</span>
+            <button className="button" onClick={() => {removeItem(task.id)}}>delete</button>
         </div>
       )
     })
   ) : (
-    <p className="empty-task-list">currently no tasks</p>
+    <p className="empty-task-list">currently no tasks to perform</p>
   );
   return (
     <div className="task-page-view">
       <Form value={value} tasks={tasks} handleChange={handleChange} handleSubmit={handleSubmit} />
-      <h2>Tasks</h2>
+      <h4>Tasks:</h4>
       {mytasks}
       </div>
   );
