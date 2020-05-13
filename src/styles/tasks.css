@@ -16,3 +16,8 @@ font-family: 'Open Sans Condensed', sans-serif;
 .task-page-view {
   font-family: 'Quicksand', sans-serif;  
 }
+
+.button {
+  /* display: block; */
+  margin-left: 20px;
+}

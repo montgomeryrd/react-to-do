@@ -9,19 +9,18 @@ const GoalsPage = ({value, goals, handleChange, handleSubmit, removeItem, archiv
     goals.map((goal, position) => {
       return (
         <div className="goal-item" key={goal.id = position}>
-          <span onClick={() => {archiveItem(goal.id)}}>{goal.content}
-            <button onClick={() => {removeItem(goal.id)}}>delete</button>
-          </span>
+          <span onClick={() => {archiveItem(goal.id)}}>{goal.content}</span>
+            <button className="button" onClick={() => {removeItem(goal.id)}}>delete</button>
         </div>
       )
     })
   ) : (
-    <p className="empty-task-list">currently no goals</p>
+    <p className="empty-task-list">currently no goals to pursue</p>
   );
   return (
     <div className="task-page-view">
       <Form value={value} goals={goals} handleChange={handleChange} handleSubmit={handleSubmit} />
-      <h2>Goals</h2>
+      <h4>Goals:</h4>
       {mygoals}
       </div>
   );
