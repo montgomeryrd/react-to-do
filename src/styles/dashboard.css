@@ -21,30 +21,6 @@ font-family: 'Open Sans Condensed', sans-serif;
     padding-bottom: 100px;  
 }
 
-#user {
-    position: absolute;
-    width: 25px;
-    padding: 2px;
-}
-
-.dashboard-content-view h1 {
-    text-align: center;
-    font-size: 1.3rem;
-    margin-top: -20px;
-}
-
-.dashboard-content-view h2 {
-    text-align: right;
-    font-size: .70rem;
-    padding: 2px;
-}
-
-.dashboard-content-view h3 {
-    text-align: right;
-    font-size: 1rem;
-    padding: 2px;
-}
-
 /* Hamdurdur Menu */
 
 .hamburger {
@@ -74,4 +50,35 @@ font-family: 'Open Sans Condensed', sans-serif;
 .hamburger:hover {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+/* Dashboard */
+
+.dashboard-content-view h1 {
+    text-align: center;
+    font-size: 1.3rem;
+    margin-top: -20px;
+}
+
+.dashboard-content-view h2 {
+    text-align: right;
+    font-size: .70rem;
+    padding: 2px;
+}
+
+.dashboard-content-view h3 {
+    text-align: right;
+    font-size: 1rem;
+    padding: 2px;
+}
+
+.counters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.counters div {
+    width: 50px;
+    font-size: .7rem;
 }

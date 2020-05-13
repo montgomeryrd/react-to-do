@@ -18,6 +18,7 @@ class Dashboard extends React.Component {
             value : "",
             tasks : [],
             goals : [],
+            goalsteps : [],
             archivedTasks : [],
             archivedGoals : [],
             showing : "placeholder",
@@ -31,6 +32,7 @@ class Dashboard extends React.Component {
         }
         this.handleChange=this.handleChange.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleStepsSubmit=this.handleStepsSubmit.bind(this);
     }
     handleChange (e) {
         this.setState({value : e.target.value});
@@ -38,6 +40,11 @@ class Dashboard extends React.Component {
     handleSubmit (e) {
         e.preventDefault();
         this.addItem(this.state);
+        this.setState({value : ""});
+    }
+    handleStepsSubmit (e) {
+        e.preventDefault();
+        this.addStep(this.state);
         this.setState({value : ""});
     }
     toggle = (page) => {
@@ -78,7 +85,17 @@ class Dashboard extends React.Component {
             this.removeItem(id);
         }
     }
+    addStep = (item) => {
+        item.id = Math.random() * 1000;
+        item.content = this.state.value;
+        this.setState({goalsteps : [...this.state.goalsteps, item]});
+    }
+    completeStep = () => {
 
+    }
+    removeStep = () => {
+
+    }
     checkState = () => {console.log(this.state)};
     
     render() {
@@ -99,24 +116,68 @@ class Dashboard extends React.Component {
                     <h2>{currentDate}</h2>
                     <h3>{currentDay}</h3>
                     <h1>Dashboard</h1>
-                    <button onClick={() => {this.checkState()}}>check</button>
-                    <h2>Tasks {this.state.taskCount}</h2>
-                    <h2>Goals {this.state.goalCount}</h2>
+                    <div className="counters">
+                        <div>Tasks {this.state.taskCount}</div>
+                        <div>Goals {this.state.goalCount}</div>
+                        <div></div>
+                    </div>
                     <div className="navigation-container">
                         <Router>
-                            <NavLink to="/tasks"><NavigationLinks toggle={this.toggle} data = {{page: "tasks-page", bgcolor: red, imgUrl: TaskPath}} /></NavLink>
-                            <NavLink to="/goals"><NavigationLinks toggle={this.toggle} data = {{page: "goals-page", bgcolor: blue, imgUrl: GoalPath}} /></NavLink>
-                            <NavLink to="/archive"><NavigationLinks toggle={this.toggle} data = {{page: "archive-page", bgcolor: yellow, imgUrl: ArchivePath}} /></NavLink>
+                            <NavLink to="/tasks">
+                                <NavigationLinks 
+                                    toggle={this.toggle} 
+                                    data = {{page: "tasks-page", bgcolor: red, imgUrl: TaskPath}} 
+                                />
+                            </NavLink>
+                            <NavLink to="/goals">
+                                <NavigationLinks 
+                                    toggle={this.toggle} 
+                                    data = {{page: "goals-page", bgcolor: blue, imgUrl: GoalPath}} 
+                                />
+                            </NavLink>
+                            <NavLink to="/archive">
+                                <NavigationLinks 
+                                    toggle={this.toggle} 
+                                    data = {{page: "archive-page", bgcolor: yellow, imgUrl: ArchivePath}} 
+                                />
+                            </NavLink>
                             <Route path="/tasks" render={props => 
-                            (<TasksPage {...props} value={this.state.value} tasks={this.state.tasks} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem}/>)} />
+                                (<TasksPage 
+                                    {...props} 
+                                    value={this.state.value} 
+                                    tasks={this.state.tasks} 
+                                    handleChange={this.handleChange} 
+                                    handleSubmit={this.handleSubmit} 
+                                    removeItem={this.removeItem} 
+                                    archiveItem={this.archiveItem}
+                                />)
+                            }/>
                             <Route path="/goals" render={props =>
-                            (<GoalsPage {...props} value={this.state.value} goals={this.state.goals} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem} />)} />
+                                (<GoalsPage 
+                                    {...props} 
+                                    value={this.state.value} 
+                                    goals={this.state.goals} 
+                                    goalsteps={this.state.goalsteps} 
+                                    handleChange={this.handleChange} 
+                                    handleSubmit={this.handleSubmit} 
+                                    removeItem={this.removeItem} 
+                                    archiveItem={this.archiveItem} 
+                                    completeStep={this.completeStep} 
+                                    removeStep={this.removeStep}
+                                />)
+                            }/>
                             <Route path="/archive" render={props =>
-                            (<Archive {...props} archivedTasks={this.state.archivedTasks} archivedGoals={this.state.archivedGoals}/>)} />
+                                (<Archive 
+                                    {...props} 
+                                    archivedTasks={this.state.archivedTasks} 
+                                    archivedGoals={this.state.archivedGoals}
+                                />)
+                            }/>
                         </Router>
                     </div>
                 </div>
                 <h3>total points: {this.state.points}</h3>
+                <button onClick={() => {this.checkState()}}>this.state</button>
             </div>
         );
     }
