@@ -58,27 +58,29 @@ class Dashboard extends React.Component {
     }
     removeItem = (id) => {
         if(this.state.showing === "tasks-page") {
-            this.setState({tasks : this.state.tasks.filter(task => {return task.id !== id})});
+            this.setState({tasks : this.state.tasks.filter(task => task.id !== id)});
             this.setState({taskCount : this.state.taskCount - 1});
         } else if(this.state.showing === "goals-page") {
-            this.setState({goals : this.state.goals.filter(goal => {return goal.id !== id})});
+            this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
             this.setState({goalCount : this.state.goalCount - 1});
         }
     }
     archiveItem = (id) => {
         if(this.state.showing === "tasks-page") {
-            const scroll = this.state.tasks.filter(task => {return task.id === id});
-            this.setState({archivedTasks : scroll.concat([...this.state.archivedTasks])});
+            const scroll = this.state.tasks.filter(task => task.id === id);
+            this.setState({archivedTasks : scroll.concat([...this.state.archivedTasks]).filter((_,i) => i < 6)});
             this.setState({points : this.state.points + 5});
             this.removeItem(id);
         } else if(this.state.showing === "goals-page") {
-            const book = this.state.goals.filter(goal => {return goal.id === id});
-            this.setState({archivedGoals : book.concat([...this.state.archivedGoals])});
+            const book = this.state.goals.filter(goal => goal.id === id);
+            this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
             this.setState({points : this.state.points + 1000});
             this.removeItem(id);
         }
     }
+
     checkState = () => {console.log(this.state)};
+    
     render() {
         const currentDate = new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'});
         const currentDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date().getDay()];
@@ -108,9 +110,9 @@ class Dashboard extends React.Component {
                             <Route path="/tasks" render={props => 
                             (<TasksPage {...props} value={this.state.value} tasks={this.state.tasks} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem}/>)} />
                             <Route path="/goals" render={props =>
-                            (<GoalsPage {...props} value={this.state.value} goals={this.state.goals} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem}/>)} />
+                            (<GoalsPage {...props} value={this.state.value} goals={this.state.goals} handleChange={this.handleChange} handleSubmit={this.handleSubmit} removeItem={this.removeItem} archiveItem={this.archiveItem} />)} />
                             <Route path="/archive" render={props =>
-                            (<Archive {...props} archivedTasks={this.state.archivedTasks} archivedGoals={this.state.archivedGoals} />)} />
+                            (<Archive {...props} archivedTasks={this.state.archivedTasks} archivedGoals={this.state.archivedGoals}/>)} />
                         </Router>
                     </div>
                 </div>
