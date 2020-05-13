@@ -18,10 +18,10 @@ class Dashboard extends React.Component {
             value : "",
             tasks : [],
             goals : [],
-            goalsteps : [],
+            steps : [],
+            goalContainer : [],
             archivedTasks : [],
             archivedGoals : [],
-            showing : "placeholder",
             points : 0,
             taskpoints : 5,
             goalStepPoints : 50,
@@ -30,72 +30,60 @@ class Dashboard extends React.Component {
             goalCount: 0,
             user: "",
         }
-        this.handleChange=this.handleChange.bind(this);
-        this.handleSubmit=this.handleSubmit.bind(this);
-        this.handleStepsSubmit=this.handleStepsSubmit.bind(this);
+        this.handleChangeForms=this.handleChangeForms.bind(this);
+        this.handleTasksSubmit=this.handleTasksSubmit.bind(this);
+        this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
     }
-    handleChange (e) {
+    // Form functions
+    handleChangeForms (e) {
         this.setState({value : e.target.value});
     }
-    handleSubmit (e) {
+    handleTasksSubmit (e) {
         e.preventDefault();
-        this.addItem(this.state);
+        this.addTaskItem(this.state);
         this.setState({value : ""});
     }
-    handleStepsSubmit (e) {
+    handleGoalsSubmit (e) {
         e.preventDefault();
-        this.addStep(this.state);
+        this.addGoalItem(this.state);
         this.setState({value : ""});
     }
-    toggle = (page) => {
-        this.setState({showing : page});
+    // Task functions
+    addTaskItem = (task) => {
+        task.id = Math.random() * 1000;
+        task.content = this.state.value;
+        this.setState({tasks : [...this.state.tasks, task]});
+        this.setState({taskCount : this.state.taskCount + 1});
     }
-    addItem = (item) => {
-        if(this.state.showing === "tasks-page") {
-            item.id = Math.random() * 1000;
-            item.content = this.state.value;
-            this.setState({tasks : [...this.state.tasks, item]});
-            this.setState({taskCount : this.state.taskCount + 1});
-        } else if(this.state.showing === "goals-page") {
-            item.id = Math.random() * 1000;
-            item.content = this.state.value;
-            this.setState({goals : [...this.state.goals, item]});
-            this.setState({goalCount : this.state.goalCount + 1});
-        }
+    removeTaskItem = (id) => {
+        this.setState({tasks : this.state.tasks.filter(task => task.id !== id)});
+        this.setState({taskCount : this.state.taskCount - 1});
     }
-    removeItem = (id) => {
-        if(this.state.showing === "tasks-page") {
-            this.setState({tasks : this.state.tasks.filter(task => task.id !== id)});
-            this.setState({taskCount : this.state.taskCount - 1});
-        } else if(this.state.showing === "goals-page") {
-            this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
-            this.setState({goalCount : this.state.goalCount - 1});
-        }
+    archiveTaskItem = (id) => {
+        const scroll = this.state.tasks.filter(task => task.id === id);
+        this.setState({archivedTasks : scroll.concat([...this.state.archivedTasks]).filter((_,i) => i < 6)});
+        this.setState({points : this.state.points + 5});
+        this.removeTaskItem(id);
     }
-    archiveItem = (id) => {
-        if(this.state.showing === "tasks-page") {
-            const scroll = this.state.tasks.filter(task => task.id === id);
-            this.setState({archivedTasks : scroll.concat([...this.state.archivedTasks]).filter((_,i) => i < 6)});
-            this.setState({points : this.state.points + 5});
-            this.removeItem(id);
-        } else if(this.state.showing === "goals-page") {
-            const book = this.state.goals.filter(goal => goal.id === id);
-            this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
-            this.setState({points : this.state.points + 1000});
-            this.removeItem(id);
-        }
+    // Goal Functions
+    addGoalItem = (goal) => {
+        goal.id = Math.random() * 1000;
+        goal.content = this.state.value;
+        this.setState({goals : [...this.state.goals, goal]});
+        this.setState({goalCount : this.state.goalCount + 1});
     }
-    addStep = (item) => {
-        item.id = Math.random() * 1000;
-        item.content = this.state.value;
-        this.setState({goalsteps : [...this.state.goalsteps, item]});
+    removeGoalItem = (id) => {
+        this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
+        this.setState({goalCount : this.state.goalCount - 1});
     }
-    completeStep = () => {
+    archiveGoalItem = (id) => {
+        const book = this.state.goals.filter(goal => goal.id === id);
+        this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
+        this.setState({points : this.state.points + 1000});
+        this.removeGoalItem(id);
+    }
+    // Goal Step Functions
 
-    }
-    removeStep = () => {
-
-    }
     checkState = () => {console.log(this.state)};
     
     render() {
@@ -125,20 +113,17 @@ class Dashboard extends React.Component {
                         <Router>
                             <NavLink to="/tasks">
                                 <NavigationLinks 
-                                    toggle={this.toggle} 
-                                    data = {{page: "tasks-page", bgcolor: red, imgUrl: TaskPath}} 
+                                    data = {{bgcolor: red, imgUrl: TaskPath}} 
                                 />
                             </NavLink>
                             <NavLink to="/goals">
                                 <NavigationLinks 
-                                    toggle={this.toggle} 
-                                    data = {{page: "goals-page", bgcolor: blue, imgUrl: GoalPath}} 
+                                    data = {{bgcolor: blue, imgUrl: GoalPath}} 
                                 />
                             </NavLink>
                             <NavLink to="/archive">
-                                <NavigationLinks 
-                                    toggle={this.toggle} 
-                                    data = {{page: "archive-page", bgcolor: yellow, imgUrl: ArchivePath}} 
+                                <NavigationLinks  
+                                    data = {{bgcolor: yellow, imgUrl: ArchivePath}} 
                                 />
                             </NavLink>
                             <Route path="/tasks" render={props => 
@@ -146,10 +131,10 @@ class Dashboard extends React.Component {
                                     {...props} 
                                     value={this.state.value} 
                                     tasks={this.state.tasks} 
-                                    handleChange={this.handleChange} 
-                                    handleSubmit={this.handleSubmit} 
-                                    removeItem={this.removeItem} 
-                                    archiveItem={this.archiveItem}
+                                    handleChangeForms={this.handleChangeForms} 
+                                    handleTasksSubmit={this.handleTasksSubmit} 
+                                    removeTaskItem={this.removeTaskItem} 
+                                    archiveTaskItem={this.archiveTaskItem}
                                 />)
                             }/>
                             <Route path="/goals" render={props =>
@@ -157,13 +142,10 @@ class Dashboard extends React.Component {
                                     {...props} 
                                     value={this.state.value} 
                                     goals={this.state.goals} 
-                                    goalsteps={this.state.goalsteps} 
-                                    handleChange={this.handleChange} 
-                                    handleSubmit={this.handleSubmit} 
-                                    removeItem={this.removeItem} 
-                                    archiveItem={this.archiveItem} 
-                                    completeStep={this.completeStep} 
-                                    removeStep={this.removeStep}
+                                    handleChangeForms={this.handleChangeForms} 
+                                    handleGoalsSubmit={this.handleGoalsSubmit} 
+                                    removeGoalItem={this.removeGoalItem} 
+                                    archiveGoalItem={this.archiveGoalItem}
                                 />)
                             }/>
                             <Route path="/archive" render={props =>
@@ -183,12 +165,13 @@ class Dashboard extends React.Component {
     }
 }
 Dashboard.propTypes = {
+    value: PropTypes.instanceOf(String),
     tasks: PropTypes.instanceOf(Array),
     goals: PropTypes.instanceOf(Array),
+    steps: PropTypes.instanceOf(Array),
+    goalContainer: PropTypes.instanceOf(Array),
     archivedTasks: PropTypes.instanceOf(Array),
     archivedGoals: PropTypes.instanceOf(Array),
-    value: PropTypes.instanceOf(String),
-    showing: PropTypes.instanceOf(String),
     points: PropTypes.instanceOf(Number),
     taskpoints: PropTypes.instanceOf(Number),
     goalStepPoints: PropTypes.instanceOf(Number),
