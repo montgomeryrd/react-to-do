@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import NavigationLinks from './NavigationLinks';
+// import Settings from './Settings';
 import TasksPage from '../contentview/TasksPage';
 import GoalsPage from '../contentview/GoalsPage';
 import Archive from '../contentview/Archive';
@@ -96,6 +97,7 @@ class Dashboard extends React.Component {
         return (
             <div className="container">
                 <div className="dashboard-content-view">
+                    {/* <Settings /> */}
                     <div className="hamburger">
                         <div className="hamburger-lines"></div>
                         <div className="hamburger-lines"></div>
