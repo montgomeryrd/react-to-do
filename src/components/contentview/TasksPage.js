@@ -18,7 +18,7 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
   );
   return (
     <div className="task-page-view">
-      <form onSubmit={handleTasksSubmit}>
+      <form id="task-form" onSubmit={handleTasksSubmit}>
         <input
           id="form-input"
           type="text"
@@ -33,8 +33,10 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
           submit
         </button>
       </form>
-      <h4>Tasks:</h4>
-      {mytasks}
+      <div className="task-contents">
+        <h4>Tasks:</h4>
+        {mytasks}
+      </div>
     </div>
   );
 }

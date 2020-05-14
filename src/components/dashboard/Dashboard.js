@@ -1,15 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import NavigationLinks from './NavigationLinks';
 import Settings from './Settings';
 import TasksPage from '../contentview/TasksPage';
 import GoalsPage from '../contentview/GoalsPage';
 import Archive from '../contentview/Archive';
 
-import TaskPath from '../../icons/navigationIcons/Task.svg';
-import GoalPath from '../../icons/navigationIcons/Goal.svg';
-import ArchivePath from '../../icons/navigationIcons/Archive.svg';
 import '../../styles/dashboard.css';
 
 class Dashboard extends React.Component {
@@ -101,57 +97,57 @@ class Dashboard extends React.Component {
                     <h2>{currentDate}</h2>
                     <h3>{currentDay}</h3>
                     <h1>Dashboard</h1>
-                    <div className="counters">
-                        <div>Tasks {this.state.taskCount}</div>
-                        <div>Goals {this.state.goalCount}</div>
-                        <div></div>
-                    </div>
+
                     <div className="navigation-container">
                         <Router>
-                            <NavLink to="/tasks">
-                                <NavigationLinks 
-                                    data = {{bgcolor: red, imgUrl: TaskPath}} 
-                                />
-                            </NavLink>
-                            <NavLink to="/goals">
-                                <NavigationLinks 
-                                    data = {{bgcolor: blue, imgUrl: GoalPath}} 
-                                />
-                            </NavLink>
-                            <NavLink to="/archive">
-                                <NavigationLinks  
-                                    data = {{bgcolor: yellow, imgUrl: ArchivePath}} 
-                                />
-                            </NavLink>
-                            <Route path="/tasks" render={props => 
-                                (<TasksPage 
-                                    {...props} 
-                                    value={this.state.value} 
-                                    tasks={this.state.tasks} 
-                                    handleChangeForms={this.handleChangeForms} 
-                                    handleTasksSubmit={this.handleTasksSubmit} 
-                                    removeTaskItem={this.removeTaskItem} 
-                                    archiveTaskItem={this.archiveTaskItem}
-                                />)
-                            }/>
-                            <Route path="/goals" render={props =>
-                                (<GoalsPage 
-                                    {...props} 
-                                    value={this.state.value} 
-                                    goals={this.state.goals} 
-                                    handleChangeForms={this.handleChangeForms} 
-                                    handleGoalsSubmit={this.handleGoalsSubmit} 
-                                    removeGoalItem={this.removeGoalItem} 
-                                    archiveGoalItem={this.archiveGoalItem}
-                                />)
-                            }/>
-                            <Route path="/archive" render={props =>
-                                (<Archive 
-                                    {...props} 
-                                    archivedTasks={this.state.archivedTasks} 
-                                    archivedGoals={this.state.archivedGoals}
-                                />)
-                            }/>
+                            <div className="nav">
+                                <NavLink to="/tasks" style={{ textDecoration: 'none' }}>
+                                    <NavigationLinks 
+                                        data = {{bgcolor: red, page:"Tasks:", count: this.state.taskCount}} 
+                                    />
+                                </NavLink>
+                                <NavLink to="/goals" style={{ textDecoration: 'none' }}>
+                                    <NavigationLinks 
+                                        data = {{bgcolor: blue, page: "Goals:", count: this.state.goalCount}} 
+                                    />
+                                </NavLink>
+                                <NavLink to="/archive" style={{ textDecoration: 'none' }}>
+                                    <NavigationLinks  
+                                        data = {{bgcolor: yellow, page: "Achievements", count: ""}} 
+                                    />
+                                </NavLink>
+                            </div>
+                            <div className="links">
+                                <Route path="/tasks" render={props => 
+                                    (<TasksPage 
+                                        {...props} 
+                                        value={this.state.value} 
+                                        tasks={this.state.tasks} 
+                                        handleChangeForms={this.handleChangeForms} 
+                                        handleTasksSubmit={this.handleTasksSubmit} 
+                                        removeTaskItem={this.removeTaskItem} 
+                                        archiveTaskItem={this.archiveTaskItem}
+                                    />)
+                                }/>
+                                <Route path="/goals" render={props =>
+                                    (<GoalsPage 
+                                        {...props} 
+                                        value={this.state.value} 
+                                        goals={this.state.goals} 
+                                        handleChangeForms={this.handleChangeForms} 
+                                        handleGoalsSubmit={this.handleGoalsSubmit} 
+                                        removeGoalItem={this.removeGoalItem} 
+                                        archiveGoalItem={this.archiveGoalItem}
+                                    />)
+                                }/>
+                                <Route path="/archive" render={props =>
+                                    (<Archive 
+                                        {...props} 
+                                        archivedTasks={this.state.archivedTasks} 
+                                        archivedGoals={this.state.archivedGoals}
+                                    />)
+                                }/>
+                            </div>
                         </Router>
                     </div>
                 </div>
@@ -161,6 +157,15 @@ class Dashboard extends React.Component {
         );
     }
 }
+
+function NavigationLinks(props) {
+    return (
+        <div className="navigation-link" style={props.data.bgcolor}>
+            <h2>{props.data.page} {props.data.count}</h2>
+        </div>
+    )
+}
+
 Dashboard.propTypes = {
     value: PropTypes.instanceOf(String),
     tasks: PropTypes.instanceOf(Array),

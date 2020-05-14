@@ -21,15 +21,22 @@ const Settings = () => {
     // const [achievement, showAchievement] = useState(false);
     // function toggleAchievement() {showAchievement(!achievement)}
     const [position, setPosition] = useState(0);
-    const [state] = useState(["switch-user", "delete-profile", "credits", "about"]);
+    const [state] = useState(["", "switch-user", "delete-profile", "credits", "about"]);
 
     const data = (id) => {
         switch(id) {
             case "switch-user" : return (
-                <div></div>
+                <div>
+                    <p>switch to profile:</p>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </div>
             )
             case "delete-profile" : return (
-                <div></div>
+                <div>
+                    <p>Delete current profile?  <button>YES</button><button>NO</button></p>
+                </div>
             )
             case "credits" : 
                 return (
@@ -37,26 +44,18 @@ const Settings = () => {
                         <h4>Base App build from:</h4>
                         <a href="https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg" rel="noopener noreferrer" target="_blank">The Net Ninja</a>
                         <p>Complete React Tutorial (Redux) #23 - Todo App</p>
-                        <br></br>
-                        <h4>SVG Icons by:</h4>
-                        <a href="https://www.iconfinder.com/Chanut-is" rel="noopener noreferrer" target="_blank">Chanut is Industries</a>
-                        <p>Fantasy and Role-Play Game - Adventure Quest Pack</p>
                     </div>
                 )
             case "about" :
                 return (
                     <div>
-                        <h4>"A conscious life begins with purpose."</h4>
-                        <br></br>
                         <span>
-                            To-Dohism is an app built with the philosophy that you live 
-                            a conscious life when you have purpose. With that in mind, 
-                            the app itself is not very robust in functionality, but 
-                            rather cuts out a lot of the fat of more powerful to-do list 
-                            apps available for more intentional focus and ease of use. 
-                            A to-do app that is quick to manage and easy to implement in 
-                            day-to-day life. Complete daily tasks, pursue long-term goals, 
-                            and know that you are living a conscious life.
+                            To-Dohism is an app built with the philosophy that a conscious life begins with 
+                            purpose. With that in mind, the app itself is not very robust in functionality. 
+                            Rather it cuts out a lot of the fat of the more powerful to-do list apps available in 
+                            order to increase intention and ease of use. It is quick to manage and easy to 
+                            implement in day-to-day routine. Complete daily tasks, pursue long-term goals, and 
+                            know that you are living a conscious life.
                         </span>
                     </div>
                 )
@@ -71,21 +70,30 @@ const Settings = () => {
             {settings ? (
                 <div className="settings-content" ref={ref}>
                     <ul>
-                        <li id="switch-user" className="settings-list" onClick={() => setPosition(position - position)}>
+                        <li className="settings-list" onClick={() => setPosition(position - position)}>
+
+                        </li>
+                        <li className="settings-list" onClick={() => setPosition(position - position + 1)}>
                             switch user
                         </li>
-                        <li id="delete-profile" className="settings-list" onClick={() => setPosition(position - position + 1)}>
+                        <li className="settings-list" onClick={() => setPosition(position - position + 2)}>
                             delete profile
                         </li>
-                        <li id="credits" className="settings-list" onClick={() => setPosition(position - position + 2)}>
+                        <li className="settings-list" onClick={() => setPosition(position - position + 3)}>
                             credits
                         </li>
-                        <li id="about" className="settings-list" onClick={() => setPosition(position - position + 3)}>
+                        <li className="settings-list" onClick={() => setPosition(position - position + 4)}>
                             about
                         </li>
+                        <li>
+                            <br></br>
+                            {data(state[position])}
+                        </li>
                     </ul>
-                    <br></br>
-                    <div>{data(state[position])}</div>
+                    {/* <div>
+                        <br></br>
+                        {data(state[position])}
+                    </div> */}
                 </div>
             ) : (
                 <div className="hamburger" onClick={() => showSettings(true)}>
