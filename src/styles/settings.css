@@ -36,6 +36,7 @@
 }
 
 .settings-content {
+    border-radius: 1.5mm;
     color: black;
     background-color: white;
     border: solid 1px black;
@@ -44,4 +45,13 @@
     width: 140px;
     margin: 10px;
     border: solid 1px white;
+}
+
+.settings-list {
+    margin-bottom: 2px;
+}
+
+.settings-list:hover {
+    background-color: #A2DAFF;
+    border-radius: 1mm;
 }

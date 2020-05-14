@@ -98,11 +98,6 @@ class Dashboard extends React.Component {
             <div className="container">
                 <div className="dashboard-content-view">
                     <Settings />
-                    {/* <div className="hamburger">
-                        <div className="hamburger-lines"></div>
-                        <div className="hamburger-lines"></div>
-                        <div className="hamburger-lines"></div>
-                    </div> */}
                     <h2>{currentDate}</h2>
                     <h3>{currentDay}</h3>
                     <h1>Dashboard</h1>

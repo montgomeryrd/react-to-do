@@ -20,18 +20,75 @@ const Settings = () => {
 
     // const [achievement, showAchievement] = useState(false);
     // function toggleAchievement() {showAchievement(!achievement)}
+    const [position, setPosition] = useState(0);
+    const [state] = useState(["switch-user", "delete-profile", "credits", "about"]);
+
+    const data = (id) => {
+        switch(id) {
+            case "switch-user" : return (
+                <div></div>
+            )
+            case "delete-profile" : return (
+                <div></div>
+            )
+            case "credits" : 
+                return (
+                    <div>
+                        <h4>Base App build from:</h4>
+                        <a href="https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg" rel="noopener noreferrer" target="_blank">The Net Ninja</a>
+                        <p>Complete React Tutorial (Redux) #23 - Todo App</p>
+                        <br></br>
+                        <h4>SVG Icons by:</h4>
+                        <a href="https://www.iconfinder.com/Chanut-is" rel="noopener noreferrer" target="_blank">Chanut is Industries</a>
+                        <p>Fantasy and Role-Play Game - Adventure Quest Pack</p>
+                    </div>
+                )
+            case "about" :
+                return (
+                    <div>
+                        <h4>"A conscious life begins with purpose."</h4>
+                        <br></br>
+                        <span>
+                            To-Dohism is an app built with the philosophy that you live 
+                            a conscious life when you have purpose. With that in mind, 
+                            the app itself is not very robust in functionality, but 
+                            rather cuts out a lot of the fat of more powerful to-do list 
+                            apps available for more intentional focus and ease of use. 
+                            A to-do app that is quick to manage and easy to implement in 
+                            day-to-day life. Complete daily tasks, pursue long-term goals, 
+                            and know that you are living a conscious life.
+                        </span>
+                    </div>
+                )
+            default : return (
+                <p>click outside modal window to exit</p>
+            )
+        }
+    }
 
     return (
         <div id="settings">
             {settings ? (
                 <div className="settings-content" ref={ref}>
-                    <h4>It`&apos;`s doing something!</h4>
-                    <p>Step 1: Input a task you would like to accomplish today and press the submit button. 
-                    Once you have done that, your task will append below, subsequently creating a list of 
-                    tasks to perform on this day.</p>
+                    <ul>
+                        <li id="switch-user" className="settings-list" onClick={() => setPosition(position - position)}>
+                            switch user
+                        </li>
+                        <li id="delete-profile" className="settings-list" onClick={() => setPosition(position - position + 1)}>
+                            delete profile
+                        </li>
+                        <li id="credits" className="settings-list" onClick={() => setPosition(position - position + 2)}>
+                            credits
+                        </li>
+                        <li id="about" className="settings-list" onClick={() => setPosition(position - position + 3)}>
+                            about
+                        </li>
+                    </ul>
+                    <br></br>
+                    <div>{data(state[position])}</div>
                 </div>
             ) : (
-                <div className="hamburger" onClick={() => showSettings(!settings)}>
+                <div className="hamburger" onClick={() => showSettings(true)}>
                     <div className="hamburger-lines"></div>
                     <div className="hamburger-lines"></div>
                     <div className="hamburger-lines"></div>
@@ -40,81 +97,6 @@ const Settings = () => {
         </div>
     )
 }
-//             <div onClick={toggleCredits}>
-//                 <div className="toggle-credits">
-//                     {credits ? 
-//                         <span>credits</span>
-//                     :
-//                         <div>
-//                             <h4>Base App build from:</h4>
-//                             <a href="https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg" rel="noopener noreferrer" target="_blank">Chanut is Industries</a>
-//                             <p>The Net Ninja - Complete React Tutorial (Redux) #23 - Todo App</p>
-//                             <br></br>
-//                             <h4>SVG Icons by:</h4>
-//                             <a href="https://www.iconfinder.com/Chanut-is" rel="noopener noreferrer" target="_blank">Chanut is Industries</a>
-//                             <p>Fantasy and Role-Play Game - Adventure Quest Pack</p>
-//                         </div>
-//                     }
-//                 </div>
-//             </div>
-//             <div onClick={toggleHelp}>    
-//                 <div className="toggle-help">
-//                     {help ? 
-//                         <span>help</span>
-//                     :
-//                         <div>
-//                             <div onClick={toggleTask}>
-//                                 {task ?
-//                                     <h4>Tasks Page</h4>
-//                                 :
-//                                     <ul>
-//                                         <li>
-//                                             Step 1: Input a task you would like to accomplish today and press the submit button. 
-//                                             Once you have done that, your task will append below, subsequently creating a list of
-//                                             tasks to perform on this day.
-//                                         </li>
-//                                         <li>
-//                                             Step 2: When you are finished with a task, press on the task you completed. It will 
-//                                             be removed from the list and append to your Achievements Page. You will also score 
-//                                             arbitrary points that help show in a very small tangible way that you have in fact 
-//                                             completed a task at some juncture in the past and can now reflect on your accomplishments 
-//                                             via points.
-//                                         </li>
-//                                         <li>
-//                                             (optional): If you feel that a task you created was either a mistake or simply one you 
-//                                             will not achieve, you may press on the `&quot;`delete`&quot;` button to remove it from 
-//                                             your list, however, no points will be scored because hey... you didn`&apos;`t earn em.
-//                                         </li>
-//                                     </ul>
-//                                 }
-//                             </div>
-//                             <br></br>
-//                             <div onClick={toggleGoal}>
-//                                 {goal ?
-//                                     <h4>Goals Page</h4>
-//                                 :
-//                                     <ul>
-//                                         <li></li>
-//                                     </ul>
-//                                 }
-//                             </div>
-//                             <br></br>
-//                             <div onClick={toggleAchievement}>
-//                                 {achievement ?
-//                                     <h4>Goals Page</h4>
-//                                 :
-//                                     <ul>
-//                                         <li></li>
-//                                     </ul>
-//                                 }
-//                             </div>
-//                         </div>
-//                     }
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
 
 function useOnClickOutside(ref, handler) {
     useEffect(
