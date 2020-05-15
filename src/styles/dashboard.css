@@ -41,13 +41,20 @@ font-family: 'Open Sans Condensed', sans-serif;
     padding: 2px;
 }
 
-.counters {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+/* Navigation Links */
+.navigation-container {
+    padding: 20px;
 }
 
-.counters div {
-    width: 50px;
-    font-size: .7rem;
+.navigation-link {
+    display: flex;
+    border-radius: 2mm;
+    font-family: 'Quicksand', sans-serif; 
+    color: white;
+    padding: 5px;
+    margin-bottom: 5px;    
+}
+
+.navigation-link {
+    
 }

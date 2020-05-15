@@ -11,13 +11,29 @@ font-family: 'Roboto', sans-serif;
 font-family: 'Open Sans Condensed', sans-serif;
 */
 
-/* Buzz Out */
-
-.task-page-view {
-  font-family: 'Quicksand', sans-serif;  
-}
-
 .button {
   /* display: block; */
   margin-left: 20px;
+}
+
+/* .task-page-view {
+  z-index: 10;
+  margin-top: -81px;
+  margin-left: 70px;
+}
+
+#task-form input {
+  width: 140px;
+  border-radius: 2mm;
+  background-color: inherit;
+  border-color: #E53935;
+  color: white;
+}
+
+.task-contents {
+  margin-top: 60px;
+} */
+
+.span-item {
+  color:white;
 }

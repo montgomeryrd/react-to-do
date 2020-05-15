@@ -1,14 +1,20 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useRef } from 'react';
 import "../../styles/tasks.css";
 
-const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTaskItem, archiveTaskItem}) => {
+const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTaskItem, completedTaskItem}) => {
+  const red = {backgroundColor : '#E91E63'};
+  const span = useRef();
+  const onClickComplete = (color) => {
+    span.current.style.backgroundColor=color;
+  }
+
   const mytasks = tasks.length ? (
     tasks.map((task, position) => {
       return (
-        <div className="task-item" key={task.id = position}>
-          <span onClick={() => {archiveTaskItem(task.id)}}>{task.content}</span>
+        <div ref={span} className="task-item" key={task.id = position}>
+          <span className="span-item" onClick={() => {completedTaskItem(task.id)}}>{task.content}</span>
             <button className="button" onClick={() => {removeTaskItem(task.id)}}>delete</button>
         </div>
       )
@@ -18,7 +24,7 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
   );
   return (
     <div className="task-page-view">
-      <form onSubmit={handleTasksSubmit}>
+      <form id="task-form" onSubmit={handleTasksSubmit}>
         <input
           id="form-input"
           type="text"
@@ -33,9 +39,12 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
           submit
         </button>
       </form>
-      <h4>Tasks:</h4>
-      {mytasks}
+      <div className="task-contents">
+        <h4>Tasks:</h4>
+        {mytasks}
+      </div>
     </div>
   );
 }
+
 export default TasksPage;

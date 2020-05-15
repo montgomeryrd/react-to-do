@@ -36,12 +36,25 @@
 }
 
 .settings-content {
+    border-radius: 1.5mm;
     color: black;
     background-color: white;
-    border: solid 1px black;
+    border: solid 2px #00003F;
     padding: 2px;
     font-size: .5rem;
     width: 140px;
     margin: 10px;
-    border: solid 1px white;
+}
+
+.settings-list {
+    margin: 2px;
+}
+
+.settings-list:hover {
+    background-color: #A2DAFF;
+    border-radius: 1mm;
+}
+
+.settings-content h3 {
+    display: flex;
 }

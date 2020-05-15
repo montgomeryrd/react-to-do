@@ -31,7 +31,7 @@ const Archive = ({archivedTasks, archivedGoals}) => {
     <div className="archive-content-view">
       <h2>Archive</h2>
       <div className="archived-scrolls">
-        <h4>completed tasks:</h4>
+        <h4>recently completed tasks:</h4>
         {archivedTasksList}
       </div>
       <div className="archived-books">
