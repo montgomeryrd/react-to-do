@@ -50,14 +50,18 @@ class Dashboard extends React.Component {
 
     // Task functions
     addTaskItem = (task) => {
+        task.status = true;
         task.id = Math.random() * 1000;
         task.content = this.state.value;
         this.setState({tasks : [...this.state.tasks, task]});
         this.setState({taskCount : this.state.taskCount + 1});
     }
     completedTaskItem = (id) => {
-        const completedTask = this.state.tasks.filter(task => task.id === id);
-        this.setState({array : [...this.state.array].concat(completedTask)});
+        const completedTask = this.state.tasks.filter(task => task.id === id);    
+        if(completedTask[0].status === true) {
+            this.setState({array : completedTask.concat([...this.state.array])});
+            completedTask.map(task => task.status = false);
+        }
     }
     removeTaskItem = (id) => {
         this.setState({tasks : this.state.tasks.filter(task => task.id !== id)});
