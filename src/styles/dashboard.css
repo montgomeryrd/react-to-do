@@ -52,5 +52,9 @@ font-family: 'Open Sans Condensed', sans-serif;
     font-family: 'Quicksand', sans-serif; 
     color: white;
     padding: 5px;
-    margin-bottom: 2px;    
+    margin-bottom: 5px;    
+}
+
+.navigation-link {
+    
 }

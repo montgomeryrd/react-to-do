@@ -6,22 +6,8 @@ const Settings = () => {
     const [settings, showSettings] = useState(false);
     useOnClickOutside(ref, () => showSettings(!settings));
 
-    // const [credits, showCredits] = useState(false);
-    // function toggleCredits() {showCredits(!credits)}
-    
-    // const [help, showHelp] = useState(false);
-    // function toggleHelp() {showHelp(!help)}
-
-    // const [task, showTask] = useState(false);
-    // function toggleTask() {showTask(!task)}
-
-    // const [goal, showGoal] = useState(false);
-    // function toggleGoal() {showGoal(!goal)}
-
-    // const [achievement, showAchievement] = useState(false);
-    // function toggleAchievement() {showAchievement(!achievement)}
     const [position, setPosition] = useState(0);
-    const [state] = useState(["", "switch-user", "delete-profile", "credits", "about"]);
+    const state = ["", "switch-user", "delete-profile", "credits", "about"];
 
     const data = (id) => {
         switch(id) {
@@ -31,32 +17,41 @@ const Settings = () => {
                     <ul>
                         <li></li>
                     </ul>
+                    <br></br>
+                    <p>click outside modal window to exit</p>
                 </div>
             )
             case "delete-profile" : return (
                 <div>
                     <p>Delete current profile?  <button>YES</button><button>NO</button></p>
+                    <br></br>
+                    <p>click outside modal window to exit</p>
                 </div>
             )
             case "credits" : 
                 return (
                     <div>
-                        <h4>Base App build from:</h4>
-                        <a href="https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg" rel="noopener noreferrer" target="_blank">The Net Ninja</a>
-                        <p>Complete React Tutorial (Redux) #23 - Todo App</p>
+                        <h3>useHooks</h3>
+                        <h4>
+                            Easy to understand React Hook recipes by Gabe Ragland 
+                            <a href="https://usehooks.com/useOnClickOutside/" 
+                                rel="noopener noreferrer" 
+                                target="_blank">
+                                <span roll="img" aria-labelledby="useHooks">(🐠)</span>
+                            </a>
+                        </h4>
+                        <br></br>
+                        <p>click outside modal window to exit</p>
                     </div>
                 )
             case "about" :
                 return (
                     <div>
                         <span>
-                            To-Dohism is an app built with the philosophy that a conscious life begins with 
-                            purpose. With that in mind, the app itself is not very robust in functionality. 
-                            Rather it cuts out a lot of the fat of the more powerful to-do list apps available in 
-                            order to increase intention and ease of use. It is quick to manage and easy to 
-                            implement in day-to-day routine. Complete daily tasks, pursue long-term goals, and 
-                            know that you are living a conscious life.
+                            -- App Description --
                         </span>
+                        <br></br>
+                        <p>click outside modal window to exit</p>
                     </div>
                 )
             default : return (
@@ -90,10 +85,6 @@ const Settings = () => {
                             {data(state[position])}
                         </li>
                     </ul>
-                    {/* <div>
-                        <br></br>
-                        {data(state[position])}
-                    </div> */}
                 </div>
             ) : (
                 <div className="hamburger" onClick={() => showSettings(true)}>
@@ -134,6 +125,6 @@ function useOnClickOutside(ref, handler) {
       // ... passing it into this hook.
       [ref, handler]
     );
-  }
+}
 
 export default Settings;

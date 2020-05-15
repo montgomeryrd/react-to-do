@@ -54,3 +54,7 @@
     background-color: #A2DAFF;
     border-radius: 1mm;
 }
+
+.settings-content h3 {
+    display: flex;
+}

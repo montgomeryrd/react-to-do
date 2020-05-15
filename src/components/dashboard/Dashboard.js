@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Settings from './Settings';
 import TasksPage from '../contentview/TasksPage';
-import GoalsPage from '../contentview/GoalsPage';
-import Archive from '../contentview/Archive';
+// import GoalsPage from '../contentview/GoalsPage';
+// import Archive from '../contentview/Archive';
 
 import '../../styles/dashboard.css';
+import "../../styles/tasks.css";
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -14,22 +15,23 @@ class Dashboard extends React.Component {
         this.state = {
             value : "",
             tasks : [],
-            goals : [],
-            steps : [],
-            goalContainer : [],
-            archivedTasks : [],
-            archivedGoals : [],
-            points : 0,
-            taskpoints : 5,
-            goalStepPoints : 50,
-            goalpoints : 1000,
+            array : [],
+            // goals : [],
+            // steps : [],
+            // goalContainer : [],
+            // archivedTasks : [],
+            // archivedGoals : [],
+            // points : 0,
+            // taskpoints : 5,
+            // goalStepPoints : 50,
+            // goalpoints : 1000,
             taskCount: 0,
-            goalCount: 0,
-            user: "",
+            // goalCount: 0,
+            // user: "",
         }
         this.handleChangeForms=this.handleChangeForms.bind(this);
         this.handleTasksSubmit=this.handleTasksSubmit.bind(this);
-        this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
+        // this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
     }
     // Form functions
     handleChangeForms (e) {
@@ -40,17 +42,22 @@ class Dashboard extends React.Component {
         this.addTaskItem(this.state);
         this.setState({value : ""});
     }
-    handleGoalsSubmit (e) {
-        e.preventDefault();
-        this.addGoalItem(this.state);
-        this.setState({value : ""});
-    }
+    // handleGoalsSubmit (e) {
+    //     e.preventDefault();
+    //     this.addGoalItem(this.state);
+    //     this.setState({value : ""});
+    // }
+
     // Task functions
     addTaskItem = (task) => {
         task.id = Math.random() * 1000;
         task.content = this.state.value;
         this.setState({tasks : [...this.state.tasks, task]});
         this.setState({taskCount : this.state.taskCount + 1});
+    }
+    completedTaskItem = (id) => {
+        const completedTask = this.state.tasks.filter(task => task.id === id);
+        this.setState({array : [...this.state.array].concat(completedTask)});
     }
     removeTaskItem = (id) => {
         this.setState({tasks : this.state.tasks.filter(task => task.id !== id)});
@@ -63,22 +70,22 @@ class Dashboard extends React.Component {
         this.removeTaskItem(id);
     }
     // Goal Functions
-    addGoalItem = (goal) => {
-        goal.id = Math.random() * 1000;
-        goal.content = this.state.value;
-        this.setState({goals : [...this.state.goals, goal]});
-        this.setState({goalCount : this.state.goalCount + 1});
-    }
-    removeGoalItem = (id) => {
-        this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
-        this.setState({goalCount : this.state.goalCount - 1});
-    }
-    archiveGoalItem = (id) => {
-        const book = this.state.goals.filter(goal => goal.id === id);
-        this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
-        this.setState({points : this.state.points + 1000});
-        this.removeGoalItem(id);
-    }
+    // addGoalItem = (goal) => {
+    //     goal.id = Math.random() * 1000;
+    //     goal.content = this.state.value;
+    //     this.setState({goals : [...this.state.goals, goal]});
+    //     this.setState({goalCount : this.state.goalCount + 1});
+    // }
+    // removeGoalItem = (id) => {
+    //     this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
+    //     this.setState({goalCount : this.state.goalCount - 1});
+    // }
+    // archiveGoalItem = (id) => {
+    //     const book = this.state.goals.filter(goal => goal.id === id);
+    //     this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
+    //     this.setState({points : this.state.points + 1000});
+    //     this.removeGoalItem(id);
+    // }
     // Goal Step Functions
 
     checkState = () => {console.log(this.state)};
@@ -87,8 +94,8 @@ class Dashboard extends React.Component {
         const currentDate = new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'});
         const currentDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date().getDay()];
         const red = {backgroundColor : '#E91E63'};
-        const blue = {backgroundColor : '#2196F3'};
-        const yellow = {backgroundColor : '#FFCA28'}; 
+        // const blue = {backgroundColor : '#2196F3'};
+        // const yellow = {backgroundColor : '#FFCA28'}; 
 
         return (
             <div className="container">
@@ -103,19 +110,19 @@ class Dashboard extends React.Component {
                             <div className="nav">
                                 <NavLink to="/tasks" style={{ textDecoration: 'none' }}>
                                     <NavigationLinks 
-                                        data = {{bgcolor: red, page:"Tasks:", count: this.state.taskCount}} 
+                                        data = {{id: "tasks-bar", bgcolor: red, page:"Tasks:", count: this.state.taskCount}} 
                                     />
                                 </NavLink>
-                                <NavLink to="/goals" style={{ textDecoration: 'none' }}>
+                                {/* <NavLink to="/goals" style={{ textDecoration: 'none' }}>
                                     <NavigationLinks 
-                                        data = {{bgcolor: blue, page: "Goals:", count: this.state.goalCount}} 
+                                        data = {{id: "goals-bar", bgcolor: blue, page: "Goals:", count: this.state.goalCount}} 
                                     />
                                 </NavLink>
                                 <NavLink to="/archive" style={{ textDecoration: 'none' }}>
                                     <NavigationLinks  
-                                        data = {{bgcolor: yellow, page: "Achievements", count: ""}} 
+                                        data = {{id:"achievements-bar", bgcolor: yellow, page: "Achievements", count: ""}} 
                                     />
-                                </NavLink>
+                                </NavLink> */}
                             </div>
                             <div className="links">
                                 <Route path="/tasks" render={props => 
@@ -125,11 +132,12 @@ class Dashboard extends React.Component {
                                         tasks={this.state.tasks} 
                                         handleChangeForms={this.handleChangeForms} 
                                         handleTasksSubmit={this.handleTasksSubmit} 
+                                        completedTaskItem={this.completedTaskItem}
                                         removeTaskItem={this.removeTaskItem} 
                                         archiveTaskItem={this.archiveTaskItem}
                                     />)
                                 }/>
-                                <Route path="/goals" render={props =>
+                                {/* <Route path="/goals" render={props =>
                                     (<GoalsPage 
                                         {...props} 
                                         value={this.state.value} 
@@ -146,12 +154,12 @@ class Dashboard extends React.Component {
                                         archivedTasks={this.state.archivedTasks} 
                                         archivedGoals={this.state.archivedGoals}
                                     />)
-                                }/>
+                                }/> */}
                             </div>
                         </Router>
                     </div>
                 </div>
-                <h3>total points: {this.state.points}</h3>
+                {/* <h3>total points: {this.state.points}</h3> */}
                 <button onClick={() => {this.checkState()}}>this.state</button>
             </div>
         );
@@ -160,7 +168,7 @@ class Dashboard extends React.Component {
 
 function NavigationLinks(props) {
     return (
-        <div className="navigation-link" style={props.data.bgcolor}>
+        <div id={props.data.id} className="navigation-link" style={props.data.bgcolor}>
             <h2>{props.data.page} {props.data.count}</h2>
         </div>
     )
