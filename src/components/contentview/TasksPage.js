@@ -3,13 +3,13 @@
 import React from 'react';
 import "../../styles/tasks.css";
 
-const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTaskItem, completedTaskItem}) => {
+const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTaskItem, completedTaskItem, archiveTaskItems}) => {
   const mytasks = tasks.length ? (
     tasks.map((task, position) => {
       return (
         <div className="task-item" key={task.id = position}>
           <span className="span-item" style={{opacity : task.status ? 1 : .3}} onClick={() => {completedTaskItem(task.id)}}>{task.content}</span>
-            <button className="button" onClick={() => {removeTaskItem(task.id)}}>delete</button>
+            <button className="remove-button" onClick={() => {removeTaskItem(task.id)}}>delete</button>
         </div>
       )
     })
@@ -36,6 +36,7 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
       <div className="task-contents">
         <h4>Tasks:</h4>
         {mytasks}
+        <button className="clear-button" onClick={() => {archiveTaskItems()}}>clear completed tasks</button>
       </div>
     </div>
   );
