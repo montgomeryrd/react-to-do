@@ -37,7 +37,7 @@ const Settings = () => {
                             <a href="https://usehooks.com/useOnClickOutside/" 
                                 rel="noopener noreferrer" 
                                 target="_blank">
-                                <span roll="img" aria-labelledby="useHooks">(🐠)</span>
+                                <span role="img" aria-label="useHooks logo">(🐠)</span>
                             </a>
                         </h4>
                         <br></br>
@@ -97,6 +97,7 @@ const Settings = () => {
     )
 }
 
+// useHooks, Easy to understand React Hook recipes by Gabe Ragland:
 function useOnClickOutside(ref, handler) {
     useEffect(
       () => {
