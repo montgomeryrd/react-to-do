@@ -42,19 +42,20 @@ const GoalsPage = ({value, goals, handleChangeForms, handleGoalsSubmit, removeGo
             {/* <div id="show-steps">
               {mysteps}
             </div> */}
-            <button className="archive-goal" onClick={() => {archiveGoalItem(goal.id)}}>complete</button>
+            <button className="archive-goal" onClick={() => {archiveGoalItem(goal.id)}}>goal completed</button>
             <button className="button" onClick={() => {removeGoalItem(goal.id)}}>delete</button>
           </div>
         </div>
       )
     })
   ) : (
-    <p className="empty-task-list">currently no goals to pursue</p>
+    <p className="empty-task-list">empty</p>
   );
   
   return (
     <div className="goal-page-view">
       <form onSubmit={handleGoalsSubmit}>
+        <label>input a goal:</label>
         <input
           id="form-input"
           type="text"
@@ -69,7 +70,7 @@ const GoalsPage = ({value, goals, handleChangeForms, handleGoalsSubmit, removeGo
           submit
         </button>
       </form>
-      <h4>Goals:</h4>
+      <h4>Goals Page</h4>
       {mygoals}
     </div>
   );

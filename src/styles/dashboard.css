@@ -41,6 +41,13 @@ font-family: 'Open Sans Condensed', sans-serif;
     padding: 2px;
 }
 
+.dashboard-content-view h6 {
+    position: absolute;
+    font-size: .8rem;
+    padding: 3px;
+    padding-left: 20px;
+}
+
 /* Navigation Links */
 .navigation-container {
     padding: 20px;

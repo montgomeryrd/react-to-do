@@ -14,11 +14,12 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
       )
     })
   ) : (
-    <p className="empty-task-list">currently no tasks to perform</p>
+    <p className="empty-task-list">empty</p>
   );
   return (
     <div className="task-page-view">
       <form id="task-form" onSubmit={handleTasksSubmit}>
+        <label>input a task:</label>
         <input
           id="form-input"
           type="text"
@@ -34,7 +35,7 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
         </button>
       </form>
       <div className="task-contents">
-        <h4>Tasks:</h4>
+        <h4>Tasks Page</h4>
         {mytasks}
         <button className="clear-button" onClick={() => {archiveTaskItems()}}>clear completed tasks</button>
       </div>

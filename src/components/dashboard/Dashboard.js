@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import Settings from './Settings';
 import TasksPage from '../contentview/TasksPage';
-// import GoalsPage from '../contentview/GoalsPage';
+import GoalsPage from '../contentview/GoalsPage';
 import Archive from '../contentview/Archive';
 
 import '../../styles/dashboard.css';
@@ -16,19 +17,19 @@ class Dashboard extends React.Component {
             value : "",
             tasks : [],
             array : [],
-            // goals : [],
+            goals : [],
             // steps : [],
             // goalContainer : [],
             archivedTasks : [],
-            // archivedGoals : [],
+            archivedGoals : [],
             points : 0,
             taskCount: 0,
-            // goalCount: 0,
-            // user: "",
+            goalCount: 0,
+            user: "Riker",
         }
         this.handleChangeForms=this.handleChangeForms.bind(this);
         this.handleTasksSubmit=this.handleTasksSubmit.bind(this);
-        // this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
+        this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
     }
     // Form functions
     handleChangeForms (e) {
@@ -39,11 +40,11 @@ class Dashboard extends React.Component {
         this.addTaskItem(this.state);
         this.setState({value : ""});
     }
-    // handleGoalsSubmit (e) {
-    //     e.preventDefault();
-    //     this.addGoalItem(this.state);
-    //     this.setState({value : ""});
-    // }
+    handleGoalsSubmit (e) {
+        e.preventDefault();
+        this.addGoalItem(this.state);
+        this.setState({value : ""});
+    }
 
     // Task functions
     addTaskItem = (task) => {
@@ -67,36 +68,35 @@ class Dashboard extends React.Component {
         this.setState({tasks : this.state.tasks.filter(task => task.id !== id)});
         this.setState({taskCount : this.state.taskCount - 1});
     }
-    archiveTaskItems = (id) => {
-        this.setState({points : this.state.points + (5 * this.state.array.length)});
-        this.setState({archivedTasks : ([...this.state.array].concat([...this.state.archivedTasks])).filter((_,i) => i < 6)});    
-        this.removeTasksFromTasksList(this.state);
-    }
     removeTasksFromTasksList = () => {
         this.setState({tasks : this.state.tasks.filter(task => task.status !== false)});
         const array = [];
         this.setState({taskCount : this.state.taskCount - this.state.array.length});
         this.setState({array : array});
     }
-    
+    archiveTaskItems = (id) => {
+        this.setState({points : this.state.points + (5 * this.state.array.length)});
+        this.setState({archivedTasks : ([...this.state.array].concat([...this.state.archivedTasks])).filter((_,i) => i < 6)});    
+        this.removeTasksFromTasksList(this.state);
+    }
     
     // Goal Functions
-    // addGoalItem = (goal) => {
-    //     goal.id = Math.random() * 1000;
-    //     goal.content = this.state.value;
-    //     this.setState({goals : [...this.state.goals, goal]});
-    //     this.setState({goalCount : this.state.goalCount + 1});
-    // }
-    // removeGoalItem = (id) => {
-    //     this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
-    //     this.setState({goalCount : this.state.goalCount - 1});
-    // }
-    // archiveGoalItem = (id) => {
-    //     const book = this.state.goals.filter(goal => goal.id === id);
-    //     this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
-    //     this.setState({points : this.state.points + 1000});
-    //     this.removeGoalItem(id);
-    // }
+    addGoalItem = (goal) => {
+        goal.id = Math.random() * 1000;
+        goal.content = this.state.value;
+        this.setState({goals : [...this.state.goals, goal]});
+        this.setState({goalCount : this.state.goalCount + 1});
+    }
+    removeGoalItem = (id) => {
+        this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
+        this.setState({goalCount : this.state.goalCount - 1});
+    }
+    archiveGoalItem = (id) => {
+        const book = this.state.goals.filter(goal => goal.id === id);
+        this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
+        this.setState({points : this.state.points + 1000});
+        this.removeGoalItem(id);
+    }
     // Goal Step Functions
 
     checkState = () => {console.log(this.state)};
@@ -105,13 +105,14 @@ class Dashboard extends React.Component {
         const currentDate = new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'});
         const currentDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date().getDay()];
         const red = {backgroundColor : '#E91E63'};
-        // const blue = {backgroundColor : '#2196F3'};
+        const blue = {backgroundColor : '#2196F3'};
         const yellow = {backgroundColor : '#FFCA28'}; 
 
         return (
             <div className="container">
                 <div className="dashboard-content-view">
                     <Settings />
+                    <h6>{this.state.user}</h6>
                     <h2>{currentDate}</h2>
                     <h3>{currentDay}</h3>
                     <h1>Dashboard</h1>
@@ -124,11 +125,11 @@ class Dashboard extends React.Component {
                                         data = {{id: "tasks-bar", bgcolor: red, page:"Tasks:", count: this.state.taskCount}} 
                                     />
                                 </NavLink>
-                                {/* <NavLink to="/goals" style={{ textDecoration: 'none' }}>
+                                <NavLink to="/goals" style={{ textDecoration: 'none' }}>
                                     <NavigationLinks 
                                         data = {{id: "goals-bar", bgcolor: blue, page: "Goals:", count: this.state.goalCount}} 
                                     />
-                                </NavLink> */}
+                                </NavLink>
                                 <NavLink to="/archive" style={{ textDecoration: 'none' }}>
                                     <NavigationLinks  
                                         data = {{id:"achievements-bar", bgcolor: yellow, page: "Achievements", count: ""}} 
@@ -148,7 +149,7 @@ class Dashboard extends React.Component {
                                         archiveTaskItems={this.archiveTaskItems}
                                     />)
                                 }/>
-                                {/* <Route path="/goals" render={props =>
+                                <Route path="/goals" render={props =>
                                     (<GoalsPage 
                                         {...props} 
                                         value={this.state.value} 
@@ -158,7 +159,7 @@ class Dashboard extends React.Component {
                                         removeGoalItem={this.removeGoalItem} 
                                         archiveGoalItem={this.archiveGoalItem}
                                     />)
-                                }/> */}
+                                }/>
                                 <Route path="/archive" render={props =>
                                     (<Archive 
                                         {...props} 
