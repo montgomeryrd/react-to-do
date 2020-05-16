@@ -75,8 +75,8 @@ class Dashboard extends React.Component {
     removeTasksFromTasksList = () => {
         this.setState({tasks : this.state.tasks.filter(task => task.status !== false)});
         const array = [];
+        this.setState({taskCount : this.state.taskCount - this.state.array.length});
         this.setState({array : array});
-        this.setState({taskCount : this.state.taskCount - this.state.taskCount});
     }
     
     
