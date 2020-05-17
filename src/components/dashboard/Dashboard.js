@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Settings from './Settings';
 import TasksPage from '../contentview/TasksPage';
+// import TomorrowsTasksPage from '../contentview/TomorrowsTasksPage';
 import GoalsPage from '../contentview/GoalsPage';
 import Archive from '../contentview/Archive';
 
@@ -18,6 +19,7 @@ class Dashboard extends React.Component {
             tasks : [],
             array : [],
             goals : [],
+            // tomorrowPageBool : true,
             // steps : [],
             // goalContainer : [],
             archivedTasks : [],
@@ -59,6 +61,9 @@ class Dashboard extends React.Component {
         if(completedTask[0].status === true) {
             this.setState({array : completedTask.concat([...this.state.array])});
             completedTask.map(task => task.status = false);
+        } else {
+            this.setState({array : this.state.array.filter(task => task.id !== id)})
+            completedTask.map(task => task.status = true);
         }
     }
     removeTaskItem = (id) => {
@@ -79,7 +84,9 @@ class Dashboard extends React.Component {
         this.setState({archivedTasks : ([...this.state.array].concat([...this.state.archivedTasks])).filter((_,i) => i < 6)});    
         this.removeTasksFromTasksList(this.state);
     }
-    
+    // Tomorrows Tasks Functions
+    // toggleTomorrowsTasksPageTrue = () => { this.setState({tomorrowPageBool : true})};
+    // toggleTomorrowsTasksPageFalse = () => { this.setState({tomorrowPageBool : false})};
     // Goal Functions
     addGoalItem = (goal) => {
         goal.id = Math.random() * 1000;
@@ -135,6 +142,13 @@ class Dashboard extends React.Component {
                                         data = {{id:"achievements-bar", bgcolor: yellow, page: "Achievements", count: ""}} 
                                     />
                                 </NavLink>
+                                {/* <NavLink to="/tomorrow" style={{ textDecoration: 'none' }}>
+                                    {this.state.tomorrowPageBool ?
+                                        <h5>Tomorrow's Tasks</h5>
+                                    : 
+                                        null 
+                                    }
+                                </NavLink> */}
                             </div>
                             <div className="links">
                                 <Route path="/tasks" render={props => 
@@ -142,6 +156,7 @@ class Dashboard extends React.Component {
                                         {...props} 
                                         value={this.state.value} 
                                         tasks={this.state.tasks} 
+                                        toggleTomorrowsTasksPageTrue={this.toggleTomorrowsTasksPageTrue}
                                         handleChangeForms={this.handleChangeForms} 
                                         handleTasksSubmit={this.handleTasksSubmit} 
                                         completedTaskItem={this.completedTaskItem}
@@ -154,6 +169,7 @@ class Dashboard extends React.Component {
                                         {...props} 
                                         value={this.state.value} 
                                         goals={this.state.goals} 
+                                        toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
                                         handleChangeForms={this.handleChangeForms} 
                                         handleGoalsSubmit={this.handleGoalsSubmit} 
                                         removeGoalItem={this.removeGoalItem} 
@@ -163,10 +179,17 @@ class Dashboard extends React.Component {
                                 <Route path="/archive" render={props =>
                                     (<Archive 
                                         {...props} 
+                                        toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
                                         archivedTasks={this.state.archivedTasks} 
                                         archivedGoals={this.state.archivedGoals}
                                     />)
                                 }/>
+                                {/* <Route path="/tomorrow" render={props =>
+                                    (<TomorrowsTasksPage 
+                                        {...props} 
+                                        toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
+                                    />)
+                                }/> */}
                             </div>
                         </Router>
                     </div>

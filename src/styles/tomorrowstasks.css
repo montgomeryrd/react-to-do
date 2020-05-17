@@ -10,12 +10,3 @@ font-family: 'Roboto', sans-serif;
 font-family: 'Open Sans Condensed', sans-serif;
 */
 
-.navigation-image {
-    display: flex;
-    width: 70px;
-    border-radius: 2mm;
-}
-
-.navigation-image img {
-    width: 70px;    
-}

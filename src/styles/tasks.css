@@ -37,3 +37,13 @@ font-family: 'Open Sans Condensed', sans-serif;
 .span-item {
   color:white;
 }
+
+.check {
+  display: inline-block;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 4px;
+  border-bottom: 2px solid #78b13f;
+  border-right: 2px solid #78b13f;
+  margin-right: 15px;
+}
