@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import Modal from './Modal';
 import Settings from './Settings';
 import TasksPage from '../contentview/TasksPage';
 // import TomorrowsTasksPage from '../contentview/TomorrowsTasksPage';
@@ -27,15 +28,23 @@ class Dashboard extends React.Component {
             points : 0,
             taskCount: 0,
             goalCount: 0,
-            user: "Riker",
+            user: "",
+            userData: [],
+            users : [],
         }
         this.handleChangeForms=this.handleChangeForms.bind(this);
+        this.handleModalSubmit=this.handleModalSubmit.bind(this);
         this.handleTasksSubmit=this.handleTasksSubmit.bind(this);
         this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
     }
     // Form functions
     handleChangeForms (e) {
         this.setState({value : e.target.value});
+    }
+    handleModalSubmit (e) {
+        e.preventDefault();
+        this.setState({user : this.state.value});
+        this.setState({value : ""});
     }
     handleTasksSubmit (e) {
         e.preventDefault();
@@ -47,7 +56,11 @@ class Dashboard extends React.Component {
         this.addGoalItem(this.state);
         this.setState({value : ""});
     }
-
+    // Modal
+    // createUser = (name) => {
+    //     name.id = Math.random() * 1000;
+    //     name.content = this.state.value;
+    // }
     // Task functions
     addTaskItem = (task) => {
         task.id = Math.random() * 1000;
@@ -117,6 +130,19 @@ class Dashboard extends React.Component {
 
         return (
             <div className="container">
+                { this.state.user === "" ?
+                    <div className="modal-container">
+                        <div className="modal">
+                            <Modal
+                                value={this.state.value}
+                                handleChangeForms={this.handleChangeForms}
+                                handleModalSubmit={this.handleModalSubmit} 
+                            />
+                        </div>
+                    </div>
+                :
+                    null
+                }
                 <div className="dashboard-content-view">
                     <Settings />
                     <h6>{this.state.user}</h6>
@@ -180,6 +206,8 @@ class Dashboard extends React.Component {
                                     (<Archive 
                                         {...props} 
                                         toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
+                                        handleChangeForms={this.handleChangeForms}
+                                        handleModalSubmit={this.handleModalSubmit}
                                         archivedTasks={this.state.archivedTasks} 
                                         archivedGoals={this.state.archivedGoals}
                                     />)
