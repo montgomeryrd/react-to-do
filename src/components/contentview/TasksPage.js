@@ -1,9 +1,12 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import "../../styles/tasks.css";
 
 const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTaskItem, completedTaskItem, archiveTaskItems}) => {
+  const [formOpen, setFormOpen] = useState(false);
+  const toggle = () => setFormOpen(!formOpen);
+
   const mytasks = tasks.length ? (
     tasks.map((task, position) => {
       return (
@@ -18,24 +21,30 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
   );
   return (
     <div className="task-page-view">
-      <form id="task-form" onSubmit={handleTasksSubmit}>
-        <label>input a task:</label>
-        <input
-          id="form-input"
-          type="text"
-          name="input"
-          value={value}
-          required={true}
-          autoComplete="off"
-          onChange={handleChangeForms}
-          placeholder=""
-        />
-        <button id="form-button" type="submit" onSubmit={handleTasksSubmit}>
-          submit
-        </button>
-      </form>
+      <h4 className="title">Tasks Page</h4>
+      { formOpen ? (
+        <form id="task-form" onSubmit={handleTasksSubmit}>
+          <span className="span-toggle" onClick={toggle}>show/<span className="strong">hide</span></span>
+          <br></br>
+          <label>input a task:</label>
+          <input
+            id="form-input"
+            type="text"
+            name="input"
+            value={value}
+            required={true}
+            autoComplete="off"
+            onChange={handleChangeForms}
+            placeholder=""
+          />
+          <button id="form-button" type="submit" onSubmit={handleTasksSubmit}>
+            submit
+          </button>
+        </form>
+      ) : (
+        <span className="span-toggle" onClick={toggle}><span className="strong">show</span>/hide</span>
+      )}
       <div className="task-contents">
-        <h4>Tasks Page</h4>
         {mytasks}
         <button className="clear-button" onClick={() => {archiveTaskItems()}}>clear completed tasks</button>
       </div>

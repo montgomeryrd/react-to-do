@@ -28,7 +28,7 @@ class Dashboard extends React.Component {
             points : 0,
             taskCount: 0,
             goalCount: 0,
-            user: "",
+            user: "Riker",
             userData: [],
             users : [],
         }
@@ -56,11 +56,6 @@ class Dashboard extends React.Component {
         this.addGoalItem(this.state);
         this.setState({value : ""});
     }
-    // Modal
-    // createUser = (name) => {
-    //     name.id = Math.random() * 1000;
-    //     name.content = this.state.value;
-    // }
     // Task functions
     addTaskItem = (task) => {
         task.id = Math.random() * 1000;
@@ -98,8 +93,7 @@ class Dashboard extends React.Component {
         this.removeTasksFromTasksList(this.state);
     }
     // Tomorrows Tasks Functions
-    // toggleTomorrowsTasksPageTrue = () => { this.setState({tomorrowPageBool : true})};
-    // toggleTomorrowsTasksPageFalse = () => { this.setState({tomorrowPageBool : false})};
+
     // Goal Functions
     addGoalItem = (goal) => {
         goal.id = Math.random() * 1000;
