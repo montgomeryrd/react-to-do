@@ -33,6 +33,7 @@
 #settings {
     display: flex;
     position: absolute;
+    z-index: 10;
 }
 
 .settings-content {
@@ -57,4 +58,8 @@
 
 .settings-content h3 {
     display: flex;
+}
+
+a {
+    text-decoration: none;
 }

@@ -1,9 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+import Modal from './Modal';
 import Settings from './Settings';
 import TasksPage from '../contentview/TasksPage';
-// import GoalsPage from '../contentview/GoalsPage';
+// import TomorrowsTasksPage from '../contentview/TomorrowsTasksPage';
+import GoalsPage from '../contentview/GoalsPage';
 import Archive from '../contentview/Archive';
 
 import '../../styles/dashboard.css';
@@ -16,35 +19,48 @@ class Dashboard extends React.Component {
             value : "",
             tasks : [],
             array : [],
-            // goals : [],
+            goals : [],
+            // tomorrowPageBool : true,
             // steps : [],
             // goalContainer : [],
             archivedTasks : [],
-            // archivedGoals : [],
+            archivedGoals : [],
             points : 0,
             taskCount: 0,
-            // goalCount: 0,
-            // user: "",
+            goalCount: 0,
+            user: "",
+            userData: [],
+            users : [],
         }
         this.handleChangeForms=this.handleChangeForms.bind(this);
+        this.handleModalSubmit=this.handleModalSubmit.bind(this);
         this.handleTasksSubmit=this.handleTasksSubmit.bind(this);
-        // this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
+        this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
     }
     // Form functions
     handleChangeForms (e) {
         this.setState({value : e.target.value});
+    }
+    handleModalSubmit (e) {
+        e.preventDefault();
+        this.setState({user : this.state.value});
+        this.setState({value : ""});
     }
     handleTasksSubmit (e) {
         e.preventDefault();
         this.addTaskItem(this.state);
         this.setState({value : ""});
     }
-    // handleGoalsSubmit (e) {
-    //     e.preventDefault();
-    //     this.addGoalItem(this.state);
-    //     this.setState({value : ""});
+    handleGoalsSubmit (e) {
+        e.preventDefault();
+        this.addGoalItem(this.state);
+        this.setState({value : ""});
+    }
+    // Modal
+    // createUser = (name) => {
+    //     name.id = Math.random() * 1000;
+    //     name.content = this.state.value;
     // }
-
     // Task functions
     addTaskItem = (task) => {
         task.id = Math.random() * 1000;
@@ -58,6 +74,9 @@ class Dashboard extends React.Component {
         if(completedTask[0].status === true) {
             this.setState({array : completedTask.concat([...this.state.array])});
             completedTask.map(task => task.status = false);
+        } else {
+            this.setState({array : this.state.array.filter(task => task.id !== id)})
+            completedTask.map(task => task.status = true);
         }
     }
     removeTaskItem = (id) => {
@@ -67,36 +86,37 @@ class Dashboard extends React.Component {
         this.setState({tasks : this.state.tasks.filter(task => task.id !== id)});
         this.setState({taskCount : this.state.taskCount - 1});
     }
+    removeTasksFromTasksList = () => {
+        this.setState({tasks : this.state.tasks.filter(task => task.status !== false)});
+        const array = [];
+        this.setState({taskCount : this.state.taskCount - this.state.array.length});
+        this.setState({array : array});
+    }
     archiveTaskItems = (id) => {
         this.setState({points : this.state.points + (5 * this.state.array.length)});
         this.setState({archivedTasks : ([...this.state.array].concat([...this.state.archivedTasks])).filter((_,i) => i < 6)});    
         this.removeTasksFromTasksList(this.state);
     }
-    removeTasksFromTasksList = () => {
-        this.setState({tasks : this.state.tasks.filter(task => task.status !== false)});
-        const array = [];
-        this.setState({array : array});
-        this.setState({taskCount : this.state.taskCount - this.state.taskCount});
-    }
-    
-    
+    // Tomorrows Tasks Functions
+    // toggleTomorrowsTasksPageTrue = () => { this.setState({tomorrowPageBool : true})};
+    // toggleTomorrowsTasksPageFalse = () => { this.setState({tomorrowPageBool : false})};
     // Goal Functions
-    // addGoalItem = (goal) => {
-    //     goal.id = Math.random() * 1000;
-    //     goal.content = this.state.value;
-    //     this.setState({goals : [...this.state.goals, goal]});
-    //     this.setState({goalCount : this.state.goalCount + 1});
-    // }
-    // removeGoalItem = (id) => {
-    //     this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
-    //     this.setState({goalCount : this.state.goalCount - 1});
-    // }
-    // archiveGoalItem = (id) => {
-    //     const book = this.state.goals.filter(goal => goal.id === id);
-    //     this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
-    //     this.setState({points : this.state.points + 1000});
-    //     this.removeGoalItem(id);
-    // }
+    addGoalItem = (goal) => {
+        goal.id = Math.random() * 1000;
+        goal.content = this.state.value;
+        this.setState({goals : [...this.state.goals, goal]});
+        this.setState({goalCount : this.state.goalCount + 1});
+    }
+    removeGoalItem = (id) => {
+        this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
+        this.setState({goalCount : this.state.goalCount - 1});
+    }
+    archiveGoalItem = (id) => {
+        const book = this.state.goals.filter(goal => goal.id === id);
+        this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
+        this.setState({points : this.state.points + 1000});
+        this.removeGoalItem(id);
+    }
     // Goal Step Functions
 
     checkState = () => {console.log(this.state)};
@@ -105,13 +125,27 @@ class Dashboard extends React.Component {
         const currentDate = new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'});
         const currentDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date().getDay()];
         const red = {backgroundColor : '#E91E63'};
-        // const blue = {backgroundColor : '#2196F3'};
+        const blue = {backgroundColor : '#2196F3'};
         const yellow = {backgroundColor : '#FFCA28'}; 
 
         return (
             <div className="container">
+                { this.state.user === "" ?
+                    <div className="modal-container">
+                        <div className="modal">
+                            <Modal
+                                value={this.state.value}
+                                handleChangeForms={this.handleChangeForms}
+                                handleModalSubmit={this.handleModalSubmit} 
+                            />
+                        </div>
+                    </div>
+                :
+                    null
+                }
                 <div className="dashboard-content-view">
                     <Settings />
+                    <h6>{this.state.user}</h6>
                     <h2>{currentDate}</h2>
                     <h3>{currentDay}</h3>
                     <h1>Dashboard</h1>
@@ -124,16 +158,23 @@ class Dashboard extends React.Component {
                                         data = {{id: "tasks-bar", bgcolor: red, page:"Tasks:", count: this.state.taskCount}} 
                                     />
                                 </NavLink>
-                                {/* <NavLink to="/goals" style={{ textDecoration: 'none' }}>
+                                <NavLink to="/goals" style={{ textDecoration: 'none' }}>
                                     <NavigationLinks 
                                         data = {{id: "goals-bar", bgcolor: blue, page: "Goals:", count: this.state.goalCount}} 
                                     />
-                                </NavLink> */}
+                                </NavLink>
                                 <NavLink to="/archive" style={{ textDecoration: 'none' }}>
                                     <NavigationLinks  
                                         data = {{id:"achievements-bar", bgcolor: yellow, page: "Achievements", count: ""}} 
                                     />
                                 </NavLink>
+                                {/* <NavLink to="/tomorrow" style={{ textDecoration: 'none' }}>
+                                    {this.state.tomorrowPageBool ?
+                                        <h5>Tomorrow's Tasks</h5>
+                                    : 
+                                        null 
+                                    }
+                                </NavLink> */}
                             </div>
                             <div className="links">
                                 <Route path="/tasks" render={props => 
@@ -141,6 +182,7 @@ class Dashboard extends React.Component {
                                         {...props} 
                                         value={this.state.value} 
                                         tasks={this.state.tasks} 
+                                        toggleTomorrowsTasksPageTrue={this.toggleTomorrowsTasksPageTrue}
                                         handleChangeForms={this.handleChangeForms} 
                                         handleTasksSubmit={this.handleTasksSubmit} 
                                         completedTaskItem={this.completedTaskItem}
@@ -148,24 +190,34 @@ class Dashboard extends React.Component {
                                         archiveTaskItems={this.archiveTaskItems}
                                     />)
                                 }/>
-                                {/* <Route path="/goals" render={props =>
+                                <Route path="/goals" render={props =>
                                     (<GoalsPage 
                                         {...props} 
                                         value={this.state.value} 
                                         goals={this.state.goals} 
+                                        toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
                                         handleChangeForms={this.handleChangeForms} 
                                         handleGoalsSubmit={this.handleGoalsSubmit} 
                                         removeGoalItem={this.removeGoalItem} 
                                         archiveGoalItem={this.archiveGoalItem}
                                     />)
-                                }/> */}
+                                }/>
                                 <Route path="/archive" render={props =>
                                     (<Archive 
                                         {...props} 
+                                        toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
+                                        handleChangeForms={this.handleChangeForms}
+                                        handleModalSubmit={this.handleModalSubmit}
                                         archivedTasks={this.state.archivedTasks} 
                                         archivedGoals={this.state.archivedGoals}
                                     />)
                                 }/>
+                                {/* <Route path="/tomorrow" render={props =>
+                                    (<TomorrowsTasksPage 
+                                        {...props} 
+                                        toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
+                                    />)
+                                }/> */}
                             </div>
                         </Router>
                     </div>

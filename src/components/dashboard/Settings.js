@@ -33,11 +33,19 @@ const Settings = () => {
                     <div>
                         <h3>useHooks</h3>
                         <h4>
-                            Easy to understand React Hook recipes by Gabe Ragland 
+                            Easy to understand React Hook recipes by Gabe Ragland
+                            <br></br>
+                            <br></br>
                             <a href="https://usehooks.com/useOnClickOutside/" 
                                 rel="noopener noreferrer" 
                                 target="_blank">
-                                <span role="img" aria-label="useHooks logo">(🐠)</span>
+                                <span role="img" aria-label="useHooks logo">useOnClickOutside (🐠)</span>
+                            </a>
+                            <br></br>
+                            <a href="https://usehooks.com/useLockBodyScroll/" 
+                                rel="noopener noreferrer" 
+                                target="_blank">
+                                <span role="img" aria-label="useHooks logo">useLockBodyScroll (🐠)</span>
                             </a>
                         </h4>
                         <br></br>
