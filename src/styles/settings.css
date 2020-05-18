@@ -59,3 +59,7 @@
 .settings-content h3 {
     display: flex;
 }
+
+a {
+    text-decoration: none;
+}
