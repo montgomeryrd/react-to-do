@@ -3,9 +3,9 @@
 import React from 'react';
 import "../../styles/archive.css"
 
-const Archive = ({archivedTasks, archivedGoals}) => {
-  const archivedTasksList = archivedTasks.length ? (
-    archivedTasks.map((scroll, position) => {
+const Archive = (props) => {
+  const archivedTasksList = props.archivedTasks.length ? (
+    props.archivedTasks.map((scroll, position) => {
       return (
         <div className="scroll-item" key={scroll.id = position}>
           <span>{scroll.content}</span>
@@ -15,8 +15,8 @@ const Archive = ({archivedTasks, archivedGoals}) => {
   ) : (
     <p className="empty-task-list">empty</p>
   );
-  const archivedGoalsList = archivedGoals.length ? (
-    archivedGoals.map((book, position) => {
+  const archivedGoalsList = props.archivedGoals.length ? (
+    props.archivedGoals.map((book, position) => {
       return (
         <div className="book-item" key={book.id = position}>
           <span>{book.content}</span>

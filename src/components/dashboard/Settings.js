@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "../../styles/settings.css";
 
-const Settings = ({totalTasks, totalGoals, deleteUser}) => {
+const Settings = (props) => {
     const ref = useRef();
     const [settings, showSettings] = useState(false);
     useOnClickOutside(ref, () => showSettings(!settings));
@@ -16,8 +16,8 @@ const Settings = ({totalTasks, totalGoals, deleteUser}) => {
                 <div>
                     <p>Profile Stats</p>
                     <ul>
-                        <li>completed tasks: {totalTasks}</li>
-                        <li>completed goals: {totalGoals}</li>
+                        <li>completed tasks: {props.totalTasks}</li>
+                        <li>completed goals: {props.totalGoals}</li>
                     </ul>
                     <br></br>
                     <p>click outside modal window to exit</p>
@@ -25,7 +25,7 @@ const Settings = ({totalTasks, totalGoals, deleteUser}) => {
             )
             case "delete-profile" : return (
                 <div>
-                    <p>Delete profile?  <button onClick={deleteUser}>YES</button></p>
+                    <p>Delete profile?  <button onClick={props.deleteUser}>YES</button></p>
                     <br></br>
                     <p>click outside modal window to exit</p>
                 </div>

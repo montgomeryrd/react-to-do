@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import Modal from './Modal';
 import Settings from './Settings';
@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
         };
     }
 
-    // Form handlers
+    // Form handlers ---------------------------------------------------------------
     handleChangeForms (e) {
         this.setState({value : e.target.value});
     }
@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
         this.setState({value : ""});
     }
 
-    // User Functions
+    // User Functions --------------------------------------------------------------
     saveUserInformation = () => {
         const userInformation = Object.assign({}, this.state);
         localStorage.setItem('userInformation', JSON.stringify(userInformation));
@@ -71,7 +71,7 @@ class Dashboard extends React.Component {
         localStorage.clear();
     }
 
-    // Task Page Functions
+    // Task Page Functions ---------------------------------------------------------
     addTaskItem = (task) => {
         task.id = Math.random() * 1000;
         task.content = this.state.value;
@@ -109,9 +109,9 @@ class Dashboard extends React.Component {
         this.removeTasksFromTasksList(this.state);
     }
 
-    // Tomorrow Task Page Functions
+    // Tomorrow Task Page Functions ------------------------------------------------
 
-    // Goal Page Functions
+    // Goal Page Functions ---------------------------------------------------------
     addGoalItem = (goal) => {
         goal.id = Math.random() * 1000;
         goal.content = this.state.value;
@@ -129,7 +129,8 @@ class Dashboard extends React.Component {
         this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
         this.removeGoalItem(id);
     }
-    // Goal Step Functions
+
+    // Goal Step Functions ---------------------------------------------------------
 
     // Check State Function
     checkState = () => {console.log(this.state)};
@@ -157,7 +158,11 @@ class Dashboard extends React.Component {
                     null
                 }
                 <div className="dashboard-content-view">
-                    <Settings totalTasks={this.state.totalTasks} totalGoals={this.state.totalGoals} deleteUser={this.deleteUser}/>
+                    <Settings 
+                        totalTasks={this.state.totalTasks} 
+                        totalGoals={this.state.totalGoals} 
+                        deleteUser={this.deleteUser}
+                    />
                     <h6>{this.state.user}</h6>
                     <h2>{currentDate}</h2>
                     <h3>{currentDay}</h3>
@@ -181,18 +186,10 @@ class Dashboard extends React.Component {
                                         data = {{id:"achievements-bar", bgcolor: yellow, page: "Achievements", count: ""}} 
                                     />
                                 </NavLink>
-                                {/* <NavLink to="/tomorrow" style={{ textDecoration: 'none' }}>
-                                    {this.state.tomorrowPageBool ?
-                                        <h5>Tomorrow's Tasks</h5>
-                                    : 
-                                        null 
-                                    }
-                                </NavLink> */}
                             </div>
                             <div className="links">
                                 <Route path="/tasks" render={props => 
                                     (<TasksPage 
-                                        {...props} 
                                         value={this.state.value} 
                                         tasks={this.state.tasks} 
                                         toggleTomorrowsTasksPageTrue={this.toggleTomorrowsTasksPageTrue}
@@ -205,7 +202,6 @@ class Dashboard extends React.Component {
                                 }/>
                                 <Route path="/goals" render={props =>
                                     (<GoalsPage 
-                                        {...props} 
                                         value={this.state.value} 
                                         goals={this.state.goals} 
                                         toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
@@ -217,7 +213,6 @@ class Dashboard extends React.Component {
                                 }/>
                                 <Route path="/archive" render={props =>
                                     (<Archive 
-                                        {...props} 
                                         toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
                                         handleChangeForms={this.handleChangeForms}
                                         handleModalSubmit={this.handleModalSubmit}
@@ -225,18 +220,12 @@ class Dashboard extends React.Component {
                                         archivedGoals={this.state.archivedGoals}
                                     />)
                                 }/>
-                                {/* <Route path="/tomorrow" render={props =>
-                                    (<TomorrowsTasksPage 
-                                        {...props} 
-                                        toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
-                                    />)
-                                }/> */}
                             </div>
                         </Router>
                     </div>
                 </div>
                 <h3>total points: {this.state.points}</h3>
-                <button onClick={this.checkState}>this.state</button>
+                {/* <button onClick={this.checkState}>this.state</button> */}
                 <button id="save-button" onClick={this.saveUserInformation}>Save</button>
             </div>
         );
@@ -251,20 +240,20 @@ function NavigationLinks(props) {
     )
 }
 
-Dashboard.propTypes = {
-    value: PropTypes.instanceOf(String),
-    tasks: PropTypes.instanceOf(Array),
-    goals: PropTypes.instanceOf(Array),
-    steps: PropTypes.instanceOf(Array),
-    goalContainer: PropTypes.instanceOf(Array),
-    archivedTasks: PropTypes.instanceOf(Array),
-    archivedGoals: PropTypes.instanceOf(Array),
-    points: PropTypes.instanceOf(Number),
-    taskpoints: PropTypes.instanceOf(Number),
-    goalStepPoints: PropTypes.instanceOf(Number),
-    goalpoints: PropTypes.instanceOf(Number),
-    taskCount: PropTypes.instanceOf(Number),
-    goalCount: PropTypes.instanceOf(Number),
-    user: PropTypes.instanceOf(String),
-};
+// Dashboard.propTypes = {
+//     value: PropTypes.instanceOf(String),
+//     tasks: PropTypes.instanceOf(Array),
+//     goals: PropTypes.instanceOf(Array),
+//     steps: PropTypes.instanceOf(Array),
+//     goalContainer: PropTypes.instanceOf(Array),
+//     archivedTasks: PropTypes.instanceOf(Array),
+//     archivedGoals: PropTypes.instanceOf(Array),
+//     points: PropTypes.instanceOf(Number),
+//     taskpoints: PropTypes.instanceOf(Number),
+//     goalStepPoints: PropTypes.instanceOf(Number),
+//     goalpoints: PropTypes.instanceOf(Number),
+//     taskCount: PropTypes.instanceOf(Number),
+//     goalCount: PropTypes.instanceOf(Number),
+//     user: PropTypes.instanceOf(String),
+// };
 export default Dashboard;
