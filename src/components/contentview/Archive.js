@@ -4,9 +4,8 @@ import React from 'react';
 import "../../styles/archive.css"
 
 const Archive = ({archivedTasks, archivedGoals}) => {
-  const count = 6;
   const archivedTasksList = archivedTasks.length ? (
-    archivedTasks.slice(0, count).map((scroll, position) => {
+    archivedTasks.map((scroll, position) => {
       return (
         <div className="scroll-item" key={scroll.id = position}>
           <span>{scroll.content}</span>

@@ -11,8 +11,11 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
     tasks.map((task, position) => {
       return (
         <div className="task-item" key={task.id = position}>
-          <div className="check" style={{visibility : task.status ? "hidden" : "visible"}}></div><span className="span-item" style={{opacity : task.status ? 1 : .3}} onClick={() => {completedTaskItem(task.id)}}>{task.content}</span>
+          <div className="check" style={{visibility : task.status ? "hidden" : "visible"}}></div>
+          <span className="span-item" style={{opacity : task.status ? 1 : .3}} onClick={() => {completedTaskItem(task.id)}}>{task.content}</span>
+          <div className="task-item-button">
             <button className="remove-button" onClick={() => {removeTaskItem(task.id)}}>remove</button>
+          </div>
         </div>
       )
     })
@@ -24,7 +27,7 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
       <h4 className="title">Tasks Page</h4>
       { formOpen ? (
         <form id="task-form" onSubmit={handleTasksSubmit}>
-          <span className="span-toggle" onClick={toggle}>show/<span className="strong">hide</span></span>
+          <span className="span-toggle" onClick={toggle}><span className="strong">show</span>/hide</span>
           <br></br>
           <label>input a task:</label>
           <input
@@ -42,7 +45,7 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
           </button>
         </form>
       ) : (
-        <span className="span-toggle" onClick={toggle}><span className="strong">show</span>/hide</span>
+        <span className="span-toggle" onClick={toggle}>show/<span className="strong">hide</span></span>
       )}
       <div className="task-contents">
         {mytasks}
