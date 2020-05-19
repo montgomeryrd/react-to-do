@@ -28,7 +28,7 @@ const GoalsPage = ({value, goals, handleChangeForms, handleGoalsSubmit, removeGo
       <h4 className="title">Goals Page</h4>
       { formOpen ? (
         <form onSubmit={handleGoalsSubmit}>
-          <span className="span-toggle" onClick={toggle}>show/<span className="strong">hide</span></span>
+        <span className="span-toggle" onClick={toggle}><span className="strong">show</span>/hide</span>
           <label>input a goal:</label>
           <input
             id="form-input"
@@ -45,7 +45,7 @@ const GoalsPage = ({value, goals, handleChangeForms, handleGoalsSubmit, removeGo
           </button>
         </form>
       ) : (
-        <span className="span-toggle" onClick={toggle}><span className="strong">show</span>/hide</span>
+        <span className="span-toggle" onClick={toggle}>show/<span className="strong">hide</span></span>
       )}
       <div className="goal-contents">
         {mygoals}

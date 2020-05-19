@@ -15,27 +15,32 @@ import "../../styles/tasks.css";
 class Dashboard extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            value : "",
-            tasks : [],
-            array : [],
-            goals : [],
-            // tomorrowPageBool : true,
-            // steps : [],
-            // goalContainer : [],
-            archivedTasks : [],
-            archivedGoals : [],
-            points : 0,
-            taskCount: 0,
-            goalCount: 0,
-            user: "Riker",
-            userData: [],
-            users : [],
-        }
+        // let userData = JSON.parse(localStorage.getItem('userData'));
+        // userData ? this.state = {userData} :
+        this.state = this.initialState;
         this.handleChangeForms=this.handleChangeForms.bind(this);
         this.handleModalSubmit=this.handleModalSubmit.bind(this);
         this.handleTasksSubmit=this.handleTasksSubmit.bind(this);
         this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
+    };
+    get initialState(){
+        return {
+            user : "",
+            userData : [],
+            value : "",
+            array : [],
+            tasks : [],
+            taskCount : 0,
+            totalTasks : 0,
+            archivedTasks : [],
+            goals : [],
+            goalCount : 0,
+            totalGoals : 0,
+            archivedGoals : [],
+            steps : [],
+            points : 0,
+            users : []
+        };
     }
     // Form functions
     handleChangeForms (e) {
@@ -44,6 +49,7 @@ class Dashboard extends React.Component {
     handleModalSubmit (e) {
         e.preventDefault();
         this.setState({user : this.state.value});
+        this.setState({users : [...this.state.users, this.state.user]})
         this.setState({value : ""});
     }
     handleTasksSubmit (e) {
@@ -56,6 +62,16 @@ class Dashboard extends React.Component {
         this.addGoalItem(this.state);
         this.setState({value : ""});
     }
+    // User functions
+    saveUserInformation = () => {
+        this.setState({
+            userData : this.state
+        });
+        // localStorage.setItem('userData', JSON.stringify(this.state.userData));
+    }
+    deleteUser = () => {
+        this.setState(this.initialState);
+    }
     // Task functions
     addTaskItem = (task) => {
         task.id = Math.random() * 1000;
@@ -63,6 +79,7 @@ class Dashboard extends React.Component {
         task.status = true;
         this.setState({tasks : [...this.state.tasks, task]});
         this.setState({taskCount : this.state.taskCount + 1});
+        this.saveUserInformation();
     }
     completedTaskItem = (id) => {
         const completedTask = this.state.tasks.filter(task => task.id === id);    
@@ -73,6 +90,7 @@ class Dashboard extends React.Component {
             this.setState({array : this.state.array.filter(task => task.id !== id)})
             completedTask.map(task => task.status = true);
         }
+        this.saveUserInformation()
     }
     removeTaskItem = (id) => {
         if(this.state.array.filter(task => task.id === id).length) {
@@ -80,15 +98,18 @@ class Dashboard extends React.Component {
         }
         this.setState({tasks : this.state.tasks.filter(task => task.id !== id)});
         this.setState({taskCount : this.state.taskCount - 1});
+        this.saveUserInformation()
     }
     removeTasksFromTasksList = () => {
         this.setState({tasks : this.state.tasks.filter(task => task.status !== false)});
         const array = [];
         this.setState({taskCount : this.state.taskCount - this.state.array.length});
         this.setState({array : array});
+        this.saveUserInformation()
     }
     archiveTaskItems = (id) => {
         this.setState({points : this.state.points + (5 * this.state.array.length)});
+        this.setState({totalTasks : this.state.totalTasks + this.state.array.length});
         this.setState({archivedTasks : ([...this.state.array].concat([...this.state.archivedTasks])).filter((_,i) => i < 6)});    
         this.removeTasksFromTasksList(this.state);
     }
@@ -100,15 +121,18 @@ class Dashboard extends React.Component {
         goal.content = this.state.value;
         this.setState({goals : [...this.state.goals, goal]});
         this.setState({goalCount : this.state.goalCount + 1});
+        this.saveUserInformation();
     }
     removeGoalItem = (id) => {
         this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
         this.setState({goalCount : this.state.goalCount - 1});
+        this.saveUserInformation();
     }
     archiveGoalItem = (id) => {
+        this.setState({points : this.state.points + 1000});
+        this.setState({totalGoals : this.state.totalGoals + 1});
         const book = this.state.goals.filter(goal => goal.id === id);
         this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
-        this.setState({points : this.state.points + 1000});
         this.removeGoalItem(id);
     }
     // Goal Step Functions
@@ -138,7 +162,7 @@ class Dashboard extends React.Component {
                     null
                 }
                 <div className="dashboard-content-view">
-                    <Settings />
+                    <Settings totalTasks={this.state.totalTasks} totalGoals={this.state.totalGoals} deleteUser={this.deleteUser}/>
                     <h6>{this.state.user}</h6>
                     <h2>{currentDate}</h2>
                     <h3>{currentDay}</h3>

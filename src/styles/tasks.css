@@ -51,6 +51,16 @@ font-family: 'Open Sans Condensed', sans-serif;
 
 .span-item {
   color:white;
+  /* border: solid 1px white; */
+}
+
+.task-item {
+  display: flex;
+  /* border: solid 1px white; */
+}
+
+.check {
+  /* border: solid 1px white; */
 }
 
 .check {
@@ -61,4 +71,20 @@ font-family: 'Open Sans Condensed', sans-serif;
   border-bottom: 2px solid #78b13f;
   border-right: 2px solid #78b13f;
   margin-right: 15px;
+}
+
+.task-item-button {
+  display: block;
+  text-align: right;
+  /* border: solid 1px red; */
+}
+
+.remove-button {
+  display: flex;
+  justify-content: center;
+  font-family: 'Quicksand', sans-serif;  
+  font-size: .5rem;
+  width: 50px;
+  height: 20px;
+  border-radius: 2mm;
 }

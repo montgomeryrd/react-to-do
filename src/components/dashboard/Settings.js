@@ -1,21 +1,23 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef } from 'react';
 import "../../styles/settings.css";
 
-const Settings = () => {
+const Settings = ({totalTasks, totalGoals, deleteUser}) => {
     const ref = useRef();
     const [settings, showSettings] = useState(false);
     useOnClickOutside(ref, () => showSettings(!settings));
 
     const [position, setPosition] = useState(0);
-    const state = ["", "switch-user", "delete-profile", "credits", "about"];
+    const state = ["", "profile-info", "delete-profile", "credits", "about"];
 
     const data = (id) => {
         switch(id) {
-            case "switch-user" : return (
+            case "profile-info" : return (
                 <div>
-                    <p>switch to profile:</p>
+                    <p>Profile Stats</p>
                     <ul>
-                        <li></li>
+                        <li>completed tasks: {totalTasks}</li>
+                        <li>completed goals: {totalGoals}</li>
                     </ul>
                     <br></br>
                     <p>click outside modal window to exit</p>
@@ -23,7 +25,7 @@ const Settings = () => {
             )
             case "delete-profile" : return (
                 <div>
-                    <p>Delete current profile?  <button>YES</button><button>NO</button></p>
+                    <p>Delete current profile?  <button onClick={deleteUser}>YES</button></p>
                     <br></br>
                     <p>click outside modal window to exit</p>
                 </div>
@@ -77,7 +79,7 @@ const Settings = () => {
 
                         </li>
                         <li className="settings-list" onClick={() => setPosition(position - position + 1)}>
-                            switch user
+                            profile statistics
                         </li>
                         <li className="settings-list" onClick={() => setPosition(position - position + 2)}>
                             delete profile
