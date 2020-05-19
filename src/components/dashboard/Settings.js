@@ -25,7 +25,7 @@ const Settings = ({totalTasks, totalGoals, deleteUser}) => {
             )
             case "delete-profile" : return (
                 <div>
-                    <p>Delete current profile?  <button onClick={deleteUser}>YES</button></p>
+                    <p>Delete profile?  <button onClick={deleteUser}>YES</button></p>
                     <br></br>
                     <p>click outside modal window to exit</p>
                 </div>
