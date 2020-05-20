@@ -2,16 +2,6 @@
     margin: 0 auto;
 }
 
-#show-steps-form {
-    display: block;
-    visibility: hidden;
-}
-
-#show-steps {
-    display: block;
-    visibility: hidden;
-}
-
 .title {
     display: flex;
     position: absolute;
@@ -27,4 +17,68 @@
 .strong {
     font-weight: bold;
 }
+
+.toggle-tasks {
+    display: block;
+    margin-top: -10px;
+    font-size: .5rem;
+}
+
+#goal-form-input {
+    background: 0;
+    color: #929292;
+    padding-left: 10px;
+    border: 0;
+    outline: none;
+    width: 188px;
+    font-size: 1.5em;
+    transition: padding 0.3s 0.2s ease;
+    margin-top: 4px;
+}
   
+#goal-form-input:focus + .goal-line:after {
+    transform: scaleX(1);
+}
+  
+.goal-line {
+    width: 200px;
+    height: 3px;
+    bottom: -8px;
+    border-radius: 2mm;
+    background: #bdc3c7;
+}
+  
+.goal-line:after {
+    content: " ";
+    float: right;
+    width: 200px;
+    height: 3px;
+    
+    transform: scalex(0);
+    transition: transform 0.3s ease;
+    
+    background: #2196F3;
+}
+    
+#goal-form-button {
+    display:block;
+    float: right;
+    background-color:#00003F;
+    padding:0.20em .5em;
+    border: 0;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    text-align:center;
+    transition: all 0.2s;
+    margin-top: -30px;
+    margin-bottom: 20px;
+}
+  
+#goal-form-button:hover{
+    color:#1abc9c;
+}

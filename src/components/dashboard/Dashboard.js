@@ -163,94 +163,96 @@ class Dashboard extends React.Component {
 
         return (
             <div className="container">
-                { this.state.user === "" ?
-                    <div className="modal-container">
-                        <div className="modal">
-                            <Modal
-                                value={this.state.value}
-                                handleChangeForms={this.handleChangeForms}
-                                handleModalSubmit={this.handleModalSubmit} 
-                            />
+                <div className="dashboard-container">
+                    { this.state.user === "" ?
+                        <div className="modal-container">
+                            <div className="modal">
+                                <Modal
+                                    value={this.state.value}
+                                    handleChangeForms={this.handleChangeForms}
+                                    handleModalSubmit={this.handleModalSubmit} 
+                                />
+                            </div>
+                        </div>
+                    :
+                        null
+                    }
+                    <div className="dashboard-content-view">
+                        <Settings 
+                            user={this.state.user}
+                            totalTasks={this.state.totalTasks} 
+                            totalGoals={this.state.totalGoals} 
+                            points={this.state.points}
+                            deleteUser={this.deleteUser}
+                        />
+                        <h6>{this.state.user}</h6>
+                        <h2>{currentDate}</h2>
+                        <h3>{currentDay}</h3>
+                        <h1>Dashboard</h1>
+
+                        <div className="navigation-container">
+                            <Router>
+                                <div className="nav">
+                                    <NavLink to="/tasks" style={{ textDecoration: 'none' }}>
+                                        <NavigationLinks 
+                                            data = {{id: "tasks-bar", bgcolor: red, page:"Tasks:", count: this.state.taskCount}} 
+                                        />
+                                    </NavLink>
+                                    <NavLink to="/goals" style={{ textDecoration: 'none' }}>
+                                        <NavigationLinks 
+                                            data = {{id: "goals-bar", bgcolor: blue, page: "Goals:", count: this.state.goalCount}} 
+                                        />
+                                    </NavLink>
+                                    <NavLink to="/archive" style={{ textDecoration: 'none' }}>
+                                        <NavigationLinks  
+                                            data = {{id:"achievements-bar", bgcolor: yellow, page: "Achievements", count: ""}} 
+                                        />
+                                    </NavLink>
+                                </div>
+                                <div className="links">
+                                    <Route path="/tasks" render={props => 
+                                        (<TasksPage 
+                                            value={this.state.value} 
+                                            tasks={this.state.tasks} 
+                                            tomorrowsTasks={this.state.tomorrowsTasks}
+                                            toggleTomorrowsTasksPageTrue={this.toggleTomorrowsTasksPageTrue}
+                                            handleChangeForms={this.handleChangeForms} 
+                                            handleTasksSubmit={this.handleTasksSubmit} 
+                                            handleTomorrowSubmit={this.handleTomorrowSubmit}
+                                            completedTaskItem={this.completedTaskItem}
+                                            removeTaskItem={this.removeTaskItem} 
+                                            archiveTaskItems={this.archiveTaskItems}
+                                            removeTomorrowItem={this.removeTomorrowItem}
+                                        />)
+                                    }/>
+                                    <Route path="/goals" render={props =>
+                                        (<GoalsPage 
+                                            value={this.state.value} 
+                                            goals={this.state.goals} 
+                                            toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
+                                            handleChangeForms={this.handleChangeForms} 
+                                            handleGoalsSubmit={this.handleGoalsSubmit} 
+                                            removeGoalItem={this.removeGoalItem} 
+                                            archiveGoalItem={this.archiveGoalItem}
+                                        />)
+                                    }/>
+                                    <Route path="/archive" render={props =>
+                                        (<Archive 
+                                            toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
+                                            handleChangeForms={this.handleChangeForms}
+                                            handleModalSubmit={this.handleModalSubmit}
+                                            archivedTasks={this.state.archivedTasks} 
+                                            archivedGoals={this.state.archivedGoals}
+                                        />)
+                                    }/>
+                                </div>
+                            </Router>
                         </div>
                     </div>
-                :
-                    null
-                }
-                <div className="dashboard-content-view">
-                    <Settings 
-                        user={this.state.user}
-                        totalTasks={this.state.totalTasks} 
-                        totalGoals={this.state.totalGoals} 
-                        points={this.state.points}
-                        deleteUser={this.deleteUser}
-                    />
-                    <h6>{this.state.user}</h6>
-                    <h2>{currentDate}</h2>
-                    <h3>{currentDay}</h3>
-                    <h1>Dashboard</h1>
-
-                    <div className="navigation-container">
-                        <Router>
-                            <div className="nav">
-                                <NavLink to="/tasks" style={{ textDecoration: 'none' }}>
-                                    <NavigationLinks 
-                                        data = {{id: "tasks-bar", bgcolor: red, page:"Tasks:", count: this.state.taskCount}} 
-                                    />
-                                </NavLink>
-                                <NavLink to="/goals" style={{ textDecoration: 'none' }}>
-                                    <NavigationLinks 
-                                        data = {{id: "goals-bar", bgcolor: blue, page: "Goals:", count: this.state.goalCount}} 
-                                    />
-                                </NavLink>
-                                <NavLink to="/archive" style={{ textDecoration: 'none' }}>
-                                    <NavigationLinks  
-                                        data = {{id:"achievements-bar", bgcolor: yellow, page: "Achievements", count: ""}} 
-                                    />
-                                </NavLink>
-                            </div>
-                            <div className="links">
-                                <Route path="/tasks" render={props => 
-                                    (<TasksPage 
-                                        value={this.state.value} 
-                                        tasks={this.state.tasks} 
-                                        tomorrowsTasks={this.state.tomorrowsTasks}
-                                        toggleTomorrowsTasksPageTrue={this.toggleTomorrowsTasksPageTrue}
-                                        handleChangeForms={this.handleChangeForms} 
-                                        handleTasksSubmit={this.handleTasksSubmit} 
-                                        handleTomorrowSubmit={this.handleTomorrowSubmit}
-                                        completedTaskItem={this.completedTaskItem}
-                                        removeTaskItem={this.removeTaskItem} 
-                                        archiveTaskItems={this.archiveTaskItems}
-                                        removeTomorrowItem={this.removeTomorrowItem}
-                                    />)
-                                }/>
-                                <Route path="/goals" render={props =>
-                                    (<GoalsPage 
-                                        value={this.state.value} 
-                                        goals={this.state.goals} 
-                                        toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
-                                        handleChangeForms={this.handleChangeForms} 
-                                        handleGoalsSubmit={this.handleGoalsSubmit} 
-                                        removeGoalItem={this.removeGoalItem} 
-                                        archiveGoalItem={this.archiveGoalItem}
-                                    />)
-                                }/>
-                                <Route path="/archive" render={props =>
-                                    (<Archive 
-                                        toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
-                                        handleChangeForms={this.handleChangeForms}
-                                        handleModalSubmit={this.handleModalSubmit}
-                                        archivedTasks={this.state.archivedTasks} 
-                                        archivedGoals={this.state.archivedGoals}
-                                    />)
-                                }/>
-                            </div>
-                        </Router>
-                    </div>
+                    {/* <button id="save-button" onClick={this.saveUserInformation}>Save</button> */}
+                    <h3 id="points">total points: {this.state.points}</h3>
+                    {/* <button onClick={this.checkState}>this.state</button> */}
                 </div>
-                <h3>total points: {this.state.points}</h3>
-                {/* <button onClick={this.checkState}>this.state</button> */}
-                <button id="save-button" onClick={this.saveUserInformation}>Save</button>
             </div>
         );
     }
