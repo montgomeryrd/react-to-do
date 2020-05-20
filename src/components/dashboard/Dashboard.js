@@ -21,6 +21,7 @@ class Dashboard extends React.Component {
         this.handleChangeForms=this.handleChangeForms.bind(this);
         this.handleModalSubmit=this.handleModalSubmit.bind(this);
         this.handleTasksSubmit=this.handleTasksSubmit.bind(this);
+        this.handleTomorrowSubmit=this.handleTomorrowSubmit.bind(this);
         this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
     };
     get initialState(){
@@ -29,6 +30,7 @@ class Dashboard extends React.Component {
             value : "",
             array : [],
             tasks : [],
+            tomorrowsTasks : [],
             taskCount : 0,
             totalTasks : 0,
             archivedTasks : [],
@@ -53,6 +55,11 @@ class Dashboard extends React.Component {
     handleTasksSubmit (e) {
         e.preventDefault();
         this.addTaskItem(this.state);
+        this.setState({value : ""});
+    }
+    handleTomorrowSubmit (e) {
+        e.preventDefault();
+        this.addTomorrowItem(this.state);
         this.setState({value : ""});
     }
     handleGoalsSubmit (e) {
@@ -111,7 +118,18 @@ class Dashboard extends React.Component {
     }
 
     // Tomorrow Task Page Functions ------------------------------------------------
-
+    addTomorrowItem = (task) => {
+        task.id = Math.random() * 1000;
+        task.content = this.state.value;
+        this.setState({tomorrowsTasks : [...this.state.tomorrowsTasks, task]});
+    }
+    removeTomorrowItem = (id) => {
+        this.setState({tomorrowsTasks : this.state.tomorrowsTasks.filter(task => task.id !== id)});
+    }
+    transferTasks = () => {
+        this.setState({tasks : [...this.state.tasks].concat(this.state.tomorrowsTasks)});
+        this.setState({tomorrowsTasks : []});
+    }
     // Goal Page Functions ---------------------------------------------------------
     addGoalItem = (goal) => {
         goal.id = Math.random() * 1000;
@@ -160,6 +178,7 @@ class Dashboard extends React.Component {
                 }
                 <div className="dashboard-content-view">
                     <Settings 
+                        user={this.state.user}
                         totalTasks={this.state.totalTasks} 
                         totalGoals={this.state.totalGoals} 
                         deleteUser={this.deleteUser}
@@ -193,12 +212,15 @@ class Dashboard extends React.Component {
                                     (<TasksPage 
                                         value={this.state.value} 
                                         tasks={this.state.tasks} 
+                                        tomorrowsTasks={this.state.tomorrowsTasks}
                                         toggleTomorrowsTasksPageTrue={this.toggleTomorrowsTasksPageTrue}
                                         handleChangeForms={this.handleChangeForms} 
                                         handleTasksSubmit={this.handleTasksSubmit} 
+                                        handleTomorrowSubmit={this.handleTomorrowSubmit}
                                         completedTaskItem={this.completedTaskItem}
                                         removeTaskItem={this.removeTaskItem} 
                                         archiveTaskItems={this.archiveTaskItems}
+                                        removeTomorrowItem={this.removeTomorrowItem}
                                     />)
                                 }/>
                                 <Route path="/goals" render={props =>

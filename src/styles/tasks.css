@@ -38,6 +38,9 @@ font-family: 'Open Sans Condensed', sans-serif;
   position: absolute;
 }
 
+.toggle-tasks {
+  display: block;
+}
 .span-toggle {
   display: flex;
   justify-content: flex-end;
