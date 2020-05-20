@@ -15,9 +15,11 @@ const Settings = (props) => {
             case "profile-info" : return (
                 <div>
                     <p>Profile Stats</p>
+                    <br></br>
                     <ul>
                         <li>completed tasks: {props.totalTasks}</li>
                         <li>completed goals: {props.totalGoals}</li>
+                        <li>total points: {props.points}</li>
                     </ul>
                     <br></br>
                     <p>click outside modal window to exit</p>
@@ -25,7 +27,7 @@ const Settings = (props) => {
             )
             case "delete-profile" : return (
                 <div>
-                    <p>Delete profile?  <button onClick={props.deleteUser}>YES</button></p>
+                    <p>Delete profile? . . . <button id="delete-user" onClick={props.deleteUser}>agree</button></p>
                     <br></br>
                     <p>click outside modal window to exit</p>
                 </div>
@@ -60,6 +62,12 @@ const Settings = (props) => {
                         <span>
                             -- App Description --
                         </span>
+                        <br></br>      
+                        <br></br>                      
+                        <span>
+                            Hello {props.user}. I developed this to-do app first and foremost to learn React. I started with a tutorial and designed the rest of this project around my own desired functionality. I've not utilized anything like a store for state-preservation, so a copy of the state will persist in the localStorage of your device that gets cleared and updated every time the state is set. I intend to remake this app using redux actions and reducers after this build. Just having fun learning for now.
+                        </span>
+                        <br></br>
                         <br></br>
                         <p>click outside modal window to exit</p>
                     </div>
