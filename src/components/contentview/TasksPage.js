@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import "../../styles/tasks.css";
 
 const TasksPage = (props) => {
-  const [formOpen, setFormOpen] = useState(false);
-  const toggle = () => setFormOpen(!formOpen);
+  const [taskFormOpen, setTaskFormOpen] = useState(false);
+  const toggle = () => setTaskFormOpen(!taskFormOpen);
 
   const mytasks = props.tasks.length ? (
     props.tasks.map((task, position) => {
@@ -22,10 +22,11 @@ const TasksPage = (props) => {
   ) : (
     <p className="empty-task-list">empty</p>
   );
+  
   return (
     <div className="task-page-view">
       <h4 className="title">Tasks Page</h4>
-      { formOpen ? (
+      { taskFormOpen ? (
         <form id="task-form" onSubmit={props.handleTasksSubmit}>
           <span className="span-toggle" onClick={toggle}><span className="strong">show</span>/hide</span>
           <br></br>

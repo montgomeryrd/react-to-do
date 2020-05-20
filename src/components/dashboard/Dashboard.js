@@ -63,6 +63,7 @@ class Dashboard extends React.Component {
 
     // User Functions --------------------------------------------------------------
     saveUserInformation = () => {
+        localStorage.clear();
         const userInformation = Object.assign({}, this.state);
         localStorage.setItem('userInformation', JSON.stringify(userInformation));
     }
