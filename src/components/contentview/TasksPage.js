@@ -3,18 +3,18 @@
 import React, { useState } from 'react';
 import "../../styles/tasks.css";
 
-const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTaskItem, completedTaskItem, archiveTaskItems}) => {
-  const [formOpen, setFormOpen] = useState(false);
-  const toggle = () => setFormOpen(!formOpen);
+const TasksPage = (props) => {
+  const [taskFormOpen, setTaskFormOpen] = useState(false);
+  const toggle = () => setTaskFormOpen(!taskFormOpen);
 
-  const mytasks = tasks.length ? (
-    tasks.map((task, position) => {
+  const mytasks = props.tasks.length ? (
+    props.tasks.map((task, position) => {
       return (
         <div className="task-item" key={task.id = position}>
           <div className="check" style={{visibility : task.status ? "hidden" : "visible"}}></div>
-          <span className="span-item" style={{opacity : task.status ? 1 : .3}} onClick={() => {completedTaskItem(task.id)}}>{task.content}</span>
+          <span className="span-item" style={{opacity : task.status ? 1 : .3}} onClick={() => {props.completedTaskItem(task.id)}}>{task.content}</span>
           <div className="task-item-button">
-            <button className="remove-button" onClick={() => {removeTaskItem(task.id)}}>remove</button>
+            <button className="remove-button" onClick={() => {props.removeTaskItem(task.id)}}>remove</button>
           </div>
         </div>
       )
@@ -22,11 +22,12 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
   ) : (
     <p className="empty-task-list">empty</p>
   );
+  
   return (
     <div className="task-page-view">
       <h4 className="title">Tasks Page</h4>
-      { formOpen ? (
-        <form id="task-form" onSubmit={handleTasksSubmit}>
+      { taskFormOpen ? (
+        <form id="task-form" onSubmit={props.handleTasksSubmit}>
           <span className="span-toggle" onClick={toggle}><span className="strong">show</span>/hide</span>
           <br></br>
           <label>input a task:</label>
@@ -34,13 +35,13 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
             id="form-input"
             type="text"
             name="input"
-            value={value}
+            value={props.value}
             required={true}
             autoComplete="off"
-            onChange={handleChangeForms}
+            onChange={props.handleChangeForms}
             placeholder=""
           />
-          <button id="form-button" type="submit" onSubmit={handleTasksSubmit}>
+          <button id="form-button" type="submit" onSubmit={props.handleTasksSubmit}>
             submit
           </button>
         </form>
@@ -49,7 +50,7 @@ const TasksPage = ({value, tasks, handleChangeForms, handleTasksSubmit, removeTa
       )}
       <div className="task-contents">
         {mytasks}
-        <button className="clear-button" onClick={() => {archiveTaskItems()}}>clear completed tasks</button>
+        <button className="clear-button" onClick={() => {props.archiveTaskItems()}}>clear completed tasks</button>
       </div>
     </div>
   );
