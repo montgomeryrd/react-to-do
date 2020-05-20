@@ -43,13 +43,13 @@ const TasksPage = (props) => {
 
   return (
     <div className="task-page-view">
-      <div className="page" style={{visibility : tomorrowOpen ? "hidden" : "visible"}}>
+      <div className="todays-page" style={{display : tomorrowOpen ? "none" : "block"}}>
         <h4 className="title">Today's Tasks</h4>
         { taskFormOpen ? (
-          <form id="task-form" onSubmit={props.handleTomorrowSubmit}>
-            <span className="span-toggle" onClick={toggle}><span className="strong">show</span>/hide</span>
+          <form id="task-form" onSubmit={props.handleTasksSubmit}>
+            <span className="span-toggle" onClick={toggle}><span className="strong">add task</span>/hide</span>
             <br></br>
-            <label>input a task:</label>
+            <label className="form-label">input a task:</label>
             <input
               id="form-input"
               type="text"
@@ -60,27 +60,30 @@ const TasksPage = (props) => {
               onChange={props.handleChangeForms}
               placeholder=""
             />
+            <div className="line"></div>
             <button id="form-button" type="submit" onSubmit={props.handleTasksSubmit}>
               submit
             </button>
           </form>
         ) : (
-          <span className="span-toggle" onClick={toggle}>show/<span className="strong">hide</span></span>
+          <div>
+            <span className="span-toggle" onClick={toggle}>add task/<span className="strong">hide</span></span>
+          </div>
         )}
         <div className="task-contents">
           {mytasks}
-          <button className="clear-button" onClick={() => {props.archiveTaskItems()}}>clear completed tasks</button>
           <span className="toggle-tasks" onClick={toggleDay}>plan tomorrow</span>
+          <button className="clear-button" onClick={() => {props.archiveTaskItems()}}>clear completed tasks</button>
         </div>
       </div>
 
-      <div className="page" style={{visibility : tomorrowOpen ? "visible" : "hidden"}}>
+      <div className="tomorrows-page" style={{display : tomorrowOpen ? "block" : "none"}}>
         <h4 className="title">Tomorrow's Tasks</h4>
         { taskFormOpen ? (
           <form id="task-form" onSubmit={props.handleTomorrowSubmit}>
-            <span className="span-toggle" onClick={toggle}><span className="strong">show</span>/hide</span>
+            <span className="span-toggle" onClick={toggle}><span className="strong">add task</span>/hide</span>
             <br></br>
-            <label>input a task:</label>
+            <label className="form-label">input a task:</label>
             <input
               id="form-input"
               type="text"
@@ -91,12 +94,13 @@ const TasksPage = (props) => {
               onChange={props.handleChangeForms}
               placeholder=""
             />
+            <div className="line"></div>
             <button id="form-button" type="submit" onSubmit={props.handleTomorrowSubmit}>
               submit
             </button>
           </form>
         ) : (
-          <span className="span-toggle" onClick={toggle}>show/<span className="strong">hide</span></span>
+          <span className="span-toggle" onClick={toggle}>add task/<span className="strong">hide</span></span>
         )}
         <div className="task-contents">
           {mytomorrow}

@@ -26,7 +26,7 @@ class Dashboard extends React.Component {
     };
     get initialState(){
         return {
-            user : "",
+            user : "riker",
             value : "",
             array : [],
             tasks : [],
