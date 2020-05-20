@@ -15,9 +15,11 @@ const Settings = (props) => {
             case "profile-info" : return (
                 <div>
                     <p>Profile Stats</p>
+                    <br></br>
                     <ul>
                         <li>completed tasks: {props.totalTasks}</li>
                         <li>completed goals: {props.totalGoals}</li>
+                        <li>total points: {props.points}</li>
                     </ul>
                     <br></br>
                     <p>click outside modal window to exit</p>
@@ -25,7 +27,7 @@ const Settings = (props) => {
             )
             case "delete-profile" : return (
                 <div>
-                    <p>Delete profile?  <button onClick={props.deleteUser}>YES</button></p>
+                    <p>Delete profile? . . . <button id="delete-user" onClick={props.deleteUser}>agree</button></p>
                     <br></br>
                     <p>click outside modal window to exit</p>
                 </div>

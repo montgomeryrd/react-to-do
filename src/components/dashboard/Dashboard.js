@@ -181,6 +181,7 @@ class Dashboard extends React.Component {
                         user={this.state.user}
                         totalTasks={this.state.totalTasks} 
                         totalGoals={this.state.totalGoals} 
+                        points={this.state.points}
                         deleteUser={this.deleteUser}
                     />
                     <h6>{this.state.user}</h6>
