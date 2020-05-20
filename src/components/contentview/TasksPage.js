@@ -48,8 +48,8 @@ const TasksPage = (props) => {
         { taskFormOpen ? (
           <form id="task-form" onSubmit={props.handleTasksSubmit}>
             <span className="span-toggle" onClick={toggle}><span className="strong">add task</span>/hide</span>
+            <span className="toggle-tasks" onClick={toggleDay}>click <span className="strong">here</span> to plan for tomorrow</span>
             <br></br>
-            <label className="form-label">input a task:</label>
             <input
               id="form-input"
               type="text"
@@ -68,11 +68,11 @@ const TasksPage = (props) => {
         ) : (
           <div>
             <span className="span-toggle" onClick={toggle}>add task/<span className="strong">hide</span></span>
+            <span className="toggle-tasks" onClick={toggleDay}>click <span className="strong">here</span> to plan for tomorrow</span>
           </div>
         )}
         <div className="task-contents">
           {mytasks}
-          <span className="toggle-tasks" onClick={toggleDay}>plan tomorrow</span>
           <button className="clear-button" onClick={() => {props.archiveTaskItems()}}>clear completed tasks</button>
         </div>
       </div>
@@ -82,8 +82,8 @@ const TasksPage = (props) => {
         { taskFormOpen ? (
           <form id="task-form" onSubmit={props.handleTomorrowSubmit}>
             <span className="span-toggle" onClick={toggle}><span className="strong">add task</span>/hide</span>
+            <span className="toggle-tasks" onClick={toggleDay}>click <span className="strong">here</span> to go back to today</span>
             <br></br>
-            <label className="form-label">input a task:</label>
             <input
               id="form-input"
               type="text"
@@ -100,11 +100,15 @@ const TasksPage = (props) => {
             </button>
           </form>
         ) : (
-          <span className="span-toggle" onClick={toggle}>add task/<span className="strong">hide</span></span>
+          <div>
+            <span className="span-toggle" onClick={toggle}>add task/<span className="strong">hide</span></span>
+            <span className="toggle-tasks" onClick={toggleDay}>click <span className="strong">here</span> to go back to today</span>
+          </div>
         )}
         <div className="task-contents">
-          {mytomorrow}
-          <span className="toggle-tasks" onClick={toggleDay}>back to today</span>
+          <div className="item-view">
+            {mytomorrow}
+          </div>
         </div>
       </div>
     </div>

@@ -28,10 +28,10 @@ const GoalsPage = (props) => {
       <h4 className="title">Goals Page</h4>
       { formOpen ? (
         <form onSubmit={props.handleGoalsSubmit}>
-        <span className="span-toggle" onClick={toggle}><span className="strong">show</span>/hide</span>
-          <label>input a goal:</label>
+        <span className="span-toggle" onClick={toggle}><span className="strong">add goal</span>/hide</span>
+        <span className="toggle-tasks">"A conscious life begins with purpose."</span>
           <input
-            id="form-input"
+            id="goal-form-input"
             type="text"
             name="input"
             value={props.value}
@@ -40,12 +40,16 @@ const GoalsPage = (props) => {
             onChange={props.handleChangeForms}
             placeholder=""
           />
-          <button id="form-button" type="submit" onSubmit={props.handleGoalsSubmit}>
+          <div className="goal-line"></div>
+          <button id="goal-form-button" type="submit" onSubmit={props.handleGoalsSubmit}>
             submit
           </button>
         </form>
       ) : (
-        <span className="span-toggle" onClick={toggle}>show/<span className="strong">hide</span></span>
+        <div>
+          <span className="span-toggle" onClick={toggle}>add goal/<span className="strong">hide</span></span>
+          <span className="toggle-tasks">"A conscious life begins with purpose."</span>
+        </div>
       )}
       <div className="goal-contents">
         {mygoals}
