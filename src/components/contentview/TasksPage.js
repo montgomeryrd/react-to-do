@@ -16,7 +16,7 @@ const TasksPage = (props) => {
         <div className="task-item" key={task.id = position}>
           <div className="check" style={{visibility : task.status ? "hidden" : "visible"}}></div>
           <span className="span-item" style={{opacity : task.status ? 1 : .3}} onClick={() => {props.completedTaskItem(task.id)}}>{task.content}</span>
-          <span className="remove-button" onClick={() => {props.removeTaskItem(task.id)}}>remove</span>
+          <span className="remove-button" onClick={() => {props.removeTaskItem(task.id)}}>delete</span>
         </div>
       )
     })
@@ -29,7 +29,7 @@ const TasksPage = (props) => {
       return (
         <div className="task-item" key={task.id = position}>
           <span className="span-item">{task.content}</span>
-          <span className="remove-button" onClick={() => {props.removeTomorrowItem(task.id)}}>remove</span>
+          <span className="remove-button" onClick={() => {props.removeTomorrowItem(task.id)}}>delete</span>
         </div>
       )
     })
