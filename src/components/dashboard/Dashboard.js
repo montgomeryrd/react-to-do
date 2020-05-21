@@ -30,15 +30,15 @@ class Dashboard extends React.Component {
             value : "",
             array : [],
             tasks : [],
+            goals : [],
+            steps : [],
             tomorrowsTasks : [],
+            archivedTasks : [],
+            archivedGoals : [],
             taskCount : 0,
             totalTasks : 0,
-            archivedTasks : [],
-            goals : [],
             goalCount : 0,
             totalGoals : 0,
-            archivedGoals : [],
-            steps : [],
             points : 0
         };
     }

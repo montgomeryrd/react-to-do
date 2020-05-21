@@ -25,7 +25,7 @@ const GoalsPage = (props) => {
   );
   return (
     <div className="goal-page-view">
-      <h4 className="title">Goals Page</h4>
+      <h4 className="title">My Goals</h4>
       { formOpen ? (
         <form onSubmit={props.handleGoalsSubmit}>
         <span className="span-toggle" onClick={toggle}><span className="strong">add goal</span>/hide</span>

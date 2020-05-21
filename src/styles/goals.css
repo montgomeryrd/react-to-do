@@ -33,7 +33,7 @@
     width: 188px;
     font-size: 1.5em;
     transition: padding 0.3s 0.2s ease;
-    margin-top: 4px;
+    margin-top: 6px;
 }
   
 #goal-form-input:focus + .goal-line:after {
@@ -53,10 +53,8 @@
     float: right;
     width: 200px;
     height: 3px;
-    
     transform: scalex(0);
     transition: transform 0.3s ease;
-    
     background: #2196F3;
 }
     
