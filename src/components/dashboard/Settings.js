@@ -27,7 +27,7 @@ const Settings = (props) => {
             )
             case "delete-profile" : return (
                 <div>
-                    <p>Delete profile? . . . <button id="delete-user" onClick={props.deleteUser}>agree</button></p>
+                    <p>Delete profile? . . . <button id="delete-user" onClick={props.deleteUser}>YES</button></p>
                     <br></br>
                     <p>click outside modal window to exit</p>
                 </div>

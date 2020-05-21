@@ -22,23 +22,25 @@ font-family: 'Open Sans Condensed', sans-serif;
     margin:0.2em auto;
   }
 }
-
+/* Today's Tasks/Tomorrow's Tasks Title */
 .title {
   display: flex;
   position: absolute;
 }
-
+/* add task/hide */
 .span-toggle {
   display: flex;
   justify-content: flex-end;
   font-size: .6rem;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .strong {
   font-weight: bold;
+  cursor: pointer;
 }
-
+/* checkmark */
 .check {
   display: inline-block;
   transform: rotate(38deg);
@@ -49,16 +51,16 @@ font-family: 'Open Sans Condensed', sans-serif;
   margin-right: 15px;
   margin-left: 20px;
 }
-
+/* toggle switches between today page or tomorrow page */
 .toggle-tasks {
   display: block;
   margin-top: -10px;
   font-size: .5rem;
 }
-
+/* form */
 #form-input {
   background: 0;
-  color: #929292;
+  color: #FFFFFF;
   padding-left: 10px;
   border: 0;
   outline: none;
@@ -69,7 +71,7 @@ font-family: 'Open Sans Condensed', sans-serif;
 }
 
 #form-input:focus + .line:after {
-    transform: scaleX(1);
+  transform: scaleX(1);
 }
 
 .line {
@@ -77,18 +79,17 @@ font-family: 'Open Sans Condensed', sans-serif;
   height: 3px;
   bottom: -8px;
   border-radius: 2mm;
-  background: #bdc3c7;
+  background: #FFFFFF;
 }
 
 .line:after {
+  position: fixed;
   content: " ";
   float: right;
   width: 200px;
   height: 3px;
-  
   transform: scalex(0);
   transition: transform 0.3s ease;
-  
   background: #E91E63;
 }
   
@@ -114,20 +115,42 @@ font-family: 'Open Sans Condensed', sans-serif;
 #form-button:hover{
   color:#1abc9c;
 }
-
+/* spacer saves space for the form and keeps content below fixed */
+.form-spacer {
+  display: block;
+  margin-bottom: 39.5px;
+}
+/* tasks item area */
 .task-contents {
   position: fixed;
   margin-top: 20px;
-  color: white;
+  color: black;
   width: 278px;
   height: 218px;
   border: solid 1px black;
 }
 
-/* .item-view {
-  padding: 5px;
-} */
+.task-item {
+  display: flex;
+  align-items: center;
+  border-bottom: .5px solid #4095c6;
+}
 
+.item-view {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px red;
+}
+/* remove item button */
+.remove-button {
+  border: solid 1px black;
+  display: flex;
+  justify-content: flex-end;
+  font-size: .6rem;
+  /* margin-bottom: 20px; */
+  cursor: pointer;
+}
+/* button that clears completed tasks */
 .clear-button {
   display:inline-block;
   position: absolute;

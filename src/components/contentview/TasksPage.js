@@ -16,9 +16,7 @@ const TasksPage = (props) => {
         <div className="task-item" key={task.id = position}>
           <div className="check" style={{visibility : task.status ? "hidden" : "visible"}}></div>
           <span className="span-item" style={{opacity : task.status ? 1 : .3}} onClick={() => {props.completedTaskItem(task.id)}}>{task.content}</span>
-          <div className="task-item-button">
-            <button className="remove-button" onClick={() => {props.removeTaskItem(task.id)}}>remove</button>
-          </div>
+          <span className="remove-button" onClick={() => {props.removeTaskItem(task.id)}}>remove</span>
         </div>
       )
     })
@@ -31,9 +29,7 @@ const TasksPage = (props) => {
       return (
         <div className="task-item" key={task.id = position}>
           <span className="span-item">{task.content}</span>
-          <div className="task-item-button">
-            <button className="remove-button" onClick={() => {props.removeTomorrowItem(task.id)}}>remove</button>
-          </div>
+          <span className="remove-button" onClick={() => {props.removeTomorrowItem(task.id)}}>remove</span>
         </div>
       )
     })
@@ -48,7 +44,7 @@ const TasksPage = (props) => {
         { taskFormOpen ? (
           <form id="task-form" onSubmit={props.handleTasksSubmit}>
             <span className="span-toggle" onClick={toggle}><span className="strong">add task</span>/hide</span>
-            <span className="toggle-tasks" onClick={toggleDay}>click <span className="strong">here</span> to plan for tomorrow</span>
+            <span className="toggle-tasks">click <span className="strong" onClick={toggleDay}>here</span> to plan for tomorrow</span>
             <br></br>
             <input
               id="form-input"
@@ -66,14 +62,16 @@ const TasksPage = (props) => {
             </button>
           </form>
         ) : (
-          <div>
+          <div className="form-spacer">
             <span className="span-toggle" onClick={toggle}>add task/<span className="strong">hide</span></span>
-            <span className="toggle-tasks" onClick={toggleDay}>click <span className="strong">here</span> to plan for tomorrow</span>
+            <span className="toggle-tasks">click <span className="strong" onClick={toggleDay}>here</span> to plan for tomorrow</span>
           </div>
         )}
         <div className="task-contents">
-          {mytasks}
-          <button className="clear-button" onClick={() => {props.archiveTaskItems()}}>clear completed tasks</button>
+          <div className="item-view">
+            {mytasks}
+            <button className="clear-button" onClick={() => {props.archiveTaskItems()}}>clear completed tasks</button>
+          </div>
         </div>
       </div>
 
@@ -82,7 +80,7 @@ const TasksPage = (props) => {
         { taskFormOpen ? (
           <form id="task-form" onSubmit={props.handleTomorrowSubmit}>
             <span className="span-toggle" onClick={toggle}><span className="strong">add task</span>/hide</span>
-            <span className="toggle-tasks" onClick={toggleDay}>click <span className="strong">here</span> to go back to today</span>
+            <span className="toggle-tasks">click <span className="strong" onClick={toggleDay}>here</span> to go back to today</span>
             <br></br>
             <input
               id="form-input"
@@ -100,9 +98,9 @@ const TasksPage = (props) => {
             </button>
           </form>
         ) : (
-          <div>
+          <div className="form-spacer">
             <span className="span-toggle" onClick={toggle}>add task/<span className="strong">hide</span></span>
-            <span className="toggle-tasks" onClick={toggleDay}>click <span className="strong">here</span> to go back to today</span>
+            <span className="toggle-tasks">click <span className="strong" onClick={toggleDay}>here</span> to go back to today</span>
           </div>
         )}
         <div className="task-contents">
