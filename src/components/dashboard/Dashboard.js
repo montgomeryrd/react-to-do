@@ -31,7 +31,6 @@ class Dashboard extends React.Component {
             array : [],
             tasks : [],
             goals : [],
-            steps : [],
             tomorrowsTasks : [],
             archivedTasks : [],
             archivedGoals : [],
@@ -133,6 +132,8 @@ class Dashboard extends React.Component {
     // Goal Page Functions ---------------------------------------------------------
     addGoalItem = (goal) => {
         goal.id = Math.random() * 1000;
+        goal.expandSteps = {};
+        goal.steps = [];
         goal.content = this.state.value;
         this.setState({goals : [...this.state.goals, goal]});
         this.setState({goalCount : this.state.goalCount + 1});
@@ -150,7 +151,14 @@ class Dashboard extends React.Component {
     }
 
     // Goal Step Functions ---------------------------------------------------------
-
+    showExpandedSteps = (id) => {
+        this.setState(prevState => ({
+            expandSteps: {
+                ...prevState.expandSteps,
+                [id]: !prevState.expandSteps[id]
+            }
+        }));
+    };
     // Check State Function
     checkState = () => {console.log(this.state)};
     
@@ -230,6 +238,7 @@ class Dashboard extends React.Component {
                                             value={this.state.value} 
                                             goals={this.state.goals} 
                                             toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
+                                            showExpandedSteps={this.showExpandedSteps}
                                             handleChangeForms={this.handleChangeForms} 
                                             handleGoalsSubmit={this.handleGoalsSubmit} 
                                             removeGoalItem={this.removeGoalItem} 
