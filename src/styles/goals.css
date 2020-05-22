@@ -142,3 +142,17 @@ font-family: 'Open Sans Condensed', sans-serif;
 .goal-card-info h5 {
     font-size: 1rem;;
 }
+
+/* Steps Styles */
+
+.step-items {
+    background: #a7a7a7;
+}
+
+.unvisible {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
