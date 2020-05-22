@@ -31,7 +31,6 @@ class Dashboard extends React.Component {
             array : [],
             tasks : [],
             goals : [],
-            steps : [],
             tomorrowsTasks : [],
             archivedTasks : [],
             archivedGoals : [],
@@ -39,7 +38,8 @@ class Dashboard extends React.Component {
             totalTasks : 0,
             goalCount : 0,
             totalGoals : 0,
-            points : 0
+            points : 0,
+            editVisibles : {}
         };
     }
 
@@ -133,6 +133,7 @@ class Dashboard extends React.Component {
     // Goal Page Functions ---------------------------------------------------------
     addGoalItem = (goal) => {
         goal.id = Math.random() * 1000;
+        goal.steps = [];
         goal.content = this.state.value;
         this.setState({goals : [...this.state.goals, goal]});
         this.setState({goalCount : this.state.goalCount + 1});
@@ -150,7 +151,9 @@ class Dashboard extends React.Component {
     }
 
     // Goal Step Functions ---------------------------------------------------------
-
+    showEditDiv = (id) => {
+        this.setState(prevState => ({editVisibles: {...prevState.editVisibles, [id]: !prevState.editVisibles[id]}}));
+    };
     // Check State Function
     checkState = () => {console.log(this.state)};
     
@@ -229,7 +232,9 @@ class Dashboard extends React.Component {
                                         (<GoalsPage 
                                             value={this.state.value} 
                                             goals={this.state.goals} 
+                                            editVisibles={this.state.editVisibles}
                                             toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
+                                            showEditDiv={this.showEditDiv}
                                             handleChangeForms={this.handleChangeForms} 
                                             handleGoalsSubmit={this.handleGoalsSubmit} 
                                             removeGoalItem={this.removeGoalItem} 

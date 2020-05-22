@@ -66,6 +66,7 @@ font-family: 'Open Sans Condensed', sans-serif;
   border: 0;
   outline: none;
   width: 188px;
+  font-family: 'Quicksand', sans-serif;  
   font-size: 1.5em;
   transition: padding 0.3s 0.2s ease;
   margin-top: -10px;
@@ -143,6 +144,7 @@ font-family: 'Open Sans Condensed', sans-serif;
 
 .span-item {
   margin-left: 5px;
+  cursor: pointer;
 }
 /* remove item button */
 .remove-button {
@@ -162,8 +164,8 @@ font-family: 'Open Sans Condensed', sans-serif;
   text-decoration:none;
   padding:0.3em 1.2em;
   border: 0;
-  right: 0;
-  bottom: 0;
+  right: -15px;
+  bottom: -20px;
   font-family:'Roboto',sans-serif;
   font-weight:300;
   font-size: .8rem;

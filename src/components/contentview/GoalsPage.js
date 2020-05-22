@@ -12,10 +12,11 @@ const GoalsPage = (props) => {
     props.goals.map((goal, position) => {
       return (
         <div className="goal-item" key={goal.id = position}>
-          <div>
-            <GoalCard data={{info : goal.content}} />
+          <h5 onClick={() => {props.showEditDiv(goal.id)}}>{goal.content}</h5>
+          <div className={`step-items ${!props.editVisibles[goal.id] ? "unvisible" : "visible"}`} key={goal.id}>
+            <GoalCard data={{steps : goal.steps}} />
             <button className="archive-goal" onClick={() => {props.archiveGoalItem(goal.id)}}>goal completed</button>
-            <button className="button" onClick={() => {props.removeGoalItem(goal.id)}}>remove goal without saving</button>
+            <button className="remove-button" onClick={() => {props.removeGoalItem(goal.id)}}>remove goal without saving</button>
           </div>
         </div>
       )
@@ -46,7 +47,7 @@ const GoalsPage = (props) => {
           </button>
         </form>
       ) : (
-        <div>
+        <div className="form-spacer">
           <span className="span-toggle" onClick={toggle}>add goal/<span className="strong">hide</span></span>
           <span className="toggle-tasks">"A conscious life begins with purpose."</span>
         </div>

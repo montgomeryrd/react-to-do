@@ -1,3 +1,16 @@
+/* 
+red: #E91E63
+blue: #2196F3
+yellow: #FFCA28
+dark blue: #00003F
+light blue: #5DADE2
+
+font-family: 'Quicksand', sans-serif;  
+font-family: 'Arapey', serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Open Sans Condensed', sans-serif;
+*/
+
 .goals-content-view {
     margin: 0 auto;
 }
@@ -18,37 +31,42 @@
     font-weight: bold;
 }
 
+/* toggle switches between today page or tomorrow page */
 .toggle-tasks {
     display: block;
     margin-top: -10px;
     font-size: .5rem;
-}
-
+  }
+  /* form */
 #goal-form-input {
     background: 0;
-    color: #929292;
+    color: #FFFFFF;
     padding-left: 10px;
     border: 0;
     outline: none;
     width: 188px;
+    font-family: 'Quicksand', sans-serif;  
     font-size: 1.5em;
     transition: padding 0.3s 0.2s ease;
-    margin-top: 6px;
+    margin-top: 5px;
+    position: absolute;
 }
-  
+
 #goal-form-input:focus + .goal-line:after {
     transform: scaleX(1);
 }
-  
+
 .goal-line {
     width: 200px;
     height: 3px;
     bottom: -8px;
     border-radius: 2mm;
-    background: #bdc3c7;
+    background: #FFFFFF;
+    margin-top: 40px;
 }
-  
+
 .goal-line:after {
+    position: fixed;
     content: " ";
     float: right;
     width: 200px;
@@ -68,7 +86,7 @@
     border-radius:0.12em;
     box-sizing: border-box;
     text-decoration:none;
-    font-family:'Roboto',sans-serif;
+    font-family: 'Quicksand', sans-serif;  
     font-weight:300;
     color:#FFFFFF;
     text-align:center;
@@ -76,7 +94,65 @@
     margin-top: -30px;
     margin-bottom: 20px;
 }
-  
+
 #goal-form-button:hover{
     color:#1abc9c;
+}
+/* spacer saves space for the form and keeps content below fixed */
+.form-spacer {
+    display: block;
+    margin-bottom: 39.5px;
+}
+/* tasks item area */
+.goal-contents {
+    position: fixed;
+    margin-top: 20px;
+    color: black;
+    width: 278px;
+    height: 218px;
+}
+
+.goal-item {
+    display: flex;
+    align-items: center;
+    border-bottom: .5px solid #4095c6;
+}
+
+.span-item {
+    margin-left: 5px;
+    cursor: pointer;
+}
+/* remove item button */
+.remove-button {
+    display: flex;
+    position: absolute;
+    right: 0;
+    font-size: .6rem;
+    cursor: pointer;
+}
+
+.goal-contents {
+    margin-top: 20px;
+}
+
+.goal-card-info {
+    border: solid 1px red;
+}
+
+.goal-card-info h5 {
+    font-size: 1rem;;
+}
+
+/* Steps Styles */
+
+.step-items {
+    background: #a7a7a7;
+}
+
+.unvisible {
+    display: none;
+}
+
+.visible {
+    display: block;
 }
