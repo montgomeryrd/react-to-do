@@ -16,21 +16,10 @@ font-family: 'Open Sans Condensed', sans-serif;
     display:block;
     margin:0.4em auto;
   }
-
   .clear-button {
     display:block;
     margin:0.2em auto;
   }
-}
-
-.task-page-view {
-  /* border: solid 2px red; */
-}
-.todays-page {
-  /* border: solid 1px blue; */
-}
-.tomorrows-page {
-  /* border: solid 1px blue; */
 }
 
 /* Today's Tasks/Tomorrow's Tasks Title */
@@ -39,6 +28,7 @@ font-family: 'Open Sans Condensed', sans-serif;
   position: absolute;
   margin-top: 10px;
 }
+
 /* toggle switches between today page or tomorrow page */
 .toggle-tasks {
   display: block;
@@ -49,6 +39,7 @@ font-family: 'Open Sans Condensed', sans-serif;
   font-weight: bold;
   cursor: pointer;
 }
+
 /* add task/hide */
 .span-toggle {
   display: flex;
@@ -56,19 +47,12 @@ font-family: 'Open Sans Condensed', sans-serif;
   font-size: .6rem;
   cursor: pointer;
 }
-
-/* checkmark */
-.check {
-  display: inline-block;
-  transform: rotate(38deg);
-  height: 15px;
-  width: 4px;
-  border-bottom: 2px solid #00FF00;
-  border-right: 2px solid #00FF00;
-  margin-right: 15px;
-  position: absolute;
-  margin-left: -11px;
+.instruction {
+  display: block;
+  font-size: .5rem;
+  text-align: center;
 }
+
 /* form */
 #form-input {
   border: solid 1px white;
@@ -83,11 +67,9 @@ font-family: 'Open Sans Condensed', sans-serif;
   transition: padding 0.3s 0.2s ease;
   margin-top: 10px;
 }
-
 #form-input:focus + .line:after {
   transform: scaleX(1);
 }
-
 .line {
   width: 220px;
   height: 3px;
@@ -95,7 +77,6 @@ font-family: 'Open Sans Condensed', sans-serif;
   border-radius: 2mm;
   background: #FFFFFF;
 }
-
 .line:after {
   position: fixed;
   content: " ";
@@ -105,10 +86,6 @@ font-family: 'Open Sans Condensed', sans-serif;
   transform: scalex(0);
   transition: transform 0.3s ease;
   background: #E91E63;
-}
-
-#task-form {
-  /* border: solid 1px blue; */
 }
 
 #form-button {
@@ -127,72 +104,99 @@ font-family: 'Open Sans Condensed', sans-serif;
   transition: all 0.2s;
   margin-top: -30px;
 }
-
 #form-button:hover{
   color:#1abc9c;
 }
 
 /* tasks item area */
 .task-contents {
-  position: fixed;
-  margin-top: 20px;
   color: black;
+  display: relative;
+  position: absolute;
+  margin-top: 20px;
   width: 278px;
-  height: 218px;
-  /* border: solid 2px black; */
+  height: 215px;
+  overflow-y: auto;
+  text-align:justify;
 }
-
+.empty-task-list {
+  margin-left: 5px;
+}
 .task-item {
   display: flex;
-  align-items: center;
-  /* border-bottom: .5px solid #4095c6; */
 }
-
 .item-view {
-  /* border: solid 1px red; */
-  display: flex;
+  display: block;
   flex-direction: column;
 }
-
 .span-item {
   display: inline-block;
   margin-left: 5px;
   cursor: pointer;
+  width: 230px;
+  overflow-wrap: break-word;
+}
+.blue-line {
+  position: relative;
+  display: block;
   border: solid .5px #5DADE2;
   border-top: 0;
   border-left: 0;
   border-right: 0;
   width: 280px;
+  margin-bottom: 2px;
 }
 
 /* remove item button */
 .remove-button {
   display: flex;
   position: absolute;
-  right: 0;
+  right: 5px;
   font-size: .6rem;
   cursor: pointer;
+  bottom: 2px;
 }
+
 /* button that clears completed tasks */
 .clear-button {
   display:inline-block;
   position: absolute;
   background-color:#4eb5f1;
+  right: 5px;
+  bottom: 5px;
+  color: black;
+  cursor: pointer;
   box-sizing: border-box;
-  border-radius:2em;
-  text-decoration:none;
-  padding:0.3em 1.2em;
+  border-radius: 2em;
+  text-decoration: none;
+  padding: 0.3em 1.2em;
   border: 0;
-  right: -15px;
-  bottom: -20px;
-  font-family:'Roboto',sans-serif;
-  font-weight:300;
+  font-weight: 300;
   font-size: .8rem;
-  color:#FFFFFF;
-  text-align:center;
+  color: #FFFFFF;
+  text-align: center;
   transition: all 0.4s;
 }
-
 .clear-button:hover {
   background-color:#4095c6;
+}
+
+/* scrollbar */
+* {
+  scrollbar-width: thin;
+}
+*::-webkit-scrollbar {
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: inherit;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #E91E63;
+  border-radius: 20px;
+  border: 3px solid white;
+}
+
+.task-contents {
+  border: solid 1px blue;
 }

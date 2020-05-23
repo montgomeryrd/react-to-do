@@ -15,9 +15,11 @@ const TasksPage = (props) => {
     props.tasks.map((task, position) => {
       return (
         <div className="task-item" key={task.id = position}>
-          <div className="check" style={{visibility : task.status ? "hidden" : "visible"}}></div>
-          <span className="span-item" style={{opacity : task.status ? 1 : .3}} onClick={() => {props.completedTaskItem(task.id)}}>{task.content}</span>
-          <span className="remove-button" onClick={() => {props.removeTaskItem(task.id)}}>delete</span>
+          <div className="blue-line">
+            {/* <div className="complete-span-item" style={{visibility : task.status ? "hidden" : "visible"}}></div> */}
+            <span className="span-item" style={{opacity : task.status ? 1 : .3}} onClick={() => {props.completedTaskItem(task.id)}}>{task.content}</span>
+            <span className="remove-button" onClick={() => {props.removeTaskItem(task.id)}}>undo</span>
+          </div>
         </div>
       )
     })
@@ -29,8 +31,10 @@ const TasksPage = (props) => {
     props.tomorrowsTasks.map((task, position) => {
       return (
         <div className="task-item" key={task.id = position}>
-          <span className="span-item">{task.content}</span>
-          <span className="remove-button" onClick={() => {props.removeTomorrowItem(task.id)}}>delete</span>
+          <div className="blue-line">
+            <span className="span-item">{task.content}</span>
+            <span className="remove-button" onClick={() => {props.removeTomorrowItem(task.id)}}>delete</span>
+          </div>
         </div>
       )
     })
@@ -67,10 +71,11 @@ const TasksPage = (props) => {
         )}
         <div className="task-contents" style={{marginTop : taskFormOpen ? 20 + "px" : 35 + "px"}}>
           <div className="item-view">
+            <span className="instruction" style={{visibility : mytasks.length ? "visible" : "hidden"}}>click task to complete</span>
             {mytasks}
-            <button className="clear-button" onClick={() => {props.archiveTaskItems()}}>clear completed tasks</button>
           </div>
         </div>
+        <span className="clear-button" onClick={() => {props.archiveTaskItems()}}>clear completed tasks</span>
       </div>
 
       <div className="tomorrows-page" style={{display : tomorrowOpen ? "block" : "none"}}>
