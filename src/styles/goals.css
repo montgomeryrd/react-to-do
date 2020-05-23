@@ -11,33 +11,11 @@ font-family: 'Roboto', sans-serif;
 font-family: 'Open Sans Condensed', sans-serif;
 */
 
+/* My Goals Page Styles */
 .goals-content-view {
     margin: 0 auto;
 }
-
-.title {
-    display: flex;
-    position: absolute;
-}
-
-.span-toggle {
-    display: flex;
-    justify-content: flex-end;
-    font-size: .6rem;
-    margin-bottom: 20px;
-}
-
-.strong {
-    font-weight: bold;
-}
-
-/* toggle switches between today page or tomorrow page */
-.toggle-tasks {
-    display: block;
-    margin-top: -10px;
-    font-size: .5rem;
-  }
-  /* form */
+/* goal page form */
 #goal-form-input {
     background: 0;
     color: #FFFFFF;
@@ -98,61 +76,39 @@ font-family: 'Open Sans Condensed', sans-serif;
 #goal-form-button:hover{
     color:#1abc9c;
 }
-/* spacer saves space for the form and keeps content below fixed */
-.form-spacer {
-    display: block;
-    margin-bottom: 39.5px;
-}
-/* tasks item area */
+/* goals item area */
 .goal-contents {
     position: fixed;
     margin-top: 20px;
     color: black;
     width: 278px;
     height: 218px;
+    border: solid 1px black;
 }
-
-.goal-item {
-    display: flex;
-    align-items: center;
-    border-bottom: .5px solid #4095c6;
-}
-
-.span-item {
-    margin-left: 5px;
-    cursor: pointer;
-}
-/* remove item button */
-.remove-button {
-    display: flex;
-    position: absolute;
-    right: 0;
-    font-size: .6rem;
-    cursor: pointer;
-}
-
-.goal-contents {
-    margin-top: 20px;
-}
-
-.goal-card-info {
-    border: solid 1px red;
-}
-
-.goal-card-info h5 {
-    font-size: 1rem;;
-}
-
 /* Steps Styles */
-
-.step-items {
-    background: #a7a7a7;
-}
-
+/* showEditDiv function */
 .unvisible {
     display: none;
 }
 
 .visible {
     display: block;
+}
+/* Goal Card */
+.goal-card-title {
+    display: block;
+    position: absolute;
+    height: 20px;
+}
+
+.goal-complete-delete {
+    display: flex;
+    border: solid 1px blue;
+    justify-content: flex-end;
+    font-size: .6rem;
+    cursor: pointer;
+}
+
+.append-steps {
+    font-size: .7rem;
 }

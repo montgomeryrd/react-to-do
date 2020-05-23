@@ -5,7 +5,7 @@ const GoalCard = (props) => {
        
     return (
         <div className="goal-card">
-            <p>steps????</p>
+            <span className="append-steps">append steps</span>
         </div>
     )
 }

@@ -12,11 +12,14 @@ const GoalsPage = (props) => {
     props.goals.map((goal, position) => {
       return (
         <div className="goal-item" key={goal.id = position}>
-          <h5 onClick={() => {props.showEditDiv(goal.id)}}>{goal.content}</h5>
+          <h5 className="goal-card-title" onClick={() => {props.showEditDiv(goal.id)}}>{goal.content}</h5>
+          <span className="goal-complete-delete">
+            <span className="goal-complete" onClick={() => {props.archiveGoalItem(goal.id)}}>goal completed</span>
+            <span>/</span>
+            <span className="goal-delete" onClick={() => {props.removeGoalItem(goal.id)}}>delete</span>
+          </span>
           <div className={`step-items ${!props.editVisibles[goal.id] ? "unvisible" : "visible"}`} key={goal.id}>
             <GoalCard data={{steps : goal.steps}} />
-            <button className="archive-goal" onClick={() => {props.archiveGoalItem(goal.id)}}>goal completed</button>
-            <button className="remove-button" onClick={() => {props.removeGoalItem(goal.id)}}>remove goal without saving</button>
           </div>
         </div>
       )
