@@ -70,9 +70,11 @@ const TasksPage = (props) => {
           <span className="span-toggle" onClick={toggle}>add task/<span className="strong">hide</span></span>
         )}
         <div className="task-contents" style={{marginTop : taskFormOpen ? 20 + "px" : 35 + "px"}}>
-          <div className="item-view">
-            <span className="instruction" style={{visibility : mytasks.length ? "visible" : "hidden"}}>click task to complete</span>
-            {mytasks}
+          <div className="task-contents-window" style={{height : taskFormOpen ?  215 + "px" : 255 + "px"}}>
+            <div className="item-view">
+              <span className="instruction" style={{visibility : mytasks.length ? "visible" : "hidden"}}>click task to complete</span>
+              {mytasks}
+            </div>
           </div>
         </div>
         <span className="clear-button" onClick={() => {props.archiveTaskItems()}}>clear completed tasks</span>
