@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useLayoutEffect } from 'react';
 
-function Modal({modalvalue, handleChangeModalForm, handleModalSubmit}) {
+function Modal({value, handleChangeForms, handleModalSubmit}) {
     useLockBodyScroll();
 
     return (
@@ -12,10 +12,10 @@ function Modal({modalvalue, handleChangeModalForm, handleModalSubmit}) {
                     type="text"
                     required minLength="3"
                     maxLength="10"
-                    value={modalvalue}
+                    value={value}
                     autoComplete="off"
                     placeholder=""
-                    onChange={handleChangeModalForm}
+                    onChange={handleChangeForms}
                 />
                 <button className="modal-button" type="submit" onSubmit={handleModalSubmit}>submit</button>
             </form>
