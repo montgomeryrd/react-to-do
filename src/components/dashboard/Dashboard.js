@@ -14,23 +14,14 @@ import "../../styles/tasks.css";
 class Dashboard extends React.Component {
     constructor(props) {
         super(props)
-        const userInformation = JSON.parse(localStorage.getItem('userInformation'));
-        userInformation ? this.state = (userInformation) : 
-        this.state = this.initialState;
-        this.handleChangeForms=this.handleChangeForms.bind(this);
-        this.handleModalSubmit=this.handleModalSubmit.bind(this);
-        this.handleTasksSubmit=this.handleTasksSubmit.bind(this);
-        this.handleTomorrowSubmit=this.handleTomorrowSubmit.bind(this);
-        this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
-    };
-    get initialState(){
-        return {
-            user : "riker",
+        this.state = {
+            user : "",
             value : "",
             array : [],
             tasks : [],
             goals : [],
             tomorrowsTasks : [],
+            // isTomorrow : true,
             archivedTasks : [],
             archivedGoals : [],
             taskCount : 0,
@@ -38,9 +29,26 @@ class Dashboard extends React.Component {
             goalCount : 0,
             totalGoals : 0,
             points : 0,
-            editVisibles : {}
-        };
+            editVisibles : {},
+        }
+        this.handleChangeForms=this.handleChangeForms.bind(this);
+        this.handleModalSubmit=this.handleModalSubmit.bind(this);
+        this.handleTasksSubmit=this.handleTasksSubmit.bind(this);
+        this.handleTomorrowSubmit=this.handleTomorrowSubmit.bind(this);
+        this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
+    };
+
+    componentDidMount() {
+        try {
+            const json = localStorage.getItem('userInformation');
+            this.setState({...JSON.parse(json)});
+        } catch (error) {}
     }
+    componentDidUpdate(prevProps, prevState) {  
+        const json = JSON.stringify(this.state);
+        localStorage.setItem('userInformation', json);
+    }
+
     // Form handlers ---------------------------------------------------------------
     handleChangeForms (e) {
         this.setState({value : e.target.value});
@@ -67,14 +75,9 @@ class Dashboard extends React.Component {
     }
 
     // User Functions --------------------------------------------------------------
-    saveUserInformation = () => {
-        localStorage.clear();
-        const userInformation = Object.assign({}, this.state);
-        localStorage.setItem('userInformation', JSON.stringify(userInformation));
-    }
     deleteUser = () => {
-        this.setState(this.initialState);
         localStorage.clear();
+        window.location.reload();
     }
 
     // Task Page Functions ---------------------------------------------------------
@@ -86,11 +89,6 @@ class Dashboard extends React.Component {
 
         const taskCount = this.state.taskCount + 1;
         this.setState({taskCount : taskCount});
-        
-        this.componentDidMount() {
-            this.state;
-            this.saveUserInformation();
-        }
     }
     completedTaskItem = (id) => {
         const completedTask = this.state.tasks.filter(task => task.id === id);    
@@ -103,7 +101,6 @@ class Dashboard extends React.Component {
             const array = this.state.array.filter(task => task.id !== id);
             this.setState({array : array});
         }
-        this.saveUserInformation();
     }
     removeTaskItem = (id) => {
         if(this.state.array.filter(task => task.id === id).length) {
@@ -115,8 +112,6 @@ class Dashboard extends React.Component {
 
         const taskCount = this.state.taskCount - 1;
         this.setState({taskCount : taskCount});
-
-        this.saveUserInformation();
     }
     removeTasksFromTasksList = () => {
         const tasks = this.state.tasks.filter(task => task.status !== false);
@@ -127,8 +122,6 @@ class Dashboard extends React.Component {
 
         const array = [];
         this.setState({array : array});
-
-        this.saveUserInformation();
     }
     archiveTaskItems = (id) => {
         const points = this.state.points + (5 * this.state.array.length);
@@ -141,7 +134,6 @@ class Dashboard extends React.Component {
         this.setState({archivedTasks : archivedTasks});    
 
         this.removeTasksFromTasksList(this.state);
-        this.saveUserInformation();
     }
 
     // Tomorrow Task Page Functions ------------------------------------------------
@@ -150,38 +142,36 @@ class Dashboard extends React.Component {
         task.content = this.state.value;
         const tomorrowsTasks = [...this.state.tomorrowsTasks, task];
         this.setState({tomorrowsTasks : tomorrowsTasks});
-        this.saveUserInformation();
     }
     removeTomorrowItem = (id) => {
         const tomorrowsTasks = this.state.tomorrowsTasks.filter(task => task.id !== id);
         this.setState({tomorrowsTasks : tomorrowsTasks});
-        this.saveUserInformation();
     }
     // refreshDashboard = () => {
     //     this.setState({tasks : [...this.state.tasks].concat(this.state.tomorrowsTasks)});
     //     this.setState({tomorrowsTasks : []});
     //     window.location.reload(true);
     // }
-    refreshAt(hours, minutes, seconds) {
-        var now = new Date();
-        var then = new Date();
+    // refreshAt(hours, minutes, seconds) {
+    //     var now = new Date();
+    //     var then = new Date();
     
-        if(now.getHours() > hours ||
-           (now.getHours() === hours && now.getMinutes() > minutes) ||
-            now.getHours() === hours && now.getMinutes() === minutes && now.getSeconds() >= seconds) {
-            then.setDate(now.getDate() + 1);
-        }
-        then.setHours(hours);
-        then.setMinutes(minutes);
-        then.setSeconds(seconds);
+    //     if(now.getHours() > hours ||
+    //        (now.getHours() === hours && now.getMinutes() > minutes) ||
+    //         now.getHours() === hours && now.getMinutes() === minutes && now.getSeconds() >= seconds) {
+    //         then.setDate(now.getDate() + 1);
+    //     }
+    //     then.setHours(hours);
+    //     then.setMinutes(minutes);
+    //     then.setSeconds(seconds);
     
-        var timeout = (then.getTime() - now.getTime());
-        setTimeout(function() {
-            this.setState({tasks : [...this.state.tasks].concat(this.state.tomorrowsTasks)});
-            this.setState({tomorrowsTasks : []});
-            window.location.reload(true); 
-        }, timeout);
-    }
+    //     var timeout = (then.getTime() - now.getTime());
+    //     setTimeout(function() {
+    //         this.setState({tasks : [...this.state.tasks].concat(this.state.tomorrowsTasks)});
+    //         this.setState({tomorrowsTasks : []});
+    //         window.location.reload(true); 
+    //     }, timeout);
+    // }
     // Goal Page Functions ---------------------------------------------------------
     addGoalItem = (goal) => {
         goal.id = Math.random() * 1000;
@@ -191,8 +181,6 @@ class Dashboard extends React.Component {
 
         const goalCount = this.state.goalCount + 1;
         this.setState({goalCount : goalCount});
-
-        this.saveUserInformation();
     }
     removeGoalItem = (id) => {
         const goals = this.state.goals.filter(goal => goal.id !== id);
@@ -200,8 +188,6 @@ class Dashboard extends React.Component {
 
         const goalCount = this.state.goalCount - 1;
         this.setState({goalCount : goalCount});
-
-        this.saveUserInformation();
     }
     archiveGoalItem = (id) => {
         const points = this.state.points + 1000;
@@ -215,15 +201,12 @@ class Dashboard extends React.Component {
         this.setState({archivedGoals : archivedGoals});
 
         this.removeGoalItem(id);
-        this.saveUserInformation();
     }
 
     // Goal Step Functions ---------------------------------------------------------
     showEditDiv = (id) => {
         this.setState(prevState => ({editVisibles: {...prevState.editVisibles, [id]: !prevState.editVisibles[id]}}));
     };
-    // Check State Function
-    checkState = () => {console.log(this.state)};
     
     render() {
         const currentDate = new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'});
@@ -231,7 +214,7 @@ class Dashboard extends React.Component {
         const red = {backgroundColor : '#E91E63'};
         const blue = {backgroundColor : '#2196F3'};
         const yellow = {backgroundColor : '#FFCA28'}; 
-        this.refreshAt(11, 20, 0);
+        // this.refreshAt(11, 20, 0);
 
         return (
             <div className="container">
@@ -287,7 +270,6 @@ class Dashboard extends React.Component {
                                             value={this.state.value} 
                                             tasks={this.state.tasks} 
                                             tomorrowsTasks={this.state.tomorrowsTasks}
-                                            toggleTomorrowsTasksPageTrue={this.toggleTomorrowsTasksPageTrue}
                                             handleChangeForms={this.handleChangeForms} 
                                             handleTasksSubmit={this.handleTasksSubmit} 
                                             handleTomorrowSubmit={this.handleTomorrowSubmit}
@@ -302,7 +284,6 @@ class Dashboard extends React.Component {
                                             value={this.state.value} 
                                             goals={this.state.goals} 
                                             editVisibles={this.state.editVisibles}
-                                            toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
                                             showEditDiv={this.showEditDiv}
                                             handleChangeForms={this.handleChangeForms} 
                                             handleGoalsSubmit={this.handleGoalsSubmit} 
@@ -312,9 +293,6 @@ class Dashboard extends React.Component {
                                     }/>
                                     <Route path="/archive" render={props =>
                                         (<Archive 
-                                            toggleTomorrowsTasksPageFalse={this.toggleTomorrowsTasksPageFalse}
-                                            handleChangeForms={this.handleChangeForms}
-                                            handleModalSubmit={this.handleModalSubmit}
                                             archivedTasks={this.state.archivedTasks} 
                                             archivedGoals={this.state.archivedGoals}
                                         />)
@@ -323,9 +301,7 @@ class Dashboard extends React.Component {
                             </Router>
                         </div>
                     </div>
-                    {/* <button id="save-button" onClick={this.saveUserInformation}>Save</button> */}
                     <h3 id="points">total points: {this.state.points}</h3>
-                    {/* <button onClick={this.checkState}>this.state</button> */}
                 </div>
             </div>
         );
