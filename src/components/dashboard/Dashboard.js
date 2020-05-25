@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import Modal from './Modal';
 import Settings from './Settings';
 import TasksPage from '../contentview/TasksPage';
-// import TomorrowsTasksPage from '../contentview/TomorrowsTasksPage';
 import GoalsPage from '../contentview/GoalsPage';
 import Archive from '../contentview/Archive';
 
@@ -42,7 +41,6 @@ class Dashboard extends React.Component {
             editVisibles : {}
         };
     }
-
     // Form handlers ---------------------------------------------------------------
     handleChangeForms (e) {
         this.setState({value : e.target.value});
@@ -85,50 +83,104 @@ class Dashboard extends React.Component {
         task.content = this.state.value;
         task.status = true;
         this.setState({tasks : [...this.state.tasks, task]});
-        this.setState({taskCount : this.state.taskCount + 1});
+
+        const taskCount = this.state.taskCount + 1;
+        this.setState({taskCount : taskCount});
+        
+        this.componentDidMount() {
+            this.state;
+            this.saveUserInformation();
+        }
     }
     completedTaskItem = (id) => {
         const completedTask = this.state.tasks.filter(task => task.id === id);    
         if(completedTask[0].status === true) {
-            this.setState({array : completedTask.concat([...this.state.array])});
             completedTask.map(task => task.status = false);
+            const array = completedTask.concat([...this.state.array]);
+            this.setState({array : array});
         } else {
-            this.setState({array : this.state.array.filter(task => task.id !== id)})
             completedTask.map(task => task.status = true);
+            const array = this.state.array.filter(task => task.id !== id);
+            this.setState({array : array});
         }
+        this.saveUserInformation();
     }
     removeTaskItem = (id) => {
         if(this.state.array.filter(task => task.id === id).length) {
-            this.setState({array : this.state.array.filter(task => task.id !== id)})
+            const array = this.state.array.filter(task => task.id !== id);
+            this.setState({array : array});
         }
-        this.setState({tasks : this.state.tasks.filter(task => task.id !== id)});
-        this.setState({taskCount : this.state.taskCount - 1});
+        const tasks = this.state.tasks.filter(task => task.id !== id);
+        this.setState({tasks : tasks});
+
+        const taskCount = this.state.taskCount - 1;
+        this.setState({taskCount : taskCount});
+
+        this.saveUserInformation();
     }
     removeTasksFromTasksList = () => {
-        this.setState({tasks : this.state.tasks.filter(task => task.status !== false)});
+        const tasks = this.state.tasks.filter(task => task.status !== false);
+        this.setState({tasks : tasks});
+
+        const taskCount = this.state.taskCount - this.state.array.length;
+        this.setState({taskCount : taskCount});
+
         const array = [];
-        this.setState({taskCount : this.state.taskCount - this.state.array.length});
         this.setState({array : array});
+
+        this.saveUserInformation();
     }
     archiveTaskItems = (id) => {
-        this.setState({points : this.state.points + (5 * this.state.array.length)});
-        this.setState({totalTasks : this.state.totalTasks + this.state.array.length});
-        this.setState({archivedTasks : ([...this.state.array].concat([...this.state.archivedTasks])).filter((_,i) => i < 6)});    
+        const points = this.state.points + (5 * this.state.array.length);
+        this.setState({points : points});
+
+        const totalTasks = this.state.totalTasks + this.state.array.length;
+        this.setState({totalTasks : totalTasks});
+
+        const archivedTasks = ([...this.state.array].concat([...this.state.archivedTasks])).filter((_,i) => i < 6);
+        this.setState({archivedTasks : archivedTasks});    
+
         this.removeTasksFromTasksList(this.state);
+        this.saveUserInformation();
     }
 
     // Tomorrow Task Page Functions ------------------------------------------------
     addTomorrowItem = (task) => {
         task.id = Math.random() * 1000;
         task.content = this.state.value;
-        this.setState({tomorrowsTasks : [...this.state.tomorrowsTasks, task]});
+        const tomorrowsTasks = [...this.state.tomorrowsTasks, task];
+        this.setState({tomorrowsTasks : tomorrowsTasks});
+        this.saveUserInformation();
     }
     removeTomorrowItem = (id) => {
-        this.setState({tomorrowsTasks : this.state.tomorrowsTasks.filter(task => task.id !== id)});
+        const tomorrowsTasks = this.state.tomorrowsTasks.filter(task => task.id !== id);
+        this.setState({tomorrowsTasks : tomorrowsTasks});
+        this.saveUserInformation();
     }
-    transferTasks = () => {
-        this.setState({tasks : [...this.state.tasks].concat(this.state.tomorrowsTasks)});
-        this.setState({tomorrowsTasks : []});
+    // refreshDashboard = () => {
+    //     this.setState({tasks : [...this.state.tasks].concat(this.state.tomorrowsTasks)});
+    //     this.setState({tomorrowsTasks : []});
+    //     window.location.reload(true);
+    // }
+    refreshAt(hours, minutes, seconds) {
+        var now = new Date();
+        var then = new Date();
+    
+        if(now.getHours() > hours ||
+           (now.getHours() === hours && now.getMinutes() > minutes) ||
+            now.getHours() === hours && now.getMinutes() === minutes && now.getSeconds() >= seconds) {
+            then.setDate(now.getDate() + 1);
+        }
+        then.setHours(hours);
+        then.setMinutes(minutes);
+        then.setSeconds(seconds);
+    
+        var timeout = (then.getTime() - now.getTime());
+        setTimeout(function() {
+            this.setState({tasks : [...this.state.tasks].concat(this.state.tomorrowsTasks)});
+            this.setState({tomorrowsTasks : []});
+            window.location.reload(true); 
+        }, timeout);
     }
     // Goal Page Functions ---------------------------------------------------------
     addGoalItem = (goal) => {
@@ -136,18 +188,34 @@ class Dashboard extends React.Component {
         goal.steps = [];
         goal.content = this.state.value;
         this.setState({goals : [...this.state.goals, goal]});
-        this.setState({goalCount : this.state.goalCount + 1});
+
+        const goalCount = this.state.goalCount + 1;
+        this.setState({goalCount : goalCount});
+
+        this.saveUserInformation();
     }
     removeGoalItem = (id) => {
-        this.setState({goals : this.state.goals.filter(goal => goal.id !== id)});
-        this.setState({goalCount : this.state.goalCount - 1});
+        const goals = this.state.goals.filter(goal => goal.id !== id);
+        this.setState({goals : goals});
+
+        const goalCount = this.state.goalCount - 1;
+        this.setState({goalCount : goalCount});
+
+        this.saveUserInformation();
     }
     archiveGoalItem = (id) => {
-        this.setState({points : this.state.points + 1000});
-        this.setState({totalGoals : this.state.totalGoals + 1});
+        const points = this.state.points + 1000;
+        this.setState({points : points});
+
+        const totalGoals = this.state.totalGoals + 1;
+        this.setState({totalGoals : totalGoals});
+
         const book = this.state.goals.filter(goal => goal.id === id);
-        this.setState({archivedGoals : book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100)});
+        const archivedGoals = book.concat([...this.state.archivedGoals]).filter((_,i) => i < 100);
+        this.setState({archivedGoals : archivedGoals});
+
         this.removeGoalItem(id);
+        this.saveUserInformation();
     }
 
     // Goal Step Functions ---------------------------------------------------------
@@ -163,6 +231,7 @@ class Dashboard extends React.Component {
         const red = {backgroundColor : '#E91E63'};
         const blue = {backgroundColor : '#2196F3'};
         const yellow = {backgroundColor : '#FFCA28'}; 
+        this.refreshAt(11, 20, 0);
 
         return (
             <div className="container">
