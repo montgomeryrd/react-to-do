@@ -65,7 +65,7 @@ font-family: 'Open Sans Condensed', sans-serif;
   font-family: 'Quicksand', sans-serif;  
   font-size: 1.5em;
   transition: padding 0.3s 0.2s ease;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 #form-input:focus + .line:after {
   transform: scaleX(1);
@@ -115,9 +115,14 @@ font-family: 'Open Sans Condensed', sans-serif;
   position: absolute;
   margin-top: 20px;
   width: 278px;
-  height: 215px;
+  height: 255px;
+  /* border: solid 1px black; */
+}
+.task-contents-window {
   overflow-y: auto;
   text-align:justify;
+  height: 210px;
+  /* border: solid 1px blue; */
 }
 .empty-task-list {
   margin-left: 5px;
@@ -195,8 +200,4 @@ font-family: 'Open Sans Condensed', sans-serif;
   background-color: #E91E63;
   border-radius: 20px;
   border: 3px solid white;
-}
-
-.task-contents {
-  border: solid 1px blue;
 }
