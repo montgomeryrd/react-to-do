@@ -42,7 +42,7 @@ class Dashboard extends React.Component {
         try {
             const json = localStorage.getItem('userInformation');
             this.setState({...JSON.parse(json)});
-        } catch (error) {}
+        } catch (error) {};
     }
     componentDidUpdate(prevProps, prevState) {  
         const json = JSON.stringify(this.state);
