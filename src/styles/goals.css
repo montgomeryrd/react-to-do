@@ -15,6 +15,20 @@ font-family: 'Open Sans Condensed', sans-serif;
 .goals-content-view {
     margin: 0 auto;
 }
+
+.title {
+    display: flex;
+    position: absolute;
+    margin-top: 10px;
+}
+
+.title-sub {
+    display: block;
+    position: absolute;
+    font-size: .5rem;
+    margin-top: -10px;
+}
+
 /* goal page form */
 #goal-form-input {
     background: 0;
@@ -26,7 +40,7 @@ font-family: 'Open Sans Condensed', sans-serif;
     font-family: 'Quicksand', sans-serif;  
     font-size: 1.5em;
     transition: padding 0.3s 0.2s ease;
-    margin-top: 5px;
+    margin-top: 18px;
     position: absolute;
 }
 
@@ -35,19 +49,18 @@ font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .goal-line {
-    width: 200px;
+    width: 220px;
     height: 3px;
-    bottom: -8px;
     border-radius: 2mm;
     background: #FFFFFF;
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 .goal-line:after {
     position: fixed;
     content: " ";
     float: right;
-    width: 200px;
+    width: 220px;
     height: 3px;
     transform: scalex(0);
     transition: transform 0.3s ease;
@@ -58,7 +71,7 @@ font-family: 'Open Sans Condensed', sans-serif;
     display:block;
     float: right;
     background-color:#00003F;
-    padding:0.20em .5em;
+    padding:0.20em 0;
     border: 0;
     margin:0 0.3em 0.3em 0;
     border-radius:0.12em;
@@ -70,7 +83,7 @@ font-family: 'Open Sans Condensed', sans-serif;
     text-align:center;
     transition: all 0.2s;
     margin-top: -30px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 #goal-form-button:hover{
@@ -98,7 +111,6 @@ font-family: 'Open Sans Condensed', sans-serif;
 .goal-card-title {
     display: block;
     position: absolute;
-    height: 20px;
 }
 
 .goal-complete-delete {
@@ -112,3 +124,19 @@ font-family: 'Open Sans Condensed', sans-serif;
 .append-steps {
     font-size: .7rem;
 }
+
+/* scrollbar */
+* {
+    scrollbar-width: thin;
+  }
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+  *::-webkit-scrollbar-track {
+    background: inherit;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #2196F3;
+    border-radius: 20px;
+    border: 3px solid white;
+  }
