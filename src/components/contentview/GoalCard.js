@@ -5,11 +5,6 @@ const GoalCard = (props) => {
     const [formOpen, setFormOpen] = useState(false);
     const toggle = () => setFormOpen(!formOpen);
 
-    const handleClick = () => {
-        props.handleStepsSubmit();
-        props.addStepsToGoal(props.goalID);
-    }
-
     return (
         <div className="goal-card">
             {formOpen ? (
@@ -24,7 +19,12 @@ const GoalCard = (props) => {
                         onChange={props.handleChangeSteps}
                         placeholder="" 
                     />
-                    <button id="append-button" type="submit" onSubmit={() => {handleClick()}}>append</button>
+                    <button 
+                        id="append-button" 
+                        type="submit" 
+                        onClick={() => {props.addStepsToGoal(props.goalID)}} 
+                        onSubmit={props.handleStepsSubmit}
+                    >append</button>
                 </form>
             ) : (
                 <div>
@@ -34,7 +34,7 @@ const GoalCard = (props) => {
             <div>
                 <p>goal : {props.goal}</p>
                 <p>goalID : {props.goalID}</p>
-                {/* <p>steps : {steps}</p> */}
+                <p>steps : {props.steps}</p>
             </div>
         </div>
     );
