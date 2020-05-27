@@ -15,11 +15,13 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            user : "",
+            user : "riker",
             value : "",
+            stepsvalue : "",
             array : [],
             tasks : [],
             goals : [],
+            steps : [],
             tomorrowsTasks : [],
             // isTomorrow : true,
             archivedTasks : [],
@@ -31,11 +33,13 @@ class Dashboard extends React.Component {
             points : 0,
             editVisibles : {},
         }
+        this.handleChangeSteps=this.handleChangeSteps.bind(this);
         this.handleChangeForms=this.handleChangeForms.bind(this);
         this.handleModalSubmit=this.handleModalSubmit.bind(this);
         this.handleTasksSubmit=this.handleTasksSubmit.bind(this);
         this.handleTomorrowSubmit=this.handleTomorrowSubmit.bind(this);
         this.handleGoalsSubmit=this.handleGoalsSubmit.bind(this);
+        this.handleStepsSubmit=this.handleStepsSubmit.bind(this);
     };
 
     componentDidMount() {
@@ -52,6 +56,9 @@ class Dashboard extends React.Component {
     // Form handlers ---------------------------------------------------------------
     handleChangeForms (e) {
         this.setState({value : e.target.value});
+    }
+    handleChangeSteps (e) {
+        this.setState({stepsvalue : e.target.value})
     }
     handleModalSubmit (e) {
         e.preventDefault();
@@ -72,6 +79,11 @@ class Dashboard extends React.Component {
         e.preventDefault();
         this.addGoalItem(this.state);
         this.setState({value : ""});
+    }
+    handleStepsSubmit (e) {
+        e.preventDefault();
+        this.appendStep(this.state);
+        this.setState({stepsvalue : ""});
     }
 
     // User Functions --------------------------------------------------------------
@@ -147,11 +159,6 @@ class Dashboard extends React.Component {
         const tomorrowsTasks = this.state.tomorrowsTasks.filter(task => task.id !== id);
         this.setState({tomorrowsTasks : tomorrowsTasks});
     }
-    // refreshDashboard = () => {
-    //     this.setState({tasks : [...this.state.tasks].concat(this.state.tomorrowsTasks)});
-    //     this.setState({tomorrowsTasks : []});
-    //     window.location.reload(true);
-    // }
     // refreshAt(hours, minutes, seconds) {
     //     var now = new Date();
     //     var then = new Date();
@@ -207,6 +214,21 @@ class Dashboard extends React.Component {
     showEditDiv = (id) => {
         this.setState(prevState => ({editVisibles: {...prevState.editVisibles, [id]: !prevState.editVisibles[id]}}));
     };
+    appendStep = (step) => {
+        step.content = this.state.stepsvalue;
+        this.setState({steps : [...this.state.steps, step]});
+    }
+    addStepsToGoal = (id) => {
+        const goal = this.state.goals.filter(goal => goal.id === id);
+        goal.steps = this.state.steps;
+        // if(goal.steps.length) {
+        //     const remove = this.state.goals.filter(goal => goal.id !== id);
+        //     this.setState({goals : remove});
+        // }
+        // this.setState({goals : [...this.state.goals, goal]});
+        // this.setState({steps : []});
+        console.log(goal.steps);
+    }
     
     render() {
         const currentDate = new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'});
@@ -282,13 +304,18 @@ class Dashboard extends React.Component {
                                     <Route path="/goals" render={props =>
                                         (<GoalsPage 
                                             value={this.state.value} 
+                                            stepsvalue={this.state.stepsvalue}
                                             goals={this.state.goals} 
                                             editVisibles={this.state.editVisibles}
                                             showEditDiv={this.showEditDiv}
                                             handleChangeForms={this.handleChangeForms} 
+                                            handleChangeSteps={this.handleChangeSteps}
                                             handleGoalsSubmit={this.handleGoalsSubmit} 
+                                            handleStepsSubmit={this.handleStepsSubmit}
                                             removeGoalItem={this.removeGoalItem} 
                                             archiveGoalItem={this.archiveGoalItem}
+                                            appendStep={this.appendStep}
+                                            addStepsToGoal={this.addStepsToGoal}
                                         />)
                                     }/>
                                     <Route path="/archive" render={props =>

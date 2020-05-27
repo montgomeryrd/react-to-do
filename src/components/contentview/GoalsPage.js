@@ -21,7 +21,15 @@ const GoalsPage = (props) => {
             <span className="goal-delete" onClick={() => {props.removeGoalItem(goal.id)}}>delete</span>
           </span>
           <div className={`step-items ${!props.editVisibles[goal.id] ? "unvisible" : "visible"}`} key={goal.id}>
-            <GoalCard data={{steps : goal.steps}} />
+            <GoalCard 
+              goal={goal.content}
+              goalID={goal.id}
+              stepsvalue={props.stepsvalue} 
+              handleChangeSteps={props.handleChangeSteps}
+              handleStepsSubmit={props.handleStepsSubmit} 
+              appendStep={props.appendStep}
+              addStepsToGoal={props.addStepsToGoal}
+            />
           </div>
         </div>
       )
