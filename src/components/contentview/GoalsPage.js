@@ -9,9 +9,9 @@ const GoalsPage = (props) => {
   const toggle = () => setFormOpen(!formOpen);
   
   const mygoals = props.goals.length ? (
-    props.goals.map((goal, position) => {
+    props.goals.map(goal => {
       return (
-        <div className="goal-item" key={goal.id = position}>
+        <div className="goal-item" key={goal.id}>
           <div className="blue-line">
             <h5 className="goal-card-title" onClick={() => {props.showEditDiv(goal.id)}}>{goal.content}</h5>
           </div>
@@ -23,6 +23,7 @@ const GoalsPage = (props) => {
           <div className={`step-items ${!props.editVisibles[goal.id] ? "unvisible" : "visible"}`} key={goal.id}>
             <GoalCard 
               goal={goal.content}
+              steps={goal.steps}
               goalID={goal.id}
               stepsvalue={props.stepsvalue} 
               handleChangeSteps={props.handleChangeSteps}

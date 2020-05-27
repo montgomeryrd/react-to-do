@@ -221,15 +221,14 @@ class Dashboard extends React.Component {
     addStepsToGoal = (id) => {
         const goal = this.state.goals.filter(goal => goal.id === id);
         goal.steps = this.state.steps;
-        // if(goal.steps.length) {
-        //     const remove = this.state.goals.filter(goal => goal.id !== id);
-        //     this.setState({goals : remove});
-        // }
-        // this.setState({goals : [...this.state.goals, goal]});
-        // this.setState({steps : []});
-        console.log(goal.steps);
+        const index = this.state.goals.findIndex(goal => goal.id === id);
+        const goals = this.state.goals.splice(index, 1, goal);
+        this.setState({goals : goals});
+        this.setState({steps : []});
+        console.log("log ", this.state.goals)
     }
     
+    // Render ----------------------------------------------------------------------
     render() {
         const currentDate = new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'});
         const currentDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date().getDay()];
@@ -306,6 +305,7 @@ class Dashboard extends React.Component {
                                             value={this.state.value} 
                                             stepsvalue={this.state.stepsvalue}
                                             goals={this.state.goals} 
+                                            steps={this.state.steps}
                                             editVisibles={this.state.editVisibles}
                                             showEditDiv={this.showEditDiv}
                                             handleChangeForms={this.handleChangeForms} 
@@ -360,3 +360,17 @@ function NavigationLinks(props) {
 //     user: PropTypes.instanceOf(String),
 // };
 export default Dashboard;
+
+// addStepsToGoal = (id, steps) => {
+//     const index = this.state.goals.findIndex(goal => goal.id === id);
+//     if(index === -1) {
+//         console.log("error Dashboard line:224");
+//     } else {
+//         this.setState({
+//             goals: [...this.state.goals.slice(0, index),
+//             Object.assign({}, this.state.goals[index], steps),
+//             ...this.state.goals.slice(index + 1)]
+//         });
+//     }
+//     this.setState({steps : []});
+// }
