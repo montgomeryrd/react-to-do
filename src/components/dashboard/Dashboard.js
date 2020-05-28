@@ -221,21 +221,21 @@ class Dashboard extends React.Component {
     }
     addStepsToGoal = (id) => {
         console.log(id)
-        const goal = this.state.goals.filter(goal => goal.id === id);
-        const items = this.state.goalsAndSteps;
-        console.log("goal ", goal);
-        for(let i in items){
-            console.log(items[i])
-            if(!items[i].id) {
-                items[i].id = id;
-                items[i].goal = goal;
-                items[i].steps = this.state.steps;
-            } else {
-                items[i].steps = [...items[i].steps].concat(this.state.steps);
-            }
-        }
-        this.setState({goalsAndSteps : [...this.state.goalsAndSteps, items]});
-        this.setState({steps : []});
+        // const goal = this.state.goals.filter(goal => goal.id === id);
+        // const items = this.state.goalsAndSteps;
+        // console.log("goal ", goal);
+        // for(let i in items){
+        //     console.log(items[i])
+        //     if(!items[i].id) {
+        //         items[i].id = id;
+        //         items[i].goal = goal;
+        //         items[i].steps = this.state.steps;
+        //     } else {
+        //         items[i].steps = [...items[i].steps].concat(this.state.steps);
+        //     }
+        // }
+        // this.setState({goalsAndSteps : [...this.state.goalsAndSteps, items]});
+        // this.setState({steps : []});
         // !goal.steps ? goal.steps = this.state.steps : goal.steps.concat(this.state.steps);
         // console.log("log steps ", goal.content)
         
