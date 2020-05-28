@@ -22,8 +22,8 @@ const GoalCard = (props) => {
                     <button 
                         id="append-button" 
                         type="submit" 
-                        onClick={() => {props.addStepsToGoal(props.goalID)}} 
                         onSubmit={props.handleStepsSubmit}
+                        onClick={() => {props.addStepsToGoal(props.goalID)}}
                     >append</button>
                 </form>
             ) : (

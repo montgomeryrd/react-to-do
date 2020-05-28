@@ -22,6 +22,7 @@ class Dashboard extends React.Component {
             tasks : [],
             goals : [],
             steps : [],
+            goalsAndSteps : {},
             tomorrowsTasks : [],
             // isTomorrow : true,
             archivedTasks : [],
@@ -182,8 +183,8 @@ class Dashboard extends React.Component {
     // Goal Page Functions ---------------------------------------------------------
     addGoalItem = (goal) => {
         goal.id = Math.random() * 1000;
-        goal.steps = [];
         goal.content = this.state.value;
+        goal.steps = [];
         this.setState({goals : [...this.state.goals, goal]});
 
         const goalCount = this.state.goalCount + 1;
@@ -219,13 +220,20 @@ class Dashboard extends React.Component {
         this.setState({steps : [...this.state.steps, step]});
     }
     addStepsToGoal = (id) => {
+        console.log(id)
         const goal = this.state.goals.filter(goal => goal.id === id);
-        goal.steps = this.state.steps;
+        !goal.steps ? goal.steps = this.state.steps : goal.steps.concat(this.state.steps);
+        console.log("log steps ", goal.content)
+        
         const index = this.state.goals.findIndex(goal => goal.id === id);
-        const goals = this.state.goals.splice(index, 1, goal);
-        this.setState({goals : goals});
-        this.setState({steps : []});
-        console.log("log ", this.state.goals)
+        if(index === -1) {
+            console.log("line:226")
+        } else {
+            const goals = this.state.goals.splice(index, 1, goal);
+            this.setState({goals : goals});
+            this.setState({steps : []});
+            console.log("steps ", this.state.steps)
+        }
     }
     
     // Render ----------------------------------------------------------------------
